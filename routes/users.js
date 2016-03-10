@@ -1,9 +1,38 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+module.exports = function(mongoose) {
+  var Schema = mongoose.Schema;
 
-module.exports = router;
+  var Account = new Schema({
+    email    : String,
+    name     : String,
+    password : String,
+    role     : {
+      type: String,
+      enum: ['user', 'moderator', 'admin'],
+      default: 'user'
+    }
+  });
+
+
+
+  // Create a user model with this scheme
+
+  var User = mongoose.model('User', Account);
+  var userApi = require('./rest.js')(User);
+  var auth = require('./auth.js')(User);
+  var policy = require('./policy.js');
+
+  router.get('/api/', userApi.find);
+  router.get('/api/:id', userApi.findOne);
+  router.all('/api/insert', userApi.insert);
+  router.get('/api/destroy/:id', userApi.destroy);
+  router.get('/api/update/:id', userApi.update);
+  router.all('/api/login/', auth.login);
+  router.all('/api/logout/', auth.logout);
+  router.all('/api/getuser/', auth.getSelfInformation);
+
+
+
+  return router;
+};
