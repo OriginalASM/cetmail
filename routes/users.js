@@ -24,7 +24,7 @@ module.exports = function(mongoose) {
   var policy = require('./policy.js');
 
   router.get('/api/', userApi.find);
-  router.get('/api/:id', userApi.findOne);
+  router.get('/api/:id' ,userApi.findOne);
   router.all('/api/insert', userApi.insert);
   router.get('/api/destroy/:id', userApi.destroy);
   router.get('/api/update/:id', userApi.update);

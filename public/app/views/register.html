@@ -10,10 +10,31 @@
             <input class="mdl-textfield__input" type="text" id="regno">
             <label class="mdl-textfield__label" for="regno">Registration Number</label>
 					</div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-             <input class="mdl-textfield__input" type="text" id="username">
-             <label class="mdl-textfield__label" for="username">Username</label>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half" id="firstname">
+             <input class="mdl-textfield__input" type="text" id="fname">
+             <label class="mdl-textfield__label" for="fname">First Name</label>
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half" id="lastname">
+						 <input class="mdl-textfield__input" type="text" id="lname">
+             <label class="mdl-textfield__label" for="lname">Last Name</label>
  					</div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id='uname'>
+             <input class="mdl-textfield__input user" type="text">
+             <label class="mdl-textfield__label user" for="username" >Username</label>
+ 					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"id='dom'>
+						@mail.zairza.in
+					</div>
+					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						Gender:
+  						<input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+  						<span class="mdl-radio__label">Male</span>
+
+  						<input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+  						<span class="mdl-radio__label">Female</span>
+
+					</div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
              <input class="mdl-textfield__input" type="password" id="password">
              <label class="mdl-textfield__label" for="password">Password</label>
@@ -51,6 +72,7 @@
 }
 .mdl-card {
   margin : auto;
+	margin-top:10%;
   width : 40%;
 }
 form {
@@ -61,5 +83,24 @@ form {
 }
 .rightbutton{
   float : right;
+}
+.half{
+	width : 30%;
+}
+#firstname{
+	float:left;
+}
+#lastname{
+	margin-left: 10%;
+}
+#uname{
+	width : 40%;
+	float:left;
+	margin-right:0%;
+}
+#dom{
+	width : 30%;
+	float:left;
+	margin-left : 0%;
 }
 </style>
