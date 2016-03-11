@@ -8,8 +8,12 @@ module.exports = function(mongoose) {
     first_name : String,
     last_name : String,
     username : String,
-    gender : enum['male' , 'female'],
-    rec-email : String, //Recovery Email
+    gender : {
+      type : String,
+      enum : ['male' , 'female'],
+      default : 'male'
+    },
+    rec_email : String, //Recovery Email
     password : String,
     contact : Number,
     role : {
