@@ -25,6 +25,16 @@ angular
         controllerAs: 'about'
       })
       .when('/dashboard', {
+        resolve : {
+          'check': function($location,AdminPolicy) {
+            AdminPolicy.then(
+              function(){},
+              function(err){
+                console.log(err);
+                $location.path('/login');
+              });
+          }
+        },
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
