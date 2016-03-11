@@ -21,7 +21,7 @@ module.exports = function(User){
         var email = req.body.email || req.body.username || '',
           password = req.body.password || '' ;
         //noinspection JSUnresolvedVariable
-        User.findOne({email: email}).exec(function (err, user) {
+        User.findOne({username: email}).exec(function (err, user) {
           if (err || !user) {
             console.log(err || 'Login : user not found');
             res.send({error: true, message: err || 'No user registered with this email'});
