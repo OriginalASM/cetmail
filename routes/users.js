@@ -33,7 +33,7 @@ module.exports = function(mongoose) {
   var policy = require('./policy.js');
 
   router.get('/api/', userApi.find);
-  router.all('/api/insert', userApi.insert);
+  router.all('/api/insert', function(req,res,next){console.log(req.body);next();},userApi.insert);
   router.get('/api/destroy/:id', userApi.destroy);
   router.get('/api/update/:id', userApi.update);
   router.all('/api/login/', function(req,res,next){console.log(req.body);next();},auth.login);
