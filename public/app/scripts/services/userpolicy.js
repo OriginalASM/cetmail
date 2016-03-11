@@ -2,20 +2,22 @@
 
 /**
  * @ngdoc service
- * @name App.AdminPolicy
+ * @name App.UserPolicy
  * @description
- * # AdminPolicy
+ * # UserPolicy
  * Factory in the App.
  */
 angular.module('App')
-  .factory('AdminPolicy', function ($http,$q) {
-    return function () {
+  .factory('UserPolicy', function ($q,$http) {
+    return function (level) {
       var deferred = $q.defer();
       $http.get('/users/api/getuser')
         .success(function(data){
           console.log(data);
-          if (data.role){ //any role, allow inbox
+          if (data.role == level){
             deferred.resolve();
+          }else {
+            deferred.reject(false);
           }
         }).error(function(err){
           console.log(err);

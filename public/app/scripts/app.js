@@ -10,7 +10,7 @@
  */
 angular
   .module('App', [
-    'ngRoute'
+    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -26,12 +26,17 @@ angular
       })
       .when('/dashboard', {
         resolve : {
-          'check': function($location,AdminPolicy) {
-            AdminPolicy.then(
+          'check': function($location,AdminPolicy,$rootScope) {
+            $rootScope.LastURL = '/dashboard';
+            AdminPolicy('admin').then(
               function(){},
-              function(err){
-                console.log(err);
-                $location.path('/login');
+              function(fail){
+                console.log(fail);
+                if(fail)
+                  $location.path('/login');
+                else {
+                  $location.path('/FourOhThree');
+                }
               });
           }
         },
@@ -48,6 +53,27 @@ angular
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         controllerAs: 'register'
+      })
+      .when('/inbox', {
+        resolve : {
+          'check': function($location,UserPolicy,$rootScope) {
+            $rootScope.LastURL = '/inbox';
+            UserPolicy().then(
+              function(){},
+              function(err){
+                console.log(err);
+                $location.path('/login');
+              });
+          }
+        },
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+        controllerAs: 'inbox'
+      })
+      .when('/FourOhThree', {
+        templateUrl: 'views/fourohthree.html',
+        controller: 'FourohthreeCtrl',
+        controllerAs: 'FourOhThree'
       })
       .otherwise({
         redirectTo: '/'

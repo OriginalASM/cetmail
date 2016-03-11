@@ -8,18 +8,20 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
+   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
+
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/mtlIcon.css">
-  <!--<link rel="stylesheet" href="styles/materialcyanlightblue.min.css">-->
-   <link rel="stylesheet" href="styles/materialdeeporange.css" />
+
+
   <!-- endbuild -->
 
 </head>
-<body ng-app="App"  >
+<body ng-app="App">
 
 <!--[if lte IE 8]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -29,45 +31,32 @@
 
 
 <!-- endbuild -->
-<div class="mdl-layout mdl-js-layout">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout-icon"></div>
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout__title">Simple Layout</span>
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#">Nav link 1</a>
-        <a class="mdl-navigation__link" href="#">Nav link 2</a>
-        <a class="mdl-navigation__link" href="#">Nav link 3</a>
-      </nav>
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout__title">Simple Layout</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="#">Nav link 2</a>
-      <a class="mdl-navigation__link" href="#">Nav link 2</a>
-      <a class="mdl-navigation__link" href="#">Nav link 3</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
 
-    <div class="container">
-      <div ng-view></div>
-    </div>
 
-    <div class="footer">
-      <div class="container">
+<div ng-controller="IndexCtrl" ng-cloak>
+  <md-content>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <span flex><strong>ZAIRZA MAIL</strong></span>
+        <md-button class="md-icon-button rightbutton" aria-label="Favorite">
+          <i class='fa fa-bars fa-2x'></i>
+        </md-button>
       </div>
-    </div>
+    </md-toolbar>
+  </md-content>
+</div>
+<div ng-view>
 
+</div>
 
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/material-design-lite/material.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -78,10 +67,13 @@
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/services/adminpolicy.js"></script>
+    <script src="scripts/controllers/index.js"></script>
+    <script src="scripts/controllers/inbox.js"></script>
+    <script src="scripts/services/userpolicy.js"></script>
+    <script src="scripts/controllers/fourohthree.js"></script>
     <!-- endbuild -->
 
-  </main>
-</div>
+
 
 </body>
 </html>
