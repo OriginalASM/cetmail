@@ -4,10 +4,15 @@ module.exports = function(mongoose) {
   var Schema = mongoose.Schema;
 
   var Account = new Schema({
-    email    : String,
-    name     : String,
+    regno : Number,
+    first_name : String,
+    last_name : String,
+    username : String,
+    gender : enum['male' , 'female'],
+    rec-email : String, //Recovery Email
     password : String,
-    role     : {
+    contact : Number,
+    role : {
       type: String,
       enum: ['user', 'moderator', 'admin'],
       default: 'user'
