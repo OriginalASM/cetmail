@@ -8,10 +8,10 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('IndexCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('IndexCtrl', function ($scope,$location) {
+
+    $scope.Logout = function(){
+      console.log('User logging off');
+      $location.path('/logout');
+    }
   });
