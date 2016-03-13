@@ -75,6 +75,11 @@ angular
         controller: 'FourohthreeCtrl',
         controllerAs: 'FourOhThree'
       })
+      .when('/logout', {
+        templateUrl: 'views/logout.html',
+        controller: 'LogoutCtrl',
+        controllerAs: 'logout'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -14,7 +14,6 @@ angular.module('App')
     $scope.Login = function(){
       var Credentials = angular.copy($scope.Credentials);
       Credentials.username = $scope.Credentials.username.split(/@[\w]+[.][\w]+/).join('');
-      console.log(Credentials.username);
       $http({
         method: 'POST',
         url: '/users/api/login/',
@@ -26,7 +25,7 @@ angular.module('App')
         //$location.path('/inbox');
 
       }).error(function(err){
-        $log.warn("Post request failed!");
+        console.log('Post request failed !');
       });
     };
   });
