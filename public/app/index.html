@@ -38,9 +38,13 @@
     <md-toolbar>
       <div class="md-toolbar-tools">
         <span flex><strong>ZAIRZA MAIL</strong></span>
-        <md-button class="md-icon-button rightbutton" aria-label="Favorite">
-          <i class='fa fa-bars fa-2x'></i>
-        </md-button>
+        <!-- controls added for side nav -->
+        <section ng-controller="InboxCtrl">
+          <md-button class="md-icon-button rightbutton md-primary" aria-label="Favorite"
+                     ng-click="toggleLeft()" hide-gt-md>
+            <i class='fa fa-bars fa-2x'></i>
+          </md-button>
+        </section>
         <md-button class="md-icon-button rightbutton" ng-click='Logout()' aria-label="Favorite">
           <i class='fa fa-sign-out fa-2x'></i>
         </md-button>
