@@ -13,11 +13,9 @@ angular.module('App')
       var deferred = $q.defer();
       $http.get('/users/api/getuser')
         .success(function(data){
-          console.log(data);
-          if (data.role){
+          console.log('User logged in');
+          if (data.role){ //any role, allow inbox
             deferred.resolve();
-          }else {
-            deferred.reject(false);
           }
         }).error(function(err){
           console.log(err);
