@@ -1,4 +1,4 @@
-<div ng-controller="InboxCtrl" layout="column" style="height:700px;" ng-cloak>
+<div id="nav" ng-controller="InboxCtrl" layout="column" ng-cloak>
   <section layout="row" flex>
     <md-sidenav
       class="md-sidenav-left"
@@ -10,7 +10,7 @@
         <h1 class="md-toolbar-tools">Sidenav Left</h1>
       </md-toolbar>
       <md-content layout-padding ng-controller="LeftCtrl">
-        <md-button ng-click="close()" class="md-primary" hide-gt-md>
+        <md-button ng-click="close()" class="md-raised md-primary " hide-gt-md>
           Close Sidenav Left
         </md-button>
         <p hide-md show-gt-md>
@@ -19,20 +19,20 @@
         </p>
       </md-content>
     </md-sidenav>
-    <md-content flex layout-padding>
+    <md-content flex layout-padding >
       <div layout="column" layout-fill layout-align="top center">
+        <div>
         <p>
           The left sidenav will 'lock open' on a medium (>=960px wide) device.
-        </p>
-        <p>
-          The right sidenav will focus on a specific child element.
-        </p>
+        </p></div>
+
         <div>
-          <md-button ng-click="toggleLeft()"
-                     class="md-primary" hide-gt-md>
+          <md-button  ng-click="toggleLeft()"
+                      class="md-raised md-primary " hide-gt-md >
             Toggle left
           </md-button>
         </div>
+
       </div>
       <div flex></div>
     </md-content>

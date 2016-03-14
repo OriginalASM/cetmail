@@ -5,3 +5,7 @@
 .right{
   float : right;
 }
+#nav{
+  height:90%;
+  position: absolute;
+}
