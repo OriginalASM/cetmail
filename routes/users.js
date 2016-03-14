@@ -30,7 +30,7 @@ module.exports = function(mongoose) {
   router.all('/api/login/', function(req,res,next){console.log(req.body);next();},auth.login);
   router.all('/api/logout/', auth.logout);
   router.all('/api/getuser/', auth.getSelfInformation);
-  router.get('/api/:id' ,userApi.findOne);
+  router.get('/api/:id', userApi.findOne);
 
 
 
