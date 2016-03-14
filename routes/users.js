@@ -2,6 +2,7 @@ var router = require('express').Router();
 
 module.exports = function(mongoose) {
   var Schema = mongoose.Schema;
+  var bcrypt = require('bcryptjs');
 
   var Account = new Schema({
     regno : Number,
@@ -23,6 +24,17 @@ module.exports = function(mongoose) {
     }
   });
 
+  Account.pre('save', function(next) {
+    var user = this;
+    // only hash the password if it has been modified (or is new)
+    if (!user.isModified('password')) return next();
+    // Encrypt password
+    bcrypt.hash(user.password, 10, function(err, hash) {
+      if(err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
 
 
   // Create a user model with this scheme
@@ -33,13 +45,13 @@ module.exports = function(mongoose) {
   var policy = require('./policy.js');
 
   router.get('/api/', userApi.find);
-  router.all('/api/insert', function(req,res,next){console.log(req.body);next();},userApi.insert);
+  router.all('/api/insert', userApi.insert);
   router.get('/api/destroy/:id', userApi.destroy);
   router.get('/api/update/:id', userApi.update);
-  router.all('/api/login/', function(req,res,next){console.log(req.body);next();},auth.login);
+  router.all('/api/login/', auth.login);
   router.all('/api/logout/', auth.logout);
   router.all('/api/getuser/', auth.getSelfInformation);
-  router.get('/api/:id' ,userApi.findOne);
+  router.get('/api/:id', userApi.findOne);
 
 
 

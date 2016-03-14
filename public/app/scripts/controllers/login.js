@@ -8,19 +8,24 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('LoginCtrl', function ($scope,$http,$log) {
+  .controller('LoginCtrl', function ($scope,$http,$log,$location,$rootScope) {
     $scope.Status = 'Alive' ;
     $scope.Credentials={};
     $scope.Login = function(){
-      console.log($scope.Credentials.username);
+      var Credentials = angular.copy($scope.Credentials);
+      Credentials.username = $scope.Credentials.username.split(/@[\w]+[.][\w]+/).join('');
       $http({
         method: 'POST',
         url: '/users/api/login/',
-        data: $scope.Credentials
+        data: Credentials
       }).success(function(data){
-        $log.debug(data);
+        var x = $rootScope.LastURL || '/inbox';
+        console.log(x);
+        $location.path(x);
+        //$location.path('/inbox');
+
       }).error(function(err){
-        $log.warn("Post request failed!");
+        console.log('Post request failed !');
       });
     };
   });
