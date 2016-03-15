@@ -8,10 +8,9 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('RegisterCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('RegisterCtrl', function ($scope) {
+    $scope.Credentials = {};
+    $scope.data = {
+      gender : 'Male'
+    }
   });
