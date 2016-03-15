@@ -9,7 +9,7 @@
  */
 angular.module('App')
   .factory('UserPolicy', function ($q,$http) {
-    return function (level) {
+    return function () {
       var deferred = $q.defer();
       $http.get('/users/api/getuser')
         .success(function(data){

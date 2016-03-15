@@ -29,22 +29,17 @@ module.exports = function(User){
             console.log('Login : Regular Expression check failed');
             res.send({error: true, message: 'Regular Expression check failed'});
           } else {
-            /*bcrypt.compare(password, user.password, function (error, match) {
+            bcrypt.compare(password, user.password, function (error, match) {
               if (match) {
                 req.session.user = user;
                 res.send({message: 'success'});
               } else {
-                res.send({error: true, message: 'Password match failed'});
+                console.log('match failed');
+                req.session.user = false;
+                res.send({error: true, message: 'Invalid Username or Password.'});
               }
-            });*/
-            if (password === user.password) {
-              req.session.user = user;
-              res.send({message: 'success'});
-            } else {
-              req.session.user = false;
-              res.send({error: true, message: 'Invalid Username or Password.'});
-            }
-          }
+          });
+        }
         });
       }
     },

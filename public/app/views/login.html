@@ -1,55 +1,52 @@
 
-
 <div ng-controller="LoginCtrl" ng-cloak id='logindiv'>
+
   <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center end">
     <div flex-xs flex-gt-xs="40" layout="column">
       <md-card>
-
-          <md-card-title-text>
-            <md-toolbar>
-              <div class="md-toolbar-tools" flex text-align='center'>
-                <span style='margin : auto; font-size : 1.5em'><strong>Login</strong></span>
-              </div>
-            </md-toolbar>
-
-          </md-card-title-text>
-
+        <md-card-title-text>
+          <md-toolbar>
+            <div class="md-toolbar-tools" flex text-align='center'>
+              <span style='margin : auto; font-size : 1.5em'><strong>Login</strong></span>
+            </div>
+          </md-toolbar>
+        </md-card-title-text>
         <md-card-content layout="row" layout-align="space-between" style="margin:auto">
-        <form name="LoginForm" ng-submit='Login($event)'>
-          <md-input-container class="md-block">
-            <label>Username</label>
-            <input required type="text" name="Email" ng-model="Credentials.username" />
-            <div ng-messages="LoginForm.Email.$error" role="alert">
-              <div ng-message-exp="['required']">
-                This field is required.
+
+          <form name="LoginForm" ng-submit='Login($event)'>
+            <md-input-container class="md-block">
+              <label>Username</label>
+              <input required type="text" name="Email" ng-model="Credentials.username" />
+              <div ng-messages="LoginForm.Email.$error" role="alert">
+                <div ng-message-exp="['required']">
+                  This field is required.
+                </div>
               </div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Password</label>
-            <input required type="password" name="Password" ng-model="Credentials.password"
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Password</label>
+              <input required type="password" name="Password" ng-model="Credentials.password"
                      ng-pattern="/\w+/g"/>
-            <div ng-messages="LoginForm.Password.$error" role="alert">
-              <div ng-message-exp="['required', 'pattern']">
-                Password contains Invalid characters.
+              <div ng-messages="LoginForm.Password.$error" role="alert">
+                <div ng-message-exp="['required', 'pattern']">
+                  Password contains Invalid characters.
+                </div>
               </div>
-            </div>
-          </md-input-container>
-          <md-button type='submit' class="md-raised md-primary right">Login</md-button>
-
-    </form>
-
+            </md-input-container>
+            <md-button type='submit' class="md-raised md-primary right">Login</md-button>
+          </form>
         </md-card-content>
       </md-card>
     </div>
   </md-content>
 </div>
 <style>
-.inputdemoErrors .inputErrorsApp {
-  min-height: 48px; }
-.inputdemoErrors md-input-container > p {
-  font-size: 0.8em;
-  text-align: left;
-  width: 100%; }
-
+  .inputdemoErrors .inputErrorsApp {
+    min-height: 48px;
+  }
+  .inputdemoErrors md-input-container > p {
+    font-size: 0.8em;
+    text-align: left;
+    width: 100%;
+  }
 </style>
