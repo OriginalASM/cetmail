@@ -1,6 +1,6 @@
 
 
-<div ng-controller="LoginCtrl" ng-cloak >
+<div ng-controller="LoginCtrl" ng-cloak id='logindiv'>
   <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center end">
     <div flex-xs flex-gt-xs="40" layout="column">
       <md-card>
@@ -15,7 +15,7 @@
           </md-card-title-text>
 
         <md-card-content layout="row" layout-align="space-between" style="margin:auto">
-        <form name="LoginForm" ng-submit='Login()'>
+        <form name="LoginForm" ng-submit='Login($event)'>
           <md-input-container class="md-block">
             <label>Username</label>
             <input required type="text" name="Email" ng-model="Credentials.username" />

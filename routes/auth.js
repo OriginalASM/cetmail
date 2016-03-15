@@ -41,7 +41,8 @@ module.exports = function(User){
               req.session.user = user;
               res.send({message: 'success'});
             } else {
-              res.send({error: true, message: 'Password match failed'});
+              req.session.user = false;
+              res.send({error: true, message: 'Invalid Username or Password.'});
             }
           }
         });
