@@ -35,10 +35,11 @@ module.exports = function(User){
                 res.send({message: 'success'});
               } else {
                 console.log('match failed');
-                res.send({error: true, message: 'Password match failed'});
+                req.session.user = false;
+                res.send({error: true, message: 'Invalid Username or Password.'});
               }
-            });
-          }
+          });
+        }
         });
       }
     },
