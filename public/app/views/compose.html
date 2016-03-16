@@ -1,0 +1,12 @@
+<form>
+  <label for="To">To:
+    <input id="To" ng-model="mail.receiver" placehoder="shubham@mail.zairza.in">
+  </label>
+  <label for="subject">Subject:
+    <input id="subject" ng-model="mail.subjectLine" placehoder="subject">
+  </label>
+  <label for="body">Message:
+    <textarea id="body" ng-model="mail.MessageBody" cols="15" width="100%"></textarea>
+  </label>
+  <button ng-click="sendMail()">Send</button>
+</form>

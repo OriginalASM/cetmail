@@ -61,7 +61,6 @@ angular
             UserPolicy().then(
               function(){},
               function(err){
-                console.log(err);
                 $location.path('/login');
               });
           }
@@ -79,6 +78,21 @@ angular
         templateUrl: 'views/logout.html',
         controller: 'LogoutCtrl',
         controllerAs: 'logout'
+      })
+      .when('/compose', {
+        resolve : {
+          'check': function($location,UserPolicy,$rootScope) {
+            $rootScope.LastURL = '/compose';
+            UserPolicy().then(
+              function(){},
+              function(err){
+                $location.path('/login');
+              });
+          }
+        },
+        templateUrl: 'views/compose.html',
+        controller: 'ComposeCtrl',
+        controllerAs: 'compose'
       })
       .otherwise({
         redirectTo: '/'
