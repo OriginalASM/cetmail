@@ -27,7 +27,7 @@
 
 						<md-input-container class="md-block">
               <label>First Name</label>
-              <input required type="text" name="FirstName" ng-model="Credentials.fname"/>
+              <input required type="text" name="FirstName" ng-model="Credentials.first_name"/>
               <div ng-messages="RegisterForm.FirstName.$error" role="alert">
                 <div ng-message-exp="['required']">
                   This field is required.
@@ -38,7 +38,7 @@
 
             <md-input-container class="md-block">
 							<label>Last Name</label>
-              <input type="text" name="Number" ng-model="Credentials.lname"/>
+              <input type="text" name="Number" ng-model="Credentials.last_name"/>
             </md-input-container>
 
 
@@ -87,7 +87,7 @@
 						<md-input-container class="md-block">
 
 							<label>Recovery Email</label>
-							<input required type="email" name="RecEmail" ng-model="Credentials.recemail"/>
+							<input required type="email" name="RecEmail" ng-model="Credentials.rec_email"/>
 							<div ng-messages="RegisterForm.UserName.$error" role="alert">
 								<div ng-message-exp="['required' , 'email' ]">
 									This field is required and must look like an email !
