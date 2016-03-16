@@ -6,9 +6,13 @@
   float : right;
 }
 #nav{
-  height:90%;
-  position: absolute;
+  height:100%;
+  position: fixed;
 }
 .icon-size{
   font-size:1.5em;
+}
+.msg_cont{
+  width:75%;
+  position: fixed;
 }
