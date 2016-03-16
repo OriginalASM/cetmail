@@ -74,14 +74,10 @@
               </div>
             </md-input-container>
 						<md-input-container class="md-block">
-              <label>Confirm Password</label>
-              <input required type="password" name="CPassword" ng-model="Credentials.cpassword"
-                     ng-pattern="/\w+/g"/ ng-change="CompareTo()">
-              <div ng-messages="LoginForm.CPassword.$error" role="alert">
-                <div ng-message-exp="['required', 'pattern']">
-                  Password contains Invalid characters.
-                </div>
-              </div>
+              <label for="password_c">Confirm Password</label>
+              <input type="password" id="password_c" name="password_c" ng-model="cnfPwd">
+              <span ng-show="Credentials.password && Credentials.password!=cnfPwd ">Passwords do not match.</span>
+              <br />
             </md-input-container>
 
 						<md-input-container class="md-block">
