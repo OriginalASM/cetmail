@@ -14,6 +14,53 @@ angular.module('App')
      * Supplies a function that will continue to operate until the
      * time is up.
      */
+     $scope.menu = [
+         {
+           link : '',
+           title: 'Inbox',
+           icon: 'inbox'
+         },
+         {
+           link : '',
+           title: 'Starred',
+           icon: 'star'
+         },
+         {
+           link : '',
+           title: 'Spam',
+           icon: 'folder'
+         },
+         {
+           link : '',
+           title: 'Important',
+           icon: 'exclamation-circle'
+         },
+         {
+           link : '',
+           title: 'sent',
+           icon: 'paper-plane'
+         },
+         {
+           link : '',
+           title: 'Trash',
+           icon: 'trash'
+         },
+
+         {
+           link : '',
+           title: 'Friends',
+           icon: 'users'
+         }
+
+
+
+       ];
+
+
+
+
+
+
     function debounce(func, wait, context) {
       var timer;
       return function debounced() {
