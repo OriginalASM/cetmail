@@ -11,19 +11,21 @@ angular.module('App')
   .controller('LoginCtrl', function ($scope,$http,$log,$location,$rootScope,$mdDialog) {
     $scope.Status = 'Alive' ;
     $scope.Credentials={};
-    function showAlert(ev) {
+    function showAlert(msg) {
     // Appending dialog to document.body to cover sidenav in docs app
     // Modal dialogs should fully cover application
     // to prevent interaction outside of dialog
-      $mdDialog.show(
-        $mdDialog.alert()
-          .parent(angular.element(document.querySelector('#logindiv')))
-          .clickOutsideToClose(true)
-          .title('Failed')
-          .textContent('Failed to login. Invalid Username or Password')
-          .ok('Got it!')
-          .targetEvent(ev)
-      );
+      if(msg=='loginfailed'){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.querySelector('#logindiv')))
+            .clickOutsideToClose(true)
+            .title('Failed')
+            .textContent('Failed to login. Invalid Username or Password')
+            .ok('Got it!')
+        );
+      };
+
     };
     $scope.Login = function($event){
       var Credentials = angular.copy($scope.Credentials);
@@ -37,7 +39,7 @@ angular.module('App')
         //console.log(x);
 
         if(data.error){
-          showAlert($event);
+          showAlert($event,'loginfailed');
         }else{
           $location.path(x);
         }
@@ -48,5 +50,4 @@ angular.module('App')
 
       });
     };
-
   });

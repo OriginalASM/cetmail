@@ -1,112 +1,133 @@
-<div class="reg">
-	<main class="mdl-layout__content">
-		<div class="mdl-card mdl-shadow--6dp">
-			<div class="mdl-card__title mdl-color--primary mdl-color-text--white">
-				<h2 class="mdl-card__title-text">CET Mail Register</h2>
-			</div>
-	  	<div class="mdl-card__supporting-text">
-				<form action="#" style="margin : auto;">
-				 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="regno">
-            <label class="mdl-textfield__label" for="regno">Registration Number</label>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half" id="firstname">
-             <input class="mdl-textfield__input" type="text" id="fname">
-             <label class="mdl-textfield__label" for="fname">First Name</label>
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label half" id="lastname">
-						 <input class="mdl-textfield__input" type="text" id="lname">
-             <label class="mdl-textfield__label" for="lname">Last Name</label>
- 					</div>
 
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id='uname'>
-             <input class="mdl-textfield__input user" type="text">
-             <label class="mdl-textfield__label user" for="username" >Username</label>
- 					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"id='dom'>
-						@mail.zairza.in
-					</div>
-					<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						Gender:
-  						<input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
-  						<span class="mdl-radio__label">Male</span>
+<div ng-controller="RegisterCtrl" ng-cloak id='registerdiv'>
 
-  						<input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
-  						<span class="mdl-radio__label">Female</span>
+  <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center end">
+    <div flex-xs flex-gt-xs="60" layout="column">
+      <md-card>
+        <md-card-title-text>
+          <md-toolbar>
+            <div class="md-toolbar-tools" flex text-align='center'>
+              <span style='margin : auto; font-size : 1.5em'><strong>Register</strong></span>
+            </div>
+          </md-toolbar>
+        </md-card-title-text>
+        <md-card-content layout="row" layout-align="space-between" style="margin:auto">
 
-					</div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-             <input class="mdl-textfield__input" type="password" id="password">
-             <label class="mdl-textfield__label" for="password">Password</label>
- 					</div>
-				 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="password" id="cpassword">
-            <label class="mdl-textfield__label" for="cpassword">Confirm Password</label>
-					</div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-             <input class="mdl-textfield__input" type="text" id="recemail">
-             <label class="mdl-textfield__label" for="recemail">Recovery Email</label>
- 					</div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-             <input class="mdl-textfield__input" type="text" id="contact">
-             <label class="mdl-textfield__label" for="contact">Contact Number</label>
- 					</div>
-				</form>
-			</div>
-			<div class="mdl-card__actions mdl-card--border">
-      <button class="mdl-button mdl-js-button mdl-button--accent mdl-js-ripple-effect mdl-button--accent rightbutton">
-          Register
-        </button>
-			</div>
-		</div>
-	</main>
+          <form name="RegisterForm" ng-submit='Register($event)'>
+            <md-input-container class="md-block">
+              <label>Registration Number</label>
+              <input required type="text" name="RegNumber" ng-model="Credentials.regno" id='regno'/>
+              <div ng-messages="RegisterForm.RegNumber.$error" role="alert">
+                <div ng-message-exp="['required']">
+                  This field is required.
+                </div>
+              </div>
+            </md-input-container>
+
+
+						<md-input-container class="md-block">
+              <label>First Name</label>
+              <input required type="text" name="FirstName" ng-model="Credentials.first_name"/>
+              <div ng-messages="RegisterForm.FirstName.$error" role="alert">
+                <div ng-message-exp="['required']">
+                  This field is required.
+                </div>
+              </div>
+						</md-input-container>
+
+
+            <md-input-container class="md-block">
+							<label>Last Name</label>
+              <input type="text" name="Number" ng-model="Credentials.last_name"/>
+            </md-input-container>
+
+
+						<md-input-container class="md-block">
+
+							<label>Username</label>
+	            <input id='username' required type="text" name="UserName" ng-model="Credentials.username"/>
+							<p id='mail'>@mail.zairza.in</p>
+              <div ng-messages="RegisterForm.UserName.$error" role="alert">
+                <div ng-message-exp="['required']">
+                  This field is required.
+                </div>
+              </div>
+						</md-input-container>
+
+						<md-input-container>
+							<p>Gender :  <span class="radioValue">{{ Data.gender }}</span> </p>
+    					<md-radio-group ng-model="Data.gender">
+      				<md-radio-button value="Male"> Male </md-radio-button>
+      				<md-radio-button value="Female"> Female </md-radio-button>
+    					</md-radio-group>
+						</md-input-container>
+
+
+            <md-input-container class="md-block">
+              <label>Password</label>
+              <input required type="password" name="Password" ng-model="Credentials.password"
+                     ng-pattern="/\w+/g"/>
+              <div ng-messages="LoginForm.Password.$error" role="alert">
+                <div ng-message-exp="['required', 'pattern']">
+                  Password contains Invalid characters.
+                </div>
+              </div>
+            </md-input-container>
+						<md-input-container class="md-block">
+              <label for="password_c">Confirm Password</label>
+              <input type="password" id="password_c" name="password_c" ng-model="cnfPwd">
+              <span ng-show="Credentials.password && Credentials.password!=cnfPwd ">Passwords do not match.</span>
+              <br />
+            </md-input-container>
+
+						<md-input-container class="md-block">
+
+							<label>Recovery Email</label>
+							<input required type="email" name="RecEmail" ng-model="Credentials.rec_email"/>
+							<div ng-messages="RegisterForm.UserName.$error" role="alert">
+								<div ng-message-exp="['required' , 'email' ]">
+									This field is required and must look like an email !
+								</div>
+
+							</div>
+						</md-input-container>
+						<md-input-container class="md-block">
+
+							<label>Contact Number</label>
+							<input required type="Number" name="contact" ng-model="Credentials.contact" minlength=10 maxlength=10/>
+							<div ng-messages="RegisterForm.contact.$error" role="alert">
+								<div ng-message-exp="['minlength','maxlength']">
+									Contact Number must be 10 digits long.
+								</div>
+
+							</div>
+						</md-input-container>
+
+            <md-button type='submit' class="md-raised md-primary right">Register</md-button>
+          </form>
+        </md-card-content>
+      </md-card>
+    </div>
+  </md-content>
 </div>
 <style>
-.reg {
-align-items: center;
-justify-content: center;
-padding: 20px;
-	flex: none;
-}
-.mdl-card {
-  margin : auto;
-	margin-top:10%;
-  width : 40%;
-}
-@media screen and (max-width: 32em) {
-	.mdl-card {
-		margin:auto;
-		margin-top: 23px;
-	width:80%;
-	margin-left: 5px;
+  .inputdemoErrors .inputErrorsApp {
+    min-height: 48px;
+  }
+  .inputdemoErrors md-input-container > p {
+    font-size: 0.8em;
+    text-align: left;
+    width: 100%;
+  }
+	#username{
+		width : 50%;
+		text-align: right;
+		float:left;
+	}
+	#mail{
+		text-align: left;
+		margin-top: 0.3em;
+		float:left;
+	}
 
-	}}
-form {
-  margin : auto;
-}
-.mdl-textfield{
-  margin-left: 20%;
-}
-.rightbutton{
-  float : right;
-}
-.half{
-	width : 30%;
-}
-#firstname{
-	float:left;
-}
-#lastname{
-	margin-left: 10%;
-}
-#uname{
-	width : 40%;
-	float:left;
-	margin-right:0%;
-}
-#dom{
-	width : 30%;
-	float:left;
-	margin-left : 0%;
-}
 </style>
