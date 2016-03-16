@@ -3,10 +3,7 @@
 .right{
   float : right;
 }
-#nav{
-  height:100%;
-  position: fixed;
-}
+
 .icon-size{
   font-size:1.5em;
 }
