@@ -8,9 +8,9 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('ComposeCtrl', function ($scope, $http) {
+  .controller('ComposeCtrl', function ($scope, $http,$rootScope) {
     $scope.mail = {
-      password : 'shubham'
+      password : $rootScope.pass
     };
     $scope.sendMail = function(){
       $http({
