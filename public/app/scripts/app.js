@@ -10,7 +10,7 @@
  */
 angular
   .module('App', [
-    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria'
+    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria','md.data.table','ngMdIcons'
   ])
   .config(function ($routeProvider) {
     $routeProvider

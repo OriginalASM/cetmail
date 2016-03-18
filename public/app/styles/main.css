@@ -1,11 +1,11 @@
 .toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
-  color: white; }
-.right{
-  float : right;
+  color: white;
 }
-
-.icon-size{
-  font-size:1.5em;
+.right {
+  float: right;
+}
+.icon-size {
+  font-size: 1.5em;
 }
 .md-button {
   padding: 0 6px 0 6px;
@@ -15,21 +15,27 @@
   font-size: 14px;
   text-align: center;
   text-transform: uppercase;
-  text-decoration:none;
+  text-decoration: none;
   border: none;
   outline: none;
 }
-
-.msg_cont{
-  width:75%;
+.msg_cont {
+  width: 75%;
   position: fixed;
 }
-
-.who{padding: 10px;font-weight:800;font-size: 15px;}
-  .what{padding: 5px;}
-    .note{padding: 5px;}
-
-#plus{
+.who {
+  padding: 10px;
+  font-weight: 800;
+  font-size: 15px;
+}
+.what {
+  padding: 5px;
+}
+.note {
+  padding: 5px;
+}
+/*css for floating plus button*/
+#plus {
   z-index: 100;
   position: fixed;
   color: white;
@@ -37,6 +43,9 @@
   bottom: 20px;
   border-radius: 100%;
   padding: 10px 10px 10px 10px;
-background-color: #3F51B5;
-
+  background-color: #3F51B5;
+  box-shadow: 3px 3px 3px #888888;
 }
+
+/*css for input in search*/
+#inp{padding-top:18px;}
