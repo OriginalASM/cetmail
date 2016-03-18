@@ -1,13 +1,11 @@
-
-
 .toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
   color: white; }
 .right{
   float : right;
 }
 #nav{
-  height:90%;
-  position: absolute;
+  height:100%;
+  position: fixed;
 }
 .icon-size{
   font-size:1.5em;
@@ -25,6 +23,7 @@
   outline: none;
 }
 
-.user-avatar {
-border-radius: 120%;
+.msg_cont{
+  width:75%;
+  position: fixed;
 }
