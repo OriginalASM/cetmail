@@ -1,40 +1,35 @@
 <div id="nav" ng-controller="InboxCtrl" layout="column" ng-cloak>
   <section layout="row" flex>
-    <md-sidenav
-      class="md-sidenav-left"
-      md-component-id="left"
-      md-is-locked-open="$mdMedia('gt-md')"
-      md-disable-backdrop
-      md-whiteframe="4">
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Sidenav Left</h1>
-      </md-toolbar>
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
       <md-content layout-padding ng-controller="LeftCtrl">
-        <md-button ng-click="close()" class="md-raised md-primary " hide-gt-md>
-          Close Sidenav Left
-        </md-button>
-        <p hide-md show-gt-md>
-          This sidenav is locked open on your device. To go back to the default behavior,
-          narrow your display.
-        </p>
+
+        <md-toolbar class="md-tall md-hue-2">
+          <span flex></span>
+          <div layout="column" class="md-toolbar-tools-bottom inset">
+            <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-user   fa-stack-1x fa-inverse"></i></br>
+          </span>
+            <span></span>
+            <div>Firstname Lastname</div>
+            <div>email@domainname.com</div>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <md-item ng-repeat="item in menu">
+            <md-item-content layout="row" layout-align="start center">
+              <md-button style="width:100%;text-align:left;text-transform:none">
+                <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
+              </md-button>
+            </md-item-content>
+          </md-item>
+          <md-divider></md-divider>
+        </md-list>
       </md-content>
     </md-sidenav>
-    <md-content flex layout-padding >
-      <div layout="column" layout-fill layout-align="top center">
-        <div>
-        <p>
-          The left sidenav will 'lock open' on a medium (>=960px wide) device.
-        </p></div>
+    <md-content>
 
-        <div>
-          <md-button  ng-click="toggleLeft()"
-                      class="md-raised md-primary " hide-gt-md >
-            Toggle left
-          </md-button>
-        </div>
-
-      </div>
-      <div flex></div>
     </md-content>
   </section>
 </div>
