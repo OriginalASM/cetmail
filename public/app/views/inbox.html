@@ -1,40 +1,110 @@
-<div id="nav" ng-controller="InboxCtrl" layout="column" ng-cloak>
-  <section layout="row" flex>
-    <md-sidenav
-      class="md-sidenav-left"
-      md-component-id="left"
-      md-is-locked-open="$mdMedia('gt-md')"
-      md-disable-backdrop
-      md-whiteframe="4">
-      <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Sidenav Left</h1>
-      </md-toolbar>
-      <md-content layout-padding ng-controller="LeftCtrl">
-        <md-button ng-click="close()" class="md-raised md-primary " hide-gt-md>
-          Close Sidenav Left
-        </md-button>
-        <p hide-md show-gt-md>
-          This sidenav is locked open on your device. To go back to the default behavior,
-          narrow your display.
-        </p>
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column'>
+  <section layout="row">
+
+    <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
+      <md-content ng-controller="LeftCtrl">
+
+        <md-toolbar class="md-tall md-hue-2">
+          <span flex></span>
+          <div layout="column" class="md-toolbar-tools-bottom inset">
+            <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x fa-inverse"></i></br>
+          </span>
+            <span></span>
+            <div>Firstname Lastname</div>
+            <div>email@domainname.com</div>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <md-item ng-repeat="item in menu">
+            <md-item-content layout="row" layout-align="start center">
+              <md-button style="width:100%;text-align:left;text-transform:none">
+                <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
+              </md-button>
+            </md-item-content>
+          </md-item>
+          <md-divider></md-divider>
+        </md-list>
       </md-content>
     </md-sidenav>
-    <md-content flex layout-padding >
-      <div layout="column" layout-fill layout-align="top center">
-        <div>
-        <p>
-          The left sidenav will 'lock open' on a medium (>=960px wide) device.
-        </p></div>
 
-        <div>
-          <md-button  ng-click="toggleLeft()"
-                      class="md-raised md-primary " hide-gt-md >
-            Toggle left
-          </md-button>
-        </div>
 
-      </div>
-      <div flex></div>
-    </md-content>
-  </section>
-</div>
+  <md-content flex=80 layout='column' id='content'>
+
+  <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+    <div class="md-toolbar-tools">
+      <span></span>
+      <span flex></span>
+      <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
+      <md-button ng-click="loadStuff()">Load</md-button>
+
+
+
+      <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+        <ng-md-icon icon="search"></ng-md-icon>
+      </md-button>
+      </md-button>
+      <md-button class="md-icon-button">
+        <md-icon>more_vert</md-icon>
+      </md-button>
+
+    </div>
+  </md-toolbar>
+
+
+  <md-toolbar class="md-hue-1 md-table-toolbar md-default" ng-show="showSearch">
+    <div class="md-toolbar-tools">
+      <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+        <ng-md-icon icon="arrow_back"></ng-md-icon>
+      </md-button>
+      <h3 flex="10">
+                Back
+              </h3>
+      <md-input-container flex>
+        <label>&nbsp;</label>
+        <input ng-model="search.who" placeholder="enter search">
+      </md-input-container>
+      <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+        <ng-md-icon icon="search"></ng-md-icon>
+      </md-button>
+
+    </div>
+
+  </md-toolbar>
+
+
+
+
+
+
+
+
+  <md-table-container>
+    <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
+      <tbody md-body>
+        <tr md-row md:select="dessert" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="dessert in desserts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+          <td md-cell>{{dessert.who}}</td>
+          <td md-cell>{{dessert.what}}</td>
+          <td md-cell>{{dessert.when}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+
+  <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
+  <md-item layout class="inset">
+        <md-button layout layout-align="start center" flex class="md-primary" id="plus">
+          <span class="fa-stack fa-lg">
+
+               <i class="fa fa-plus fa-1x "></i>
+             </span>
+        </md-button>
+      </md-item>
+
+</md-content>
+    </section>
+
+
+    </div>
