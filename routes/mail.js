@@ -7,6 +7,7 @@ var router = require('express').Router();
  */
 var policy = require('./policy.js');
 var smtp = require('./smtp.js');
+var imap = require('./imap.js');
 
 module.exports = function() {
 
@@ -24,6 +25,26 @@ module.exports = function() {
     },function(err){
       res.status(502).send(err);
     });
+  });
+
+  router.post('/fetch/', function(req, res){
+    var uname = req.session.user.username,
+        password = req.body.password,
+        startIndex = req.body.startIndex,
+        endIndex = req.body.endIndex;
+
+    if(!uname || !password || !startIndex){
+      console.log(uname+' '+password+' '+startIndex);
+      res.status(502).send('Insufficient field values');
+    }else {
+      imap.getMail(uname, password, startIndex, endIndex).then(
+        function(s){
+          res.send(s);
+        },function(r){
+          res.status(502).send(r);
+        }
+      );
+    }
   });
 
   return router;
