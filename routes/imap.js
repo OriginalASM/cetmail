@@ -9,7 +9,6 @@ var Imap = require('imap'),
   Q = require('q');
 
 var MailParser = require("mailparser").MailParser;
-var mailparser = new MailParser('debug');
 var fs = require("fs");
 
 module.exports = {
@@ -27,6 +26,8 @@ module.exports = {
       tls: true
     });
 
+    var mailparser = new MailParser('debug');
+
     function openInbox(cb) {
       imap.openBox('INBOX', true, cb);
     }
@@ -37,13 +38,13 @@ module.exports = {
 
         var QueryIndex ;
 
-        if (startIndex === 'latest') { QueryIndex = box.messages.total.toString() ;}
+        if (startIndex === 'latest') { QueryIndex = box.messages.total.toString() + ':*' ;}
         else if (!endIndex) { QueryIndex = startIndex.toString() ;}
         else {QueryIndex = startIndex.toString() + ':' + endIndex.toString() ; }
 
         console.log(QueryIndex);
 
-        var f = imap.fetch(QueryIndex, { bodies: '' });
+        var f = imap.seq.fetch(QueryIndex, { bodies: '' });
         f.on('message', function (msg) {
           var z = {} ;
           mailparser.on("end", function(mail_object){
@@ -70,6 +71,75 @@ module.exports = {
           result.reject('Fetch error: ' + err);
         });
         f.once('end', function () {
+          imap.end();
+        });
+      });
+    });
+
+    imap.once('error', function(err) {
+      result.reject(err);
+    });
+
+    imap.once('end', function() {
+      result.resolve(Mails);
+    });
+
+    imap.connect();
+
+    return result.promise ;
+  },
+
+  getheaders : function(username, password, startIndex, endIndex){
+
+    var result = Q.defer();
+    var Mails = [];
+    var mailparser = new MailParser('debug');
+
+    var imap = new Imap({
+      user: username + '@mail.zairza.in',
+      password: password,
+      host: 'mail.zairza.in',
+      port: 993,
+      tls: true
+    });
+
+    function openInbox(cb) {
+      imap.openBox('INBOX', true, cb);
+    }
+
+    imap.once('ready', function() {
+      openInbox(function(err, box) {
+        if (err) throw err;
+        var f = imap.seq.fetch(startIndex + ':' + endIndex, {
+          bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)',
+          struct: true
+        });
+        f.on('message', function(msg, seqno) {
+          var Msg = {} ;
+          mailparser.on("end", function(mail_object){
+            Msg['header' ] = mail_object;
+            Mails.push(Msg);
+          });
+          msg.on('body', function(stream, info) {
+            var buffer = '';
+            stream.on('data', function(chunk) {
+              buffer += chunk.toString('utf8');
+            });
+            stream.once('end', function() {
+              mailparser.write(buffer.toString());
+            });
+          });
+          msg.once('attributes', function(attrs) {
+            Msg['attributes'] = inspect(attrs, false, 8) ;
+          });
+          msg.once('end', function() {
+            mailparser.end();
+          });
+        });
+        f.once('error', function(err) {
+          result.reject(err);
+        });
+        f.once('end', function() {
           imap.end();
         });
       });

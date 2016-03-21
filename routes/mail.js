@@ -27,7 +27,7 @@ module.exports = function() {
     });
   });
 
-  router.post('/fetch/', function(req, res){
+  router.post('/fetch/body/', function(req, res){
     var uname = req.session.user.username,
         password = req.body.password,
         startIndex = req.body.startIndex,
@@ -40,6 +40,26 @@ module.exports = function() {
       imap.getMail(uname, password, startIndex, endIndex).then(
         function(s){
           res.send(s);
+        },function(r){
+          res.status(502).send(r);
+        }
+      );
+    }
+  });
+
+  router.post('/fetch/headers/', function(req, res){
+    var uname = req.session.user.username,
+      password = req.body.password,
+      startIndex = req.body.startIndex,
+      endIndex = req.body.endIndex;
+
+    if(!uname || !password || !startIndex){
+      console.log(uname+' '+password+' '+startIndex);
+      res.status(502).send('Insufficient field values');
+    }else {
+      imap.getheaders(uname, password, startIndex, endIndex).then(
+        function(s){
+          res.send(JSON.parse(JSON.stringify(s)));
         },function(r){
           res.status(502).send(r);
         }
