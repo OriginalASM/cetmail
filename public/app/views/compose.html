@@ -1,12 +1,36 @@
-<form>
-  <label for="To">To:
-    <input id="To" ng-model="mail.receiver" placehoder="shubham@mail.zairza.in">
-  </label>
-  <label for="subject">Subject:
-    <input id="subject" ng-model="mail.subjectLine" placehoder="subject">
-  </label>
-  <label for="body">Message:
-    <textarea id="body" ng-model="mail.MessageBody" cols="15" width="100%"></textarea>
-  </label>
-  <button ng-click="sendMail()">Send</button>
-</form>
+<div ng-controller='ComposeCtrl' ng-cloak flex id="compose">
+
+  <div >
+     <md-toolbar>
+    <div class="md-toolbar-tools"  >
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="closeDialog()"  ng-click="active()" class="md-primary">
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-content >
+
+     <md-input-container class="md-icon-float md-block">
+ <md-icon  class="name">contact_mail</md-icon>
+       <label>To:</label>
+
+       <input ng-model="mail.receiver" placehoder="someone@mail.zairza.in" type="email">
+     </md-input-container>
+     <md-input-container class="md-icon-float md-block">
+ <md-icon class="name">comment</md-icon>
+       <label>Subject:</label>
+
+       <input ng-model="mail.subjectLine" placehoder="subject" type="text">
+     </md-input-container>
+     <md-input-container class="md-block">
+        <md-icon class="name">message</md-icon>
+         <label>Message</label>
+         <textarea  ng-model="mail.MessageBody" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+       </md-input-container>
+
+     <md-button ng-click="sendMail()" class="md-raised md-primary right">Send</md-button>
+</md-content>
+
+</div>
