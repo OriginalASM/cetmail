@@ -1,73 +1,91 @@
 /*
 * @doc: https://github.com/mscdex/node-imap
 */
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 var Imap = require('imap'),
   inspect = require('util').inspect,
-  q = require('q');
+  Q = require('q');
 
 var MailParser = require("mailparser").MailParser;
 var mailparser = new MailParser('debug');
 var fs = require("fs");
 
-mailparser.on("end", function(mail_object){
-  console.log(mail_object);
-});
+module.exports = {
+  getMail : function(username, password, startIndex, endIndex){
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    var result = Q.defer();
+    var Mails = [];
 
-var imap = new Imap({
-  user: 'shubham@mail.zairza.in',
-  password: 'shubham',
-  host: 'mail.zairza.in',
-  port: 993,
-  tls: true
-});
 
-function openInbox(cb) {
-  imap.openBox('INBOX', true, cb);
-}
+    var imap = new Imap({
+      user: username + '@mail.zairza.in',
+      password: password,
+      host: 'mail.zairza.in',
+      port: 993,
+      tls: true
+    });
 
-imap.once('ready', function() {
-  openInbox(function(err, box) {
-    if (err) throw err;
-    var f = imap.fetch('1:8', { bodies: '' });
-    f.on('message', function (msg, seqno) {
-      console.log('Message #%d', seqno);
-      var prefix = '(#' + seqno + ') ';
-      msg.on('body', function (stream, info) {
-        var buffer = '';
-        stream.on('data', function (chunk) {
-          buffer += chunk.toString('utf8');
+    function openInbox(cb) {
+      imap.openBox('INBOX', true, cb);
+    }
+
+    imap.once('ready', function() {
+      openInbox(function(err, box) {
+        if (err) result.reject(err);
+
+        var QueryIndex ;
+
+        if (startIndex === 'latest') { QueryIndex = box.messages.total.toString() ;}
+        else if (!endIndex) { QueryIndex = startIndex.toString() ;}
+        else {QueryIndex = startIndex.toString() + ':' + endIndex.toString() ; }
+
+        console.log(QueryIndex);
+
+        var f = imap.fetch(QueryIndex, { bodies: '' });
+        f.on('message', function (msg) {
+          var z = {} ;
+          mailparser.on("end", function(mail_object){
+            z['details' ] = mail_object;
+            Mails.push(z);
+          });
+          msg.on('body', function (stream) {
+            var buffer = '';
+            stream.on('data', function (chunk) {
+              buffer += chunk.toString('utf8');
+            });
+            stream.once('end', function () {
+              mailparser.write(buffer.toString());
+            });
+          });
+          msg.once('attributes', function (attrs) {
+            z['attributes'] = inspect(attrs, false, 8);
+          });
+          msg.once('end', function () {
+            mailparser.end();
+          });
         });
-        stream.once('end', function () {
-          //console.log(buffer);
-          mailparser.write(buffer.toString());
-          mailparser.end();
+        f.once('error', function (err) {
+          result.reject('Fetch error: ' + err);
+        });
+        f.once('end', function () {
+          imap.end();
         });
       });
-      msg.once('attributes', function (attrs) {
-        console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
-      });
-      msg.once('end', function () {
-        console.log(prefix + 'Finished');
-      });
     });
-    f.once('error', function (err) {
-      console.log('Fetch error: ' + err);
+
+    imap.once('error', function(err) {
+      result.reject(err);
     });
-    f.once('end', function () {
-      console.log('Done fetching all messages!');
-      imap.end();
+
+    imap.once('end', function() {
+      result.resolve(Mails);
     });
-  });
-});
 
-imap.once('error', function(err) {
-  console.log(err);
-});
+    imap.connect();
 
-imap.once('end', function() {
-  console.log('Connection ended');
-});
+    return result.promise ;
+  }
 
-imap.connect();
+};
