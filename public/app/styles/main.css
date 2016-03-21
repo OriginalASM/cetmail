@@ -49,3 +49,24 @@
 
 /*css for input in search*/
 #inp{padding-top:18px;}
+
+
+
+#compose{
+width: 550px;
+height: 500px;
+}
+
+@media screen and (max-width: 480px) {
+
+  #compose{
+  width: 300px;
+  height: 400px;
+  }
+  #content{
+flex=100;
+
+  }
+
+
+}

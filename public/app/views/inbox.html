@@ -95,10 +95,10 @@
 
   <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
   <md-item layout class="inset">
-        <md-button layout layout-align="start center" flex class="md-primary" id="plus">
+        <md-button layout layout-align="start center" flex class="md-primary" id="plus" class="md-raised md-primary"
+         ng-click="showDialog($event)" ng-disabled="disableCompose">
           <span class="fa-stack fa-lg">
-
-               <i class="fa fa-plus fa-1x "></i>
+            <i class="fa fa-plus fa-1x "></i>
              </span>
         </md-button>
       </md-item>
