@@ -10,6 +10,10 @@
   <!-- bower:css -->
    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+   <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css"/>
+   <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css"/>
+
+
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -21,7 +25,7 @@
   <!-- endbuild -->
 
 </head>
-<body ng-app="App">
+<body ng-app="App" layout='column'>
 
 <!--[if lte IE 8]>
   <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -42,19 +46,60 @@
         <section ng-controller="InboxCtrl">
           <md-button class="md-icon-button rightbutton md-primary" aria-label="Favorite"
                      ng-click="toggleLeft()" hide-gt-md>
-            <i class='fa fa-bars fa-2x'></i>
+            <i class='fa fa-bars icon-size'></i>
           </md-button>
         </section>
         <md-button class="md-icon-button rightbutton" ng-click='Logout()' aria-label="Favorite">
-          <i class='fa fa-sign-out fa-2x'></i>
+          <i class='fa fa-sign-out icon-size'></i>
         </md-button>
       </div>
     </md-toolbar>
+    <div ng-view>
+
+    </div>
   </md-content>
 </div>
-<div ng-view>
-
+<div id='compose' ng-hide='hideCompose'>
+  <div>
+    <table>
+      <tr>
+        <td>New Message</td>
+        <td>Control icons</td>
+      </tr>
+      <tr>
+        <td>From</td>
+      </tr>
+      <tr>
+        <td>Subject</td>
+      </tr>
+      <tr>
+        <td>Body</td>
+      </tr>
+      <tr>
+        <td>Send Controls</td>
+      </tr>
+    </table>
+  </div>
 </div>
+<style>
+#compose{
+  position: fixed;
+  left : 0px;
+  right : 0px;
+  height: 0px;
+  border: 1px solid black;
+  bottom: 0px;
+}
+#compose > div{
+  margin-right: 5px;
+  float : right;
+  background-color: green;
+  height: 450px;
+  width : 450px;
+  margin-top: -450px;
+}
+</style>
+
 
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -64,6 +109,9 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
+      <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+      <script  src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
