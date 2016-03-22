@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('ComposeCtrl', function ($scope, $http,$rootScope) {
+  .controller('ComposeCtrl', function ($scope, $http,$rootScope,$mdDialog) {
     $scope.mail = {
       password : $rootScope.pass
     };
@@ -21,8 +21,21 @@ angular.module('App')
       }).success(function(s){
         console.log(s);
         alert(s);
+
       }).error(function(e){
         console.error(e);
       });
+
+
+      
+
+
+
+
     }
+
+
+
+
+
   });

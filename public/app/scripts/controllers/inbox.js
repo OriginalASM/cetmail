@@ -219,6 +219,11 @@ angular.module('App')
           controller: DialogController
         });
 
+
+  
+
+
+
         function DialogController($scope,$mdDialog, items) {
           $scope.items = items;
           $scope.closeDialog = function() {

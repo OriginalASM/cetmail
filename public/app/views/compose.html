@@ -4,7 +4,7 @@
      <md-toolbar>
     <div class="md-toolbar-tools"  >
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="closeDialog()"  ng-click="active()" class="md-primary">
+      <md-button class="md-icon-button" ng-click="closeDialog()"  class="md-primary">
         <md-icon aria-label="Close dialog">close</md-icon>
       </md-button>
     </div>
@@ -27,7 +27,7 @@
      <md-input-container class="md-block">
         <md-icon class="name">message</md-icon>
          <label>Message</label>
-         <textarea  ng-model="mail.MessageBody" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+         <textarea  ng-model="mail.MessageBody" md-maxlength="500" ></textarea>
        </md-input-container>
 
      <md-button ng-click="sendMail()" class="md-raised md-primary right">Send</md-button>
