@@ -1,4 +1,5 @@
-<div ng-controller='ComposeCtrl' ng-cloak flex id="compose">
+<div ng-controller="InboxCtrl" ng-cloak >
+  <div ng-controller='ComposeCtrl' ng-cloak flex id="compose">
 
   <div >
      <md-toolbar>
@@ -30,7 +31,9 @@
          <textarea  ng-model="mail.MessageBody" md-maxlength="500" ></textarea>
        </md-input-container>
 
-     <md-button ng-click="sendMail()" class="md-raised md-primary right">Send</md-button>
+     <md-button ng-click="sendMail();closeDialog();status()" class="md-raised md-primary right">Send</md-button>
 </md-content>
 
 </div>
+</div>
+</div> 

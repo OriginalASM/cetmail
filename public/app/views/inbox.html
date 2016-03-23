@@ -88,10 +88,10 @@
   <md-table-container>
     <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
       <tbody md-body>
-        <tr md-row md:select="dessert" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="dessert in desserts | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell>{{dessert.who}}</td>
-          <td md-cell>{{dessert.what}}</td>
-          <td md-cell>{{dessert.when}}</td>
+        <tr md-row md:select="dessert" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+          <td md-cell>{{msg.who}}</td>
+          <td md-cell>{{msg.what}}</td>
+          <td md-cell>{{msg.when}}</td>
         </tr>
       </tbody>
     </table>
@@ -107,10 +107,11 @@
         </md-button>
       </md-item>
 
-      <div ng-if="status" id="status">
+      <div ng-if="resp" >
         <b layout="row" layout-align="center center" class="md-padding">
-          {{status}}
-        </b></div>
+          {{resp}}
+        </b>
+      </div>
 </md-content>
     </section>
 

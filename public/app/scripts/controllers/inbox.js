@@ -88,7 +88,7 @@ angular.module('App')
     };
 
 
-    $scope.desserts = [{
+    $scope.msgs = [{
       what: 'Brunch this weekend?',
       who: 'Lalu',
       when: '3:08PM',
@@ -150,7 +150,7 @@ angular.module('App')
       notes: "Have any ideas of what we should get Heidi for her birthday?"
     }];
 
-    $scope.count = $scope.desserts.length;
+    $scope.count = $scope.msgs.length;
 
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
@@ -220,7 +220,7 @@ angular.module('App')
         });
 
 
-  
+
 
 
 
@@ -233,13 +233,17 @@ angular.module('App')
           }
         }
       }
-
-
 function active(){
   $scope.disableCompose=false;
 
 }
 
+
+  $scope.status = function(){
+    $scope.resp='Your message was sent successfully';
+console.log("I will print the success msg :)");
+
+}
 
 
 
