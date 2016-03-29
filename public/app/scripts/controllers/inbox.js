@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log,$mdDialog) {
+  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $mdDialog) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
@@ -50,32 +50,6 @@ angular.module('App')
 
     ];
 
-    $scope.activity = [{
-      what: 'Brunch this weekend?',
-      who: 'Lalu',
-      when: '3:08PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      what: 'Summer BBQ',
-      who: 'Rishav',
-      when: '3:08PM',
-      notes: "Wish I could come out but I'm out of town this weekend"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }, {
-      what: 'Recipe to try',
-      who: 'Ashu',
-      when: '3:08PM',
-      notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-    }, ];
 
 
 
@@ -186,64 +160,69 @@ angular.module('App')
     };
 
 
-      var alert;
-      $scope.showAlert = showAlert;
-      $scope.showDialog = showDialog;
-      $scope.items = [1, 2, 3];
-      function showAlert() {
-        alert = $mdDialog.alert({
-          title: 'Attention',
-          textContent: 'This is an example of how easy dialogs can be!',
-          ok: 'Close'
+    var alert;
+    $scope.showAlert = showAlert;
+    $scope.showDialog = showDialog;
+    $scope.items = [1, 2, 3];
+
+    function showAlert() {
+      alert = $mdDialog.alert({
+        title: 'Attention',
+        textContent: 'This is an example of how easy dialogs can be!',
+        ok: 'Close'
+      });
+      $mdDialog
+        .show(alert)
+        .finally(function() {
+          alert = undefined;
         });
-        $mdDialog
-          .show(alert)
-          .finally(function() {
-            alert = undefined;
-          });
-      }
+    }
 
 
-      function showDialog($event) {
+    function showDialog($event) {
 
 
-        $scope.disableCompose=true;
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-          parent: parentEl,
-          targetEvent: $event,
-          templateUrl:'views/compose.html',
-          locals: {
-            items: $scope.items
-          },
-          controller: DialogController
-        });
+      $scope.disableCompose = true;
+      var parentEl = angular.element(document.body);
+      $mdDialog.show({
+        parent: parentEl,
+        targetEvent: $event,
+        templateUrl: 'views/compose.html',
+        locals: {
+          items: $scope.items
+        },
+        controller: DialogController
+      });
 
 
 
 
 
 
-        function DialogController($scope,$mdDialog, items) {
-          $scope.items = items;
-          $scope.closeDialog = function() {
-            $scope.disableCompose=false;
-            $mdDialog.hide();
-            active();
-          }
+      function DialogController($scope, $mdDialog, items) {
+        $scope.items = items;
+        $scope.closeDialog = function() {
+          $scope.disableCompose = false;
+          $mdDialog.hide();
+          active();
         }
       }
-function active(){
-  $scope.disableCompose=false;
+    }
 
-}
+    function active() {
+      $scope.disableCompose = false;
+
+    }
 
 
-  $scope.status = function(){
-    $scope.resp='Your message was sent successfully';
-console.log("I will print the success msg :)");
+  
 
-}
+    $scope.status = function() {
+      $scope.resp = 'Your message was sent successfully';
+      console.log($scope.resp);
+      console.log("I will print the success msg ");
+
+    }
 
 
 

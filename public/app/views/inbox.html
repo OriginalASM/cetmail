@@ -88,7 +88,7 @@
   <md-table-container>
     <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
       <tbody md-body>
-        <tr md-row md:select="dessert" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+        <tr md-row md:select="msg" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
           <td md-cell>{{msg.who}}</td>
           <td md-cell>{{msg.what}}</td>
           <td md-cell>{{msg.when}}</td>
