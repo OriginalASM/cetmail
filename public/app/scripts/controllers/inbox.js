@@ -136,11 +136,11 @@ angular.module('App')
     };
 
     $scope.deselect = function(item) {
-      console.log(item.name, 'was deselected');
+      // console.log(item.name, 'was deselected');
     };
 
-    $scope.log = function(item) {
-      console.log(item.name, 'was selected');
+    $scope.select = function(item) {
+      // console.log(item.name, 'was selected');
     };
 
     $scope.loadStuff = function() {
@@ -151,8 +151,8 @@ angular.module('App')
 
     $scope.onReorder = function(order) {
 
-      console.log('Scope Order: ' + $scope.query.order);
-      console.log('Order: ' + order);
+      // console.log('Scope Order: ' + $scope.query.order);
+      // console.log('Order: ' + order);
 
       $scope.promise = $timeout(function() {
 
@@ -160,62 +160,9 @@ angular.module('App')
     };
 
 
-    var alert;
-    $scope.showAlert = showAlert;
-    $scope.showDialog = showDialog;
-    $scope.items = [1, 2, 3];
-
-    function showAlert() {
-      alert = $mdDialog.alert({
-        title: 'Attention',
-        textContent: 'This is an example of how easy dialogs can be!',
-        ok: 'Close'
-      });
-      $mdDialog
-        .show(alert)
-        .finally(function() {
-          alert = undefined;
-        });
-    }
-
-
-    function showDialog($event) {
-
-
-      $scope.disableCompose = true;
-      var parentEl = angular.element(document.body);
-      $mdDialog.show({
-        parent: parentEl,
-        targetEvent: $event,
-        templateUrl: 'views/compose.html',
-        locals: {
-          items: $scope.items
-        },
-        controller: DialogController
-      });
 
 
 
-
-
-
-      function DialogController($scope, $mdDialog, items) {
-        $scope.items = items;
-        $scope.closeDialog = function() {
-          $scope.disableCompose = false;
-          $mdDialog.hide();
-          active();
-        }
-      }
-    }
-
-    function active() {
-      $scope.disableCompose = false;
-
-    }
-
-
-  
 
     $scope.status = function() {
       $scope.resp = 'Your message was sent successfully';

@@ -88,7 +88,7 @@
   <md-table-container>
     <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
       <tbody md-body>
-        <tr md-row md:select="msg" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+        <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
           <td md-cell>{{msg.who}}</td>
           <td md-cell>{{msg.what}}</td>
           <td md-cell>{{msg.when}}</td>
@@ -98,7 +98,7 @@
   </md-table-container>
 
   <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
-  <md-item layout class="inset">
+  <md-item layout class="inset" ng-controller='ComposeCtrl'>
         <md-button layout layout-align="start center" flex class="md-primary" id="plus" class="md-raised md-primary"
          ng-click="showDialog($event)" ng-disabled="disableCompose">
           <span class="fa-stack fa-lg">

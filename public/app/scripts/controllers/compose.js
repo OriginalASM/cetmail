@@ -25,15 +25,62 @@ angular.module('App')
       }).error(function(e){
         console.error(e);
       });
+}
 
 
-      
+var alert;
+$scope.showAlert = showAlert;
+$scope.showDialog = showDialog;
+$scope.items = [1, 2, 3];
+
+function showAlert() {
+  alert = $mdDialog.alert({
+    title: 'Attention',
+    textContent: 'This is an example of how easy dialogs can be!',
+    ok: 'Close'
+  });
+  $mdDialog
+    .show(alert)
+    .finally(function() {
+      alert = undefined;
+    });
+}
+
+
+function showDialog($event) {
+
+
+  $scope.disableCompose = true;
+  var parentEl = angular.element(document.body);
+  $mdDialog.show({
+    parent: parentEl,
+    targetEvent: $event,
+    templateUrl: 'views/compose.html',
+    locals: {
+      items: $scope.items
+    },
+    controller: DialogController
+  });
 
 
 
 
+
+
+  function DialogController($scope, $mdDialog, items) {
+    $scope.items = items;
+    $scope.closeDialog = function() {
+      $scope.disableCompose = false;
+      $mdDialog.hide();
+      active();
     }
+  }
+}
 
+function active() {
+  $scope.disableCompose = false;
+
+}
 
 
 
