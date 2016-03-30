@@ -45,8 +45,10 @@
 						<md-input-container class="md-block">
 
 							<label>Username</label>
-	            <input id='username' required type="text" name="UserName" ng-model="Credentials.username"/>
-							<p id='mail'>@mail.zairza.in</p>
+	            <input id='username' required type="text" name="UserName" ng-model="Credentials.username"
+                ng-model-options="{ updateOn: 'blur' }" ng-change='isavailable()' userValidate/>
+							<p id='mail'>@mail.zairza.in {{usernameStatus}}</p>
+
               <div ng-messages="RegisterForm.UserName.$error" role="alert">
                 <div ng-message-exp="['required']">
                   This field is required.
@@ -120,7 +122,7 @@
     width: 100%;
   }
 	#username{
-		width : 50%;
+		width : 40%;
 		text-align: right;
 		float:left;
 	}
