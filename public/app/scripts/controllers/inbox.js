@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $mdDialog) {
+  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
@@ -211,6 +211,44 @@ angular.module('App')
           });
       }
     }
+
+
+
+    $scope.body = function(Index){
+      $scope.dat = {
+        startIndex : Index,
+        password : $rootScope.pass
+      };
+console.log($scope.dat);
+      $http({
+        method:'post',
+        url: '/mail/fetch/body',
+        headers: {'Content-Type': 'application/json'},
+        data: $scope.dat
+      }).success(function(s){
+        console.log(JSON.parse(s));
+        alert("Recieving Data");
+
+      }).error(function(e){
+        console.error(e);
+      });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   })
   .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
     $scope.close = function() {
