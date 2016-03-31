@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog) {
+  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog , MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
@@ -145,7 +145,7 @@ angular.module('App')
 
     $scope.loadMails = function() {
       var Data = {
-        password : $rootScope.pass,
+        password : MailboxPassword(),
         startIndex : '1' ,
         endIndex : '*'
       };
@@ -234,19 +234,18 @@ angular.module('App')
 
 
     $scope.body = function(Index){
-      $scope.dat = {
+      var dat = {
         startIndex : Index,
-        password : $rootScope.pass
+        password : MailboxPassword()
       };
-console.log($scope.dat);
       $http({
         method:'post',
         url: '/mail/fetch/body',
         headers: {'Content-Type': 'application/json'},
-        data: $scope.dat
+        data: dat
       }).success(function(s){
-        console.log(JSON.parse(s));
-        alert("Recieving Data");
+        console.log(s[0].details.text);
+        //alert("Recieving Data");
 
       }).error(function(e){
         console.error(e);
