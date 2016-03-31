@@ -61,70 +61,10 @@ angular.module('App')
       page: 1
     };
 
-    $scope.msgs = [];
-    /*$scope.msgs = [{
-      what: 'Brunch this weekend?',
-      who: 'Lalu',
-      when: '3:08PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      what: 'Summer BBQ',
-      who: 'Rishav',
-      when: '3:08PM',
-      notes: "Wish I could come out but I'm out of town this weekend"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }, {
-      what: 'Recipe to try',
-      who: 'Ashu',
-      when: '3:08PM',
-      notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }, {
-      what: 'Recipe to try',
-      who: 'Ashu',
-      when: '3:08PM',
-      notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-    }, {
-      what: 'Brunch this weekend?',
-      who: 'Lalu',
-      when: '3:08PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      what: 'Summer BBQ',
-      who: 'Rishav',
-      when: '3:08PM',
-      notes: "Wish I could come out but I'm out of town this weekend"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }];*/
 
-    $scope.count = $scope.msgs.length;
+
+  $scope.msgs=[];
+  
 
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
@@ -156,18 +96,26 @@ angular.module('App')
         data : Data
       }).success(function(Messages){
         var mail = {};
+         func(Messages.length);
+
         Messages.forEach(function(msg){
           mail.from = msg.header.headers.from;
           mail.subject = msg.header.headers.subject;
           mail.date = msg.header.headers.date;
           console.log(mail.from + " " + mail.subject + " " + mail.date);
           $scope.msgs.push(mail);
+
         });
+
       }).error(function(err){
         console.log(err);
       });
     };
     $scope.loadMails();
+function func(x) {$scope.count=x};
+
+
+
     $scope.onReorder = function(order) {
 
       // console.log('Scope Order: ' + $scope.query.order);
