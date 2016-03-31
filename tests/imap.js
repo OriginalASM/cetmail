@@ -163,7 +163,7 @@ var IMAP_test_object = {
 
 };
 
-IMAP_test_object.getheaders('shubham','shubham',5,9)
+IMAP_test_object.getMail('rishav.159','rishi',3)
   .then(
     function(a){
     console.log(a)

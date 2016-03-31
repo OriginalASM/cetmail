@@ -61,8 +61,8 @@ angular.module('App')
       page: 1
     };
 
-
-    $scope.msgs = [{
+    $scope.msgs = [];
+    /*$scope.msgs = [{
       what: 'Brunch this weekend?',
       who: 'Lalu',
       when: '3:08PM',
@@ -122,7 +122,7 @@ angular.module('App')
       who: 'Sohini',
       when: '3:08PM',
       notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }];
+    }];*/
 
     $scope.count = $scope.msgs.length;
 
@@ -143,12 +143,31 @@ angular.module('App')
       // console.log(item.name, 'was selected');
     };
 
-    $scope.loadStuff = function() {
-      $scope.promise = $timeout(function() {
-
-      }, 2000);
+    $scope.loadMails = function() {
+      var Data = {
+        password : $rootScope.pass,
+        startIndex : '1' ,
+        endIndex : '*'
+      };
+      console.log(Data);
+      $scope.promise = $http({
+        method : 'POST',
+        url : '/mail/fetch/headers',
+        data : Data
+      }).success(function(Messages){
+        var mail = {};
+        Messages.forEach(function(msg){
+          mail.from = msg.header.headers.from;
+          mail.subject = msg.header.headers.subject;
+          mail.date = msg.header.headers.date;
+          console.log(mail.from + " " + mail.subject + " " + mail.date);
+          $scope.msgs.push(mail);
+        });
+      }).error(function(err){
+        console.log(err);
+      });
     };
-
+    $scope.loadMails();
     $scope.onReorder = function(order) {
 
       // console.log('Scope Order: ' + $scope.query.order);

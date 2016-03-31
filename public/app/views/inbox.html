@@ -42,7 +42,7 @@
       <span></span>
       <span flex></span>
       <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
-      <md-button ng-click="loadStuff()">Load</md-button>
+      <md-button ng-click="loadMails()">Refresh</md-button>
 
 
 
@@ -88,10 +88,12 @@
   <md-table-container>
     <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
       <tbody md-body>
-        <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell>{{msg.who}}</td>
-          <td md-cell>{{msg.what}}</td>
-          <td md-cell>{{msg.when}}</td>
+        <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
+        x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
+         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit track by $index">
+          <td md-cell>{{msg.from}}</td>
+          <td md-cell>{{msg.subject}}</td>
+          <td md-cell>{{msg.date}}</td>
         </tr>
       </tbody>
     </table>
@@ -112,7 +114,7 @@
       </div>
 
 <div>  <md-button   class="md-primary"  class="md-raised md-primary"
-   ng-click="body(8)" aria-label="test">
+   ng-click="body(1)" aria-label="test">
     TEST
   </md-button></div>
 
