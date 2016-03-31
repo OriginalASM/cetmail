@@ -49,17 +49,14 @@ angular.module('App')
         $scope.usernameStatus = '';
       }else{
         var Data = { username : $scope.Credentials.username.trim() };
-        //console.log(Data);
         $http({
           method : 'POST' ,
           url : '/users/api/checkusername' ,
           data : Data
         }).success(function(s){
           if(s.status){
-            //console.log('Username available');
             $scope.available = true;
           }else{
-            //console.log('Username not available');
             $scope.available = false;
           }
         }).error(function(err){
