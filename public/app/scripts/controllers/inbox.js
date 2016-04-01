@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog) {
+  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog , MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
@@ -52,9 +52,16 @@ angular.module('App')
       page: 1
     };
 
+<<<<<<< HEAD
     $scope.msgs = [];
 
     $scope.count = $scope.msgs.length;
+=======
+
+
+  $scope.msgs=[];
+
+>>>>>>> 4402ed2733bf985b6513fc92133e102ac6da4a7d
 
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
@@ -75,7 +82,7 @@ angular.module('App')
 
     $scope.loadMails = function() {
       var Data = {
-        password : $rootScope.pass,
+        password : MailboxPassword(),
         startIndex : '1' ,
         endIndex : '*'
       };
@@ -86,18 +93,26 @@ angular.module('App')
         data : Data
       }).success(function(Messages){
         var mail = {};
+         func(Messages.length);
+
         Messages.forEach(function(msg){
           mail.from = msg.header.headers.from;
           mail.subject = msg.header.headers.subject;
           mail.date = msg.header.headers.date;
           console.log(mail.from + " " + mail.subject + " " + mail.date);
           $scope.msgs.push(mail);
+
         });
+
       }).error(function(err){
         console.log(err);
       });
     };
     $scope.loadMails();
+function func(x) {$scope.count=x};
+
+
+
     $scope.onReorder = function(order) {
 
       // console.log('Scope Order: ' + $scope.query.order);
@@ -152,18 +167,16 @@ angular.module('App')
     }
 
     $scope.body = function(Index){
-      $scope.dat = {
+      var dat = {
         startIndex : Index,
-        password : $rootScope.pass
       };
-      console.log($scope.dat);
       $http({
         method:'post',
         url: '/mail/fetch/body',
         headers: {'Content-Type': 'application/json'},
-        data: $scope.dat
+        data: dat
       }).success(function(s){
-        console.log(JSON.parse(s));
+        console.log(s);
         //alert("Recieving Data");
       }).error(function(e){
         console.error(e);
