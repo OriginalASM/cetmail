@@ -15,43 +15,34 @@ angular.module('App')
      * time is up.
      */
     $scope.menu = [{
-        link: '',
-        title: 'Inbox',
-        icon: 'inbox'
-      }, {
-        link: '',
-        title: 'Starred',
-        icon: 'star'
-      }, {
-        link: '',
-        title: 'Spam',
-        icon: 'folder'
-      }, {
-        link: '',
-        title: 'Important',
-        icon: 'exclamation-circle'
-      }, {
-        link: '',
-        title: 'sent',
-        icon: 'paper-plane'
-      }, {
-        link: '',
-        title: 'Trash',
-        icon: 'trash'
-      },
-
-      {
-        link: '',
-        title: 'Friends',
-        icon: 'users'
-      }
-
-
-
-    ];
-
-
-
+      link: '',
+      title: 'Inbox',
+      icon: 'inbox'
+    },{
+      link: '',
+      title: 'Starred',
+      icon: 'star'
+    },{
+      link: '',
+      title: 'Spam',
+      icon: 'folder'
+    },{
+      link: '',
+      title: 'Important',
+      icon: 'exclamation-circle'
+    },{
+      link: '',
+      title: 'sent',
+      icon: 'paper-plane'
+    },{
+      link: '',
+      title: 'Trash',
+      icon: 'trash'
+    },{
+      link: '',
+      title: 'Friends',
+      icon: 'users'
+    }];
 
     $scope.selected = [];
 
@@ -62,67 +53,6 @@ angular.module('App')
     };
 
     $scope.msgs = [];
-    /*$scope.msgs = [{
-      what: 'Brunch this weekend?',
-      who: 'Lalu',
-      when: '3:08PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      what: 'Summer BBQ',
-      who: 'Rishav',
-      when: '3:08PM',
-      notes: "Wish I could come out but I'm out of town this weekend"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }, {
-      what: 'Recipe to try',
-      who: 'Ashu',
-      when: '3:08PM',
-      notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }, {
-      what: 'Recipe to try',
-      who: 'Ashu',
-      when: '3:08PM',
-      notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-    }, {
-      what: 'Brunch this weekend?',
-      who: 'Lalu',
-      when: '3:08PM',
-      notes: " I'll be in your neighborhood doing errands"
-    }, {
-      what: 'Summer BBQ',
-      who: 'Rishav',
-      when: '3:08PM',
-      notes: "Wish I could come out but I'm out of town this weekend"
-    }, {
-      what: 'Oui Oui',
-      who: 'Sandy',
-      when: '3:08PM',
-      notes: "Do you have Paris recommendations? Have you ever been?"
-    }, {
-      what: 'Birthday Gift',
-      who: 'Sohini',
-      when: '3:08PM',
-      notes: "Have any ideas of what we should get Heidi for her birthday?"
-    }];*/
 
     $scope.count = $scope.msgs.length;
 
@@ -178,22 +108,12 @@ angular.module('App')
       }, 2000);
     };
 
-
-
-
-
-
     $scope.status = function() {
       $scope.resp = 'Your message was sent successfully';
       console.log($scope.resp);
       console.log("I will print the success msg ");
 
-    }
-
-
-
-
-
+    };
 
     function debounce(func, wait, context) {
       var timer;
@@ -231,14 +151,12 @@ angular.module('App')
       }
     }
 
-
-
     $scope.body = function(Index){
       $scope.dat = {
         startIndex : Index,
         password : $rootScope.pass
       };
-console.log($scope.dat);
+      console.log($scope.dat);
       $http({
         method:'post',
         url: '/mail/fetch/body',
@@ -246,26 +164,11 @@ console.log($scope.dat);
         data: $scope.dat
       }).success(function(s){
         console.log(JSON.parse(s));
-        alert("Recieving Data");
-
+        //alert("Recieving Data");
       }).error(function(e){
         console.error(e);
       });
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    };
 
 
   })

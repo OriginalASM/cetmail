@@ -35,77 +35,72 @@
     </md-sidenav>
 
 
-  <md-content flex=80 layout='column' id='content'>
+    <md-content flex=80 layout='column' id='content'>
 
-  <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
-    <div class="md-toolbar-tools">
-      <span></span>
-      <span flex></span>
-      <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
-      <md-button ng-click="loadMails()">Refresh</md-button>
+      <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+        <div class="md-toolbar-tools">
+          <span></span>
+          <span flex></span>
+          <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
+          <md-button ng-click="loadMails()">Refresh</md-button>
+          <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+          </md-button>
+          <md-button class="md-icon-button">
+            <md-icon>more_vert</md-icon>
+          </md-button>
 
-
-
-      <md-button aria-label="Search" ng-click="showSearch = !showSearch">
-        <ng-md-icon icon="search"></ng-md-icon>
-      </md-button>
-      </md-button>
-      <md-button class="md-icon-button">
-        <md-icon>more_vert</md-icon>
-      </md-button>
-
-    </div>
-  </md-toolbar>
+        </div>
+      </md-toolbar>
 
 
-  <md-toolbar class="md-hue-1 md-table-toolbar md-default" ng-show="showSearch">
-    <div class="md-toolbar-tools">
-      <md-button ng-click="showSearch = !showSearch" aria-label="Back">
-        <ng-md-icon icon="arrow_back"></ng-md-icon>
-      </md-button>
-      <h3 flex="10">
-                Back
-              </h3>
-      <md-input-container flex>
-        <label>&nbsp;</label>
-        <input ng-model="search.who" placeholder="enter search">
-      </md-input-container>
-      <md-button aria-label="Search" ng-click="showSearch = !showSearch">
-        <ng-md-icon icon="search"></ng-md-icon>
-      </md-button>
-
-    </div>
-
-  </md-toolbar>
+      <md-toolbar class="md-hue-1 md-table-toolbar md-default" ng-show="showSearch">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+            <ng-md-icon icon="arrow_back"></ng-md-icon>
+          </md-button>
+          <h3 flex="10">Back</h3>
+          <md-input-container flex>
+            <label>&nbsp;</label>
+            <input ng-model="search.who" placeholder="enter search">
+          </md-input-container>
+          <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
 
 
 
-
-
-
-
-
-  <md-table-container>
-    <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
-      <tbody md-body>
-        <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
-        x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
+      <md-table-container>
+        <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
+          <tbody md-body>
+          <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
+              x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
          orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit track by $index">
-          <td md-cell>{{msg.from}}</td>
-          <td md-cell>{{msg.subject}}</td>
-          <td md-cell>{{msg.date}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </md-table-container>
+            <td md-cell>{{msg.from}}</td>
+            <td md-cell>{{msg.subject}}</td>
+            <td md-cell>{{msg.date}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
 
-  <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
-  <md-item layout class="inset" ng-controller='ComposeCtrl'>
-        <md-button layout layout-align="start center"  id="plus" class="md-fab md-primary md-hue-2"
-         ng-click="showDialog($event)" ng-disabled="disableCompose" aria-label="Compose">
-       <ng-md-icon icon="create"></ng-md-icon>
+      <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
+
+
+
+
+
+      <!-- ................    Floating Compose button Start  ................. -->
+      <md-item layout class="inset" ng-controller='ComposeCtrl'>
+        <md-button layout layout-align="start center" id="plus" class="md-fab md-primary md-hue-2"
+                   ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">
+          <ng-md-icon icon="create"></ng-md-icon icon="create">
         </md-button>
       </md-item>
+      <!-- ................     Floating Compose button END  ................. -->
 
       <div ng-if="resp" >
         <b layout="row" layout-align="center center" class="md-padding">
@@ -113,19 +108,14 @@
         </b>
       </div>
 
-<div>  <md-button   class="md-primary"  class="md-raised md-primary"
-   ng-click="body(1)" aria-label="test">
-    TEST
-  </md-button></div>
 
 
-
-</md-content>
+    </md-content>
 
 
 
 
-    </section>
+  </section>
 
 
-    </div>
+</div>

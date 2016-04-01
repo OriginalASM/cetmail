@@ -14,7 +14,7 @@ module.exports = function() {
   router.all('/new/simple/', function(req,res){
     smtp.simpleMail ({
       username: req.session.user.username,
-      password: req.body.password,
+      password: req.session.atp,
       senderFullName: req.session.user.first_name + ' ' + req.session.user.last_name,
       receiver: req.body.receiver,
       subjectLine: req.body.subjectLine,
@@ -29,7 +29,7 @@ module.exports = function() {
 
   router.post('/fetch/body/', function(req, res){
     var uname = req.session.user.username,
-        password = req.body.password,
+        password = req.session.atp,
         startIndex = req.body.startIndex,
         endIndex = req.body.endIndex;
 
@@ -49,7 +49,7 @@ module.exports = function() {
 
   router.post('/fetch/headers/', function(req, res){
     var uname = req.session.user.username,
-      password = req.body.password,
+      password = req.session.atp,
       startIndex = req.body.startIndex,
       endIndex = req.body.endIndex;
 
@@ -59,7 +59,7 @@ module.exports = function() {
     }else {
       imap.getheaders(uname, password, startIndex, endIndex).then(
         function(s){
-          res.send(JSON.parse(JSON.stringify(s)));
+          res.send(s);
         },function(r){
           res.status(502).send(r);
         }
