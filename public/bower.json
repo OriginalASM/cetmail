@@ -12,7 +12,12 @@
     "material-design-lite": "^1.1.2",
     "angular-material": "^1.0.6",
     "font-awesome": "^4.5.0",
-    "froala-wysiwyg-editor": "^2.2.2"
+
+    "froala-wysiwyg-editor": "^2.2.2",
+
+    "angular-material-data-table": "^0.10.2",
+    "angular-material-icons": "^0.7.0"
+
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

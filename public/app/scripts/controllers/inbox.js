@@ -15,43 +15,34 @@ angular.module('App')
      * time is up.
      */
     $scope.menu = [{
-        link: '',
-        title: 'Inbox',
-        icon: 'inbox'
-      }, {
-        link: '',
-        title: 'Starred',
-        icon: 'star'
-      }, {
-        link: '',
-        title: 'Spam',
-        icon: 'folder'
-      }, {
-        link: '',
-        title: 'Important',
-        icon: 'exclamation-circle'
-      }, {
-        link: '',
-        title: 'sent',
-        icon: 'paper-plane'
-      }, {
-        link: '',
-        title: 'Trash',
-        icon: 'trash'
-      },
-
-      {
-        link: '',
-        title: 'Friends',
-        icon: 'users'
-      }
-
-
-
-    ];
-
-
-
+      link: '',
+      title: 'Inbox',
+      icon: 'inbox'
+    },{
+      link: '',
+      title: 'Starred',
+      icon: 'star'
+    },{
+      link: '',
+      title: 'Spam',
+      icon: 'folder'
+    },{
+      link: '',
+      title: 'Important',
+      icon: 'exclamation-circle'
+    },{
+      link: '',
+      title: 'sent',
+      icon: 'paper-plane'
+    },{
+      link: '',
+      title: 'Trash',
+      icon: 'trash'
+    },{
+      link: '',
+      title: 'Friends',
+      icon: 'users'
+    }];
 
     $scope.selected = [];
 
@@ -62,9 +53,10 @@ angular.module('App')
     };
 
 
+    $scope.msgs = [];
 
-  $scope.msgs=[];
-  
+    $scope.count = $scope.msgs.length;
+
 
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
@@ -126,22 +118,12 @@ function func(x) {$scope.count=x};
       }, 2000);
     };
 
-
-
-
-
-
     $scope.status = function() {
       $scope.resp = 'Your message was sent successfully';
       console.log($scope.resp);
       console.log("I will print the success msg ");
 
-    }
-
-
-
-
-
+    };
 
     function debounce(func, wait, context) {
       var timer;
@@ -179,12 +161,9 @@ function func(x) {$scope.count=x};
       }
     }
 
-
-
     $scope.body = function(Index){
       var dat = {
         startIndex : Index,
-        password : MailboxPassword()
       };
       $http({
         method:'post',
@@ -192,27 +171,12 @@ function func(x) {$scope.count=x};
         headers: {'Content-Type': 'application/json'},
         data: dat
       }).success(function(s){
-        console.log(s[0].details.text);
+        console.log(s);
         //alert("Recieving Data");
-
       }).error(function(e){
         console.error(e);
       });
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    };
 
 
   })

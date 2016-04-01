@@ -27,7 +27,6 @@ angular.module('App')
     };
 
     $scope.showAlert = showAlert;
-    $scope.showDialog = showDialog;
 
     function showAlert(reason) {
       var alert = $mdDialog.alert({
@@ -43,36 +42,31 @@ angular.module('App')
         });
     }
 
+    /*****************COMPOSE CONTROLS**********************/
 
-    function showDialog($event) {
-      $scope.disableCompose = true;
-      var parentEl = angular.element(document.body);
+    var DialogProps = {
+      visible : false
+    };
+
+    $scope.DialogProps = DialogProps;
+    $scope.showDialog = showComposeDialog;
+
+    function showComposeDialog() {
+      DialogProps.visible = true;
       $mdDialog.show({
-        parent: parentEl,
-        targetEvent: $event,
         templateUrl: 'views/compose.html',
-        locals: {
-          items: $scope.items
-        },
-        controller: DialogController
+        controller: ComposeDialogCtrl
       });
 
-      function DialogController($scope, $mdDialog, items) {
-        $scope.items = items;
+      function ComposeDialogCtrl($scope, $mdDialog) {
         $scope.closeDialog = function() {
-          $scope.disableCompose = false;
           $mdDialog.hide();
-          active();
+          DialogProps.visible = false;
         }
       }
     }
 
-    function active() {
-      $scope.disableCompose = false;
-
-    }
-
-
+    /****************END COMPOSE CONTROLS**********************/
 
 
   });
