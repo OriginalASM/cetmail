@@ -21,6 +21,7 @@
           <md-icon class="name">comment</md-icon>
           <label>Subject:</label>
 
+
           <input ng-model="mail.subjectLine" placehoder="subject" type="text">
         </md-input-container>
         <md-input-container class="md-block">
@@ -28,6 +29,7 @@
           <label>Message</label>
           <textarea  ng-model="mail.MessageBody" md-maxlength="500" ></textarea>
         </md-input-container>
+
 
         <md-button ng-click="sendMail();closeDialog();status()" class="md-raised md-primary right">Send</md-button>
       </md-content>

@@ -52,16 +52,11 @@ angular.module('App')
       page: 1
     };
 
-<<<<<<< HEAD
+
     $scope.msgs = [];
 
     $scope.count = $scope.msgs.length;
-=======
 
-
-  $scope.msgs=[];
-
->>>>>>> 4402ed2733bf985b6513fc92133e102ac6da4a7d
 
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
