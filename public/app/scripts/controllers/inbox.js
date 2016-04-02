@@ -47,21 +47,16 @@ angular.module('App')
     $scope.selected = [];
 
     $scope.query = {
-      order: 'name',
+
+      order: 'index',
+
       limit: 10,
       page: 1
     };
 
 
     $scope.msgs = [];
-    $scope.onPaginate = function(page, limit) {
-      console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-      console.log('Page: ' + page + ' Limit: ' + limit);
 
-      $scope.promise = $timeout(function() {
-
-      }, 2000);
-    };
 
     $scope.deselect = function(item) {
       // console.log(item.name, 'was deselected');

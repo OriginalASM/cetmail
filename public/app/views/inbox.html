@@ -78,7 +78,7 @@
           <tbody md-body>
           <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
               x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit"  >
+         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit" mdDesc >
             <td md-cell>{{msg.from}}</td>
             <td md-cell>{{msg.subject}}</td>
             <td md-cell>{{msg.date}}</td>
@@ -87,9 +87,9 @@
         </table>
       </md-table-container>
 
-      <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-on-paginate="onPaginate" md-page-select></data-md-table-pagination>
-
-
+      <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]"
+                                md-total="{{count}}" md-on-paginate="" md-page-select>
+      </data-md-table-pagination>
 
 
 
