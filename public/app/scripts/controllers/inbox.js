@@ -84,34 +84,29 @@ angular.module('App')
         data : Data
       }).success(function(Messages){
 
-         number_of_mails(Messages.length);
+        number_of_mails(Messages.length);
 
         try{
           Messages.forEach(function(msg){
             var mail = {};
-          mail.index = msg.index;
-          mail.from = msg.envelope.sender[0].address;
-          mail.subject = msg.envelope.subject;
-          mail.date = msg.envelope.date;
-          console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
-          $scope.msgs.push(mail);
-
-        });
-        }catch(e){console.log(e);};
-
-
-
+            mail.index = msg.index;
+            mail.from = msg.envelope.sender[0].address;
+            mail.subject = msg.envelope.subject;
+            mail.date = msg.envelope.date;
+            console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
+            $scope.msgs.push(mail);
+          });
+        }catch(e){
+          console.log(e);
+        }
       }).error(function(err){
         console.log(err);
       });
     };
 
-
-
-function number_of_mails(x) {$scope.count=x};
-
-
-
+    function number_of_mails(x) {
+      $scope.count = x
+    }
     $scope.onReorder = function(order) {
 
       // console.log('Scope Order: ' + $scope.query.order);

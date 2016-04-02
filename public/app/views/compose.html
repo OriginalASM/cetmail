@@ -1,39 +1,34 @@
 <div ng-controller="InboxCtrl" ng-cloak>
-  <div ng-controller='ComposeCtrl' ng-cloak flex id="compose">
-    <div>
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <span flex></span>
-          <md-button class="md-icon-button" ng-click="closeDialog()"  class="md-primary">
-            <md-icon aria-label="Close dialog">close</md-icon>
-          </md-button>
-        </div>
-      </md-toolbar>
-
-      <md-content >
+  <div ng-controller='ComposeCtrl' ng-cloak layout-fill class="composeDialog">
+   <md-toolbar>
+      <div class="md-toolbar-tools">
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="closeDialog()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-card flex>
+      <md-card-content>
         <md-input-container class="md-icon-float md-block">
-          <md-icon  class="name">contact_mail</md-icon>
           <label>To:</label>
-
-          <input ng-model="mail.receiver" placehoder="someone@mail.zairza.in" type="email">
+          <input ng-model="mail.receiver" placehoder="someone@mail.zairza.in" type="text">
         </md-input-container>
         <md-input-container class="md-icon-float md-block">
-          <md-icon class="name">comment</md-icon>
           <label>Subject:</label>
-
-
           <input ng-model="mail.subjectLine" placehoder="subject" type="text">
         </md-input-container>
-        <md-input-container class="md-block">
-          <md-icon class="name">message</md-icon>
-          <label>Message</label>
-          <textarea  ng-model="mail.MessageBody" md-maxlength="500" ></textarea>
-        </md-input-container>
-
-
-        <md-button ng-click="sendMail();closeDialog();status()" class="md-raised md-primary right">Send</md-button>
-      </md-content>
-
-    </div>
+        <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
+      </md-card-content>
+      <div layout="row">
+        <md-card-actions flex="70" layout="row" layout-align="start end">
+          <md-button >Attachments</md-button>
+        </md-card-actions>
+        <md-card-actions flex="30" layout="row" layout-align="end end">
+          <md-button>Save</md-button>
+          <md-button ng-click="sendMail();closeDialog();status()">Send</md-button>
+        </md-card-actions>
+      </div>
+    </md-card>
   </div>
 </div>

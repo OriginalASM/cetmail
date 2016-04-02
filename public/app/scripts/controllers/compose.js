@@ -68,5 +68,16 @@ angular.module('App')
 
     /****************END COMPOSE CONTROLS**********************/
 
+    /* text editor controls*/
+    $scope.froalaOptions = {
+      toolbarBottom: true,
+      toolbarButtons: ['fullscreen', 'bold', 'italic','|',
+        'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|',
+        'color', 'emoticons','|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent']
+      /*
+      * '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
+      * */
+    }
+
 
   });

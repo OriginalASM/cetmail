@@ -19,7 +19,7 @@ module.exports = function() {
       receiver: req.body.receiver,
       subjectLine: req.body.subjectLine,
       MessageBody: req.body.MessageBody,
-      HtmlMessageBody: req.body.MessageBody
+      HtmlMessageBody: req.body.HtmlMessageBody
     }).then(function(response){
       res.send(response);
     },function(err){

@@ -19,7 +19,7 @@ module.exports = {
     var deferred = Q.defer();
     console.log(args);
 
-    if (!args['username']||!args['password']||!args['receiver']||!args['subjectLine']||!args['MessageBody']){
+    if (!args['username']||!args['password']||!args['receiver']){
       deferred.reject('one or more required arguments missing');
     } else {
       // create reusable transporter object using the default SMTP transport
@@ -38,7 +38,7 @@ module.exports = {
         from: (args['senderFullName']||args['username']) + ' <' + args['username'] + '@mail.zairza.in>', // sender address
         to: args['receiver'], // list of receivers
         subject: args['subjectLine'], // Subject line
-        text: args['MessageBody'] // plaintext body
+        text: args['MessageBody'] || '' // plaintext body
       };
 
       if (args['HtmlMessageBody']){

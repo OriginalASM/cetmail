@@ -97,4 +97,8 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .value('froalaConfig', {
+    toolbarInline: false,
+    placeholderText: 'Body'
   });
