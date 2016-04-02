@@ -65,6 +65,7 @@ angular.module('App')
     };
 
     $scope.loadMails = function() {
+      $scope.msgs = [] ; // empty old list
       var Data = {
         password : MailboxPassword(),
         startIndex : '1' ,
@@ -82,7 +83,7 @@ angular.module('App')
         try{
           Messages.forEach(function(msg){
             var mail = {};
-            mail.index = msg.index;
+            mail.index = parseInt(msg.index) ;
             mail.from = msg.envelope.sender[0].address;
             mail.subject = msg.envelope.subject;
             mail.date = msg.envelope.date;
@@ -155,7 +156,7 @@ angular.module('App')
 
     $scope.fetch_body = function(Index){
       var dat = {
-        startIndex : Index,
+        startIndex : Index
       };
       $http({
         method:'post',

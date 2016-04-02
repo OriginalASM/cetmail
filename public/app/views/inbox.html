@@ -71,26 +71,35 @@
         </div>
       </md-toolbar>
 
+      <!-- MAILBOX Body Start -->
+      <section ng-if="!msgs.length">
+        <!-- Spinner in case no data -->
+        <div class="cssload-container">
+          <div class="cssload-whirlpool"></div>
+        </div>
+      </section>
 
+      <section ng-if="msgs.length">
+        <md-table-container>
+          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
+            <tbody md-body>
+            <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect"
+                x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
+              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" >
+              <td md-cell>{{msg.from}}</td>
+              <td md-cell>{{msg.subject}}</td>
+              <td md-cell>{{msg.date}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
 
-      <md-table-container>
-        <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
-          <tbody md-body>
-          <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
-              x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit" mdDesc >
-            <td md-cell>{{msg.from}}</td>
-            <td md-cell>{{msg.subject}}</td>
-            <td md-cell>{{msg.date}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </md-table-container>
+        <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]"
+                                  md-total="{{count}}" md-on-paginate="" md-page-select>
+        </data-md-table-pagination>
 
-      <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]"
-                                md-total="{{count}}" md-on-paginate="" md-page-select>
-      </data-md-table-pagination>
-
+      </section>
+      <!-- MAILBOX Body End -->
 
 
       <!-- ................    Floating Compose button Start  ................. -->
@@ -102,11 +111,6 @@
       </md-item>
       <!-- ................     Floating Compose button END  ................. -->
 
-      <div ng-if="resp" >
-        <b layout="row" layout-align="center center" class="md-padding">
-          {{resp}}
-        </b>
-      </div>
 
 
 

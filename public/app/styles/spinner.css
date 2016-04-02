@@ -1,5 +1,6 @@
 .cssload-container{
   position:relative;
+  margin-top: 150px;
 }
 
 .cssload-whirlpool,
@@ -19,8 +20,8 @@
 
 .cssload-whirlpool {
   margin: -106px 0 0 -106px;
-  height: 213px;
-  width: 213px;
+  height: 150px;
+  width: 150px;
   animation: cssload-rotate 1150ms linear infinite;
   -o-animation: cssload-rotate 1150ms linear infinite;
   -ms-animation: cssload-rotate 1150ms linear infinite;
