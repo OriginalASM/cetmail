@@ -98,9 +98,11 @@ angular.module('App')
       });
     };
 
+
     function number_of_mails(x) {
       $scope.count = x
     }
+
     $scope.onReorder = function(order) {
 
       // console.log('Scope Order: ' + $scope.query.order);

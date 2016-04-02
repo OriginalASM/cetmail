@@ -1,4 +1,4 @@
-<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails();fetch_body(1)">
   <section layout="row">
 
     <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
