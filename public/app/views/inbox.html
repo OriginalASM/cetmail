@@ -1,4 +1,4 @@
-<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column'>
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
   <section layout="row">
 
     <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
@@ -78,7 +78,7 @@
           <tbody md-body>
           <tr md-row md:select="msg" data-md-on-select="select" md-on-deselect="deselect"
               x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit track by $index">
+         orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit"  >
             <td md-cell>{{msg.from}}</td>
             <td md-cell>{{msg.subject}}</td>
             <td md-cell>{{msg.date}}</td>

@@ -54,10 +54,6 @@ angular.module('App')
 
 
     $scope.msgs = [];
-
-    $scope.count = $scope.msgs.length;
-
-
     $scope.onPaginate = function(page, limit) {
       console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
       console.log('Page: ' + page + ' Limit: ' + limit);
@@ -87,24 +83,32 @@ angular.module('App')
         url : '/mail/fetch/headers',
         data : Data
       }).success(function(Messages){
-        var mail = {};
-         func(Messages.length);
 
-        Messages.forEach(function(msg){
-          mail.from = msg.header.headers.from;
-          mail.subject = msg.header.headers.subject;
-          mail.date = msg.header.headers.date;
-          console.log(mail.from + " " + mail.subject + " " + mail.date);
+         number_of_mails(Messages.length);
+
+        try{
+          Messages.forEach(function(msg){
+            var mail = {};
+          mail.index = msg.index;
+          mail.from = msg.envelope.sender[0].address;
+          mail.subject = msg.envelope.subject;
+          mail.date = msg.envelope.date;
+          console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
           $scope.msgs.push(mail);
 
         });
+        }catch(e){console.log(e);};
+
+
 
       }).error(function(err){
         console.log(err);
       });
     };
-    $scope.loadMails();
-function func(x) {$scope.count=x};
+
+
+
+function number_of_mails(x) {$scope.count=x};
 
 
 
@@ -161,7 +165,7 @@ function func(x) {$scope.count=x};
       }
     }
 
-    $scope.body = function(Index){
+    $scope.fetch_body = function(Index){
       var dat = {
         startIndex : Index,
       };
