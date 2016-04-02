@@ -67,5 +67,22 @@ module.exports = function() {
     }
   });
 
+  router.get('/fetch/mailboxes/', function(req, res){
+    var uname = req.session.user.username,
+      password = req.session.atp ;
+
+    if(!uname || !password ){
+      res.status(502).send('Insufficient field values');
+    }else {
+      imap.getMailBoxes(uname, password).then(
+        function(s){
+          res.send(s);
+        },function(r){
+          res.status(502).send(r);
+        }
+      );
+    }
+  });
+
   return router;
 };

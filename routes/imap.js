@@ -117,6 +117,47 @@ module.exports = {
     };
 
     return result.promise ;
+  },
+
+  getMailBoxes : function(username, password){
+
+    var result = Q.defer();
+
+    var client = new ImapClient('mail.zairza.in', 993,
+      {
+        auth: {
+          user: username + '@mail.zairza.in',
+          pass: password
+        },
+        useSecureTransport : true ,
+        requireTLS : true
+      });
+
+
+    client.connect().then(function(){
+      console.log("connected");
+      client.listMailboxes().then(
+        function(mailboxes){
+          console.log(mailboxes);
+          mailboxes.children.forEach(function(mailbox,index){
+            client.selectMailbox(mailbox.path).then(function(props){
+              console.log(props);
+              mailbox['properties'] = props ;
+              if(index == mailboxes.children.length-1){
+                result.resolve(mailboxes);
+                client.close();
+              }
+            });
+          });
+        }
+      );
+    });
+
+    client.onerror = function(err) {
+      result.reject(err);
+    };
+
+    return result.promise ;
   }
 
 };
