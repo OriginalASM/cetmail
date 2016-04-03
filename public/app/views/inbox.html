@@ -1,4 +1,4 @@
-<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails();fetch_body(1)">
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
   <section layout="row">
 
     <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
@@ -11,13 +11,8 @@
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-user fa-stack-1x fa-inverse"></i></br>
           </span>
-
-            <div>
-              Firstname
-
-            </div>
-
-            <div>email@domainname.com</div>
+          <div>{{user}}</div>
+          <div>{{msgs[0].to}}</div>
           </div>
         </md-toolbar>
 
@@ -35,7 +30,7 @@
     </md-sidenav>
 
 
-    <md-content flex=80 layout='column' id='content'>
+    <md-content flex=80 flex-xs=100 layout='column' id='content'>
 
       <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
         <div class="md-toolbar-tools">

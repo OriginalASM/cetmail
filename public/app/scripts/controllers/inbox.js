@@ -87,6 +87,7 @@ angular.module('App')
             mail.from = msg.envelope.sender[0].address;
             mail.subject = msg.envelope.subject;
             mail.date = msg.envelope.date;
+            mail.to=msg.envelope.to[0].address;
             console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
           });
@@ -96,11 +97,26 @@ angular.module('App')
       }).error(function(err){
         console.log(err);
       });
+
+
+      $scope.promise=$http.get('/users/api/getuser')
+        .success(function(data){
+          $scope.user=data.username;
+          console.log('User logged in');
+          }
+        ).error(function(err){
+          console.log(err);
+
+      });
+
+
+
+
     };
 
 
     function number_of_mails(x) {
-      $scope.count = x
+      $scope.count = x;
     }
 
     $scope.onReorder = function(order) {
