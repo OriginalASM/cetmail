@@ -8,40 +8,37 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope,$mdDialog , MailboxPassword) {
+  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
      * time is up.
      */
+
     $scope.menu = [{
       link: '',
       title: 'Inbox',
       icon: 'inbox'
-    },{
+    }, {
       link: '',
-      title: 'Starred',
-      icon: 'star'
-    },{
+      title: 'Inbox',
+      icon: 'inbox'
+    }, {
       link: '',
-      title: 'Spam',
-      icon: 'folder'
-    },{
+      title: 'Inbox',
+      icon: 'inbox'
+    }, {
       link: '',
-      title: 'Important',
-      icon: 'exclamation-circle'
-    },{
+      title: 'Inbox',
+      icon: 'inbox'
+    }, {
       link: '',
-      title: 'sent',
-      icon: 'paper-plane'
-    },{
+      title: 'Inbox',
+      icon: 'inbox'
+    }, {
       link: '',
-      title: 'Trash',
-      icon: 'trash'
-    },{
-      link: '',
-      title: 'Friends',
-      icon: 'users'
+      title: 'Inbox',
+      icon: 'inbox'
     }];
 
     $scope.selected = [];
@@ -54,7 +51,7 @@ angular.module('App')
 
 
     $scope.msgs = [];
-
+    $scope.navs = [];
 
     $scope.deselect = function(item) {
       // console.log(item.name, 'was deselected');
@@ -65,69 +62,79 @@ angular.module('App')
     };
 
     $scope.loadMails = function() {
-      $scope.msgs = [] ; // empty old list
+      $scope.msgs = []; // empty old list
       var Data = {
-        password : MailboxPassword(),
-        startIndex : '1' ,
-        endIndex : '*'
+        password: MailboxPassword(),
+        startIndex: '1',
+        endIndex: '*'
       };
       console.log(Data);
       $scope.promise = $http({
-        method : 'POST',
-        url : '/mail/fetch/headers',
-        data : Data
-      }).success(function(Messages){
+        method: 'POST',
+        url: '/mail/fetch/headers',
+        data: Data
+      }).success(function(Messages) {
 
         number_of_mails(Messages.length);
 
-        try{
-          Messages.forEach(function(msg){
+        try {
+          Messages.forEach(function(msg) {
             var mail = {};
-            mail.index = parseInt(msg.index) ;
+            mail.index = parseInt(msg.index);
             mail.from = msg.envelope.sender[0].address;
             mail.subject = msg.envelope.subject;
             mail.date = msg.envelope.date;
-            mail.to=msg.envelope.to[0].address;
+            mail.to = msg.envelope.to[0].address;
             console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
           });
-        }catch(e){
+        } catch (e) {
           console.log(e);
         }
-      }).error(function(err){
+      }).error(function(err) {
         console.log(err);
       });
 
 
-      $scope.promise=$http.get('/users/api/getuser')
-        .success(function(data){
-          $scope.user=data.username;
+      $scope.promise = $http.get('/users/api/getuser')
+        .success(function(data) {
+          $scope.user = data.username;
           console.log('User logged in');
-          }
-        ).error(function(err){
+        }).error(function(err) {
           console.log(err);
 
+        });
+
+
+      $scope.promise = $http({
+        method: 'GET',
+        url: '/mail/fetch/mailboxes',
+
+      }).success(function(data) {
+        try {
+          data.children.forEach(function(element, index) {
+            element.title = element.name.toLowerCase();
+            if (element.title == 'inbox')
+              element.icon = 'inbox';
+            else if (element.title == 'spam')
+              element.icon = 'folder';
+            else if (element.title == 'sent')
+              element.icon = 'paper-plane';
+          });
+          $scope.menu = data.children;
+        } catch (e) {
+          console.log(e);
+        }
+
+      }).error(function(err) {
+        console.log(err);
       });
-
-
-
-
     };
 
 
     function number_of_mails(x) {
       $scope.count = x;
     }
-
-    $scope.onReorder = function(order) {
-
-      // console.log('Scope Order: ' + $scope.query.order);
-      // console.log('Order: ' + order);
-
-      $scope.promise = $timeout(function() {
-
-      }, 2000);
-    };
 
     $scope.status = function() {
       $scope.resp = 'Your message was sent successfully';
@@ -172,19 +179,21 @@ angular.module('App')
       }
     }
 
-    $scope.fetch_body = function(Index){
+    $scope.fetch_body = function(Index) {
       var dat = {
-        startIndex : Index
+        startIndex: Index
       };
       $http({
-        method:'post',
+        method: 'post',
         url: '/mail/fetch/body',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json'
+        },
         data: dat
-      }).success(function(s){
+      }).success(function(s) {
         console.log(s);
         //alert("Recieving Data");
-      }).error(function(e){
+      }).error(function(e) {
         console.error(e);
       });
     };

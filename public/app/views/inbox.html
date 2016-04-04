@@ -17,9 +17,10 @@
         </md-toolbar>
 
         <md-list>
-          <md-item ng-repeat="item in menu">
+          <md-item ng-repeat="item in menu | filter: filter.search |
+        orderBy: 'title'">
             <md-item-content layout="row" layout-align="start center">
-              <md-button style="width:100%;text-align:left;text-transform:none">
+              <md-button style="width:100%;text-align:left;text-transform:capitalize">
                 <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
               </md-button>
             </md-item-content>
@@ -76,7 +77,7 @@
 
       <section ng-if="msgs.length">
         <md-table-container>
-          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" md-progress="promise">
+          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected">
             <tbody md-body>
             <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect"
                 x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
