@@ -95,7 +95,7 @@
         </data-md-table-pagination>
 
       </section>
-      <section ng-if="expandedMail.visible">
+      <section ng-if="expandedMail.visible && !expandedMail.showloader">
         <md-container>
           <p style="font-size:30px">{{expandedMail.subject}}</p><br>
            <md-divider></md-divider>
