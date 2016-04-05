@@ -207,7 +207,7 @@ angular.module('App')
           console.log('From Name: ' + $scope.expandedMail.from_mail.name);
           $scope.expandedMail.to= s[0].body.to;
           console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
-          $scope.expandedMail.to= s[0].body.html;
+          $scope.expandedMail.ms= s[0].body.html;
           console.log('Body: ' + $scope.expandedMail.to);
           $scope.expandedMail.reply_to.address= s[0].envelope['reply-to'][0].address;
           console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);

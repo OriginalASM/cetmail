@@ -111,3 +111,10 @@
 
 #mail_table .md-cell {
   cursor: pointer; }
+
+
+
+/*css for mail body*/
+#msg{padding-left:40px;}
+  #title{padding-left:15px;margin-bottom:3px;}
+    #from{padding-left:30px;font-weight:bold;}

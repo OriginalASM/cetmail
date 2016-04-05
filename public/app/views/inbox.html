@@ -95,12 +95,15 @@
         </data-md-table-pagination>
 
       </section>
-      <section ng-if="expandedMail.visible">
+      <section ng-if="expandedMail.visible" layout="column" ng-cloak>
         <md-container>
-          <p style="font-size:30px">{{expandedMail.subject}}</p><br>
-           <md-divider></md-divider>
-
-
+          <p id="title" class="md-headline">{{expandedMail.subject}}</p>
+          <md-divider></md-divider>
+          <p><span id="from" class="md-subhead">From-{{expandedMail.from_mail.name}}</span><{{expandedMail.from_mail.address}}><p>
+           <p id="msg"class="md-subhead">{{expandedMail.ms}}</p>
+           <br><br>
+             <md-divider></md-divider>
+             <md-button class="md-raised md-primary" layout-align="center">  Reply</md-button>
 
 
 
