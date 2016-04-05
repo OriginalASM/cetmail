@@ -182,6 +182,8 @@ angular.module('App')
 
     $scope.expandedMail = {
       visible : false,
+      from_mail : {} ,
+      reply_to : {} ,
       fetch_body : function(Index) {
         this.visible = true;
         $http({
@@ -196,7 +198,21 @@ angular.module('App')
         }).success(function(s) {
           console.log(s);
           $scope.expandedMail.subject=s[0].body.headers.subject;
-          console.log(s[0].body.headers.subject);
+          console.log('Subject : ' + $scope.expandedMail.subject);
+          $scope.expandedMail.date=s[0].body.date;
+          console.log('Date : ' + $scope.expandedMail.date);
+          $scope.expandedMail.from_mail.address= s[0].body.from[0].address;
+          console.log('From mail: ' + $scope.expandedMail.from_mail.address);
+          $scope.expandedMail.from_mail.name= s[0].body.from[0].name;
+          console.log('From Name: ' + $scope.expandedMail.from_mail.name);
+          $scope.expandedMail.to= s[0].body.to;
+          console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
+          $scope.expandedMail.to= s[0].body.html;
+          console.log('Body: ' + $scope.expandedMail.to);
+          $scope.expandedMail.reply_to.address= s[0].envelope['reply-to'][0].address;
+          console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
+          $scope.expandedMail.reply_to.name= s[0].envelope['reply-to'][0].name;
+          console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
           //alert("Recieving Data");
         }).error(function(e) {
           console.error(e);
