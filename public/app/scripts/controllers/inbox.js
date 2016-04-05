@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
+  .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
@@ -208,8 +208,8 @@ angular.module('App')
           console.log('From Name: ' + $scope.expandedMail.from_mail.name);
           $scope.expandedMail.to= s[0].body.to;
           console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
-          $scope.expandedMail.ms= s[0].body.html;
-          console.log('Body: ' + $scope.expandedMail.to);
+          $scope.expandedMail.ms= $sce.trustAsHtml(s[0].body.html);
+          console.log('Body: ' + $scope.expandedMail.ms);
           $scope.expandedMail.reply_to.address= s[0].envelope['reply-to'][0].address;
           console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
           $scope.expandedMail.reply_to.name= s[0].envelope['reply-to'][0].name;
