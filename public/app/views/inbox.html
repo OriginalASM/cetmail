@@ -20,7 +20,7 @@
           <md-item ng-repeat="item in menu | filter: filter.search |
         orderBy: 'title'">
             <md-item-content layout="row" layout-align="start center">
-              <md-button style="width:100%;text-align:left;text-transform:capitalize">
+              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="expandedMail.visible=!expandedMail.visible">
                 <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
               </md-button>
             </md-item-content>
@@ -96,9 +96,15 @@
 
       </section>
       <section ng-if="expandedMail.visible">
-        <md-table-container>
-          <strong>{{expandedMail.subject}}</strong>
-        </md-table-container>
+        <md-container>
+          <p style="font-size:30px">{{expandedMail.subject}}</p><br>
+           <md-divider></md-divider>
+
+
+
+
+
+        </md-container>
       </section>
       <!-- MAILBOX Body End -->
 
