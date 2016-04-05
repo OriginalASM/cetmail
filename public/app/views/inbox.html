@@ -68,7 +68,7 @@
       </md-toolbar>
 
       <!-- MAILBOX Body Start -->
-      <section ng-if="!msgs.length">
+      <section ng-if="!msgs.length || (expandedMail.visible && expandedMail.showloader)">
         <!-- Spinner in case no data -->
         <div class="cssload-container">
           <div class="cssload-whirlpool"></div>
@@ -95,7 +95,9 @@
         </data-md-table-pagination>
 
       </section>
-      <section ng-if="expandedMail.visible" layout="column" ng-cloak>
+
+      <section ng-if="expandedMail.visible && !expandedMail.showloader" layout="column" ng-cloak>
+
         <md-container>
           <p id="title" class="md-headline">{{expandedMail.subject}}</p>
           <md-divider></md-divider>

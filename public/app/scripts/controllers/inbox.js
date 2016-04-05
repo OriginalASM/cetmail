@@ -63,7 +63,6 @@ angular.module('App')
 
     $scope.loadMails = function() {
       $scope.msgs = []; // empty old list
-      $scope.showmail=false;
       var Data = {
         password: MailboxPassword(),
         startIndex: '1',
@@ -181,10 +180,12 @@ angular.module('App')
     }
 
     $scope.expandedMail = {
-      visible : false,
+      visible : false ,
+      showloader : true ,
       from_mail : {} ,
       reply_to : {} ,
       fetch_body : function(Index) {
+        $scope.expandedMail.showloader=true;
         this.visible = true;
         $http({
           method: 'post',
@@ -213,6 +214,7 @@ angular.module('App')
           console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
           $scope.expandedMail.reply_to.name= s[0].envelope['reply-to'][0].name;
           console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
+          $scope.expandedMail.showloader = false;
           //alert("Recieving Data");
         }).error(function(e) {
           console.error(e);
