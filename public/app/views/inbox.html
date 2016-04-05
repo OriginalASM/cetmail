@@ -68,7 +68,7 @@
       </md-toolbar>
 
       <!-- MAILBOX Body Start -->
-      <section ng-if="!msgs.length">
+      <section ng-if="!msgs.length || (expandedMail.visible && expandedMail.showloader)">
         <!-- Spinner in case no data -->
         <div class="cssload-container">
           <div class="cssload-whirlpool"></div>
