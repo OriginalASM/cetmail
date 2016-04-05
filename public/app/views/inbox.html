@@ -11,8 +11,8 @@
             <i class="fa fa-circle fa-stack-2x"></i>
             <i class="fa fa-user fa-stack-1x fa-inverse"></i></br>
           </span>
-          <div>{{user}}</div>
-          <div>{{msgs[0].to}}</div>
+          <div>{{user.first_name}} {{user.last_name}}</div>
+          <div>{{user.username}}</div>
           </div>
         </md-toolbar>
 
@@ -75,13 +75,13 @@
         </div>
       </section>
 
-      <section ng-if="msgs.length">
+      <section ng-if="msgs.length && !expandedMail.visible">
         <md-table-container>
-          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected">
+          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
             <tbody md-body>
             <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect"
                 x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" >
+              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='expandedMail.fetch_body(msg.index)'>
               <td md-cell>{{msg.from}}</td>
               <td md-cell>{{msg.subject}}</td>
               <td md-cell>{{msg.date}}</td>
@@ -94,6 +94,11 @@
                                   md-total="{{count}}" md-on-paginate="" md-page-select>
         </data-md-table-pagination>
 
+      </section>
+      <section ng-if="expandedMail.visible">
+        <md-table-container>
+          <strong>{{expandedMail.subject}}</strong>
+        </md-table-container>
       </section>
       <!-- MAILBOX Body End -->
 

@@ -63,6 +63,7 @@ angular.module('App')
 
     $scope.loadMails = function() {
       $scope.msgs = []; // empty old list
+      $scope.showmail=false;
       var Data = {
         password: MailboxPassword(),
         startIndex: '1',
@@ -98,7 +99,7 @@ angular.module('App')
 
       $scope.promise = $http.get('/users/api/getuser')
         .success(function(data) {
-          $scope.user = data.username;
+          $scope.user = data;
           console.log('User logged in');
         }).error(function(err) {
           console.log(err);
@@ -179,23 +180,28 @@ angular.module('App')
       }
     }
 
-    $scope.fetch_body = function(Index) {
-      var dat = {
-        startIndex: Index
-      };
-      $http({
-        method: 'post',
-        url: '/mail/fetch/body',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: dat
-      }).success(function(s) {
-        console.log(s);
-        //alert("Recieving Data");
-      }).error(function(e) {
-        console.error(e);
-      });
+    $scope.expandedMail = {
+      visible : false,
+      fetch_body : function(Index) {
+        this.visible = true;
+        $http({
+          method: 'post',
+          url: '/mail/fetch/body',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            startIndex: Index
+          }
+        }).success(function(s) {
+          console.log(s);
+          $scope.expandedMail.subject=s[0].body.headers.subject;
+          console.log(s[0].body.headers.subject);
+          //alert("Recieving Data");
+        }).error(function(e) {
+          console.error(e);
+        });
+      },
     };
 
 
