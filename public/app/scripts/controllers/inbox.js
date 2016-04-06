@@ -15,31 +15,7 @@ angular.module('App')
      * time is up.
      */
 
-    $scope.menu = [{
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }, {
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }, {
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }, {
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }, {
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }, {
-      link: '',
-      title: 'Inbox',
-      icon: 'inbox'
-    }];
+    $scope.menu = [];
 
     $scope.selected = [];
 
