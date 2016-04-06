@@ -179,6 +179,13 @@ angular.module('App')
       }
     }
 
+/*********Reply button**********/
+       $scope.visib=false;
+
+
+
+
+
     $scope.expandedMail = {
       visible : false ,
       showloader : true ,

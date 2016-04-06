@@ -8,21 +8,24 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('ComposeCtrl', function ($scope, $http,$rootScope,$mdDialog, MailboxPassword) {
+  .controller('ComposeCtrl', function($scope, $http, $rootScope, $mdDialog, MailboxPassword, $window) {
     $scope.mail = {
-      password : MailboxPassword()
+      password: MailboxPassword()
     };
-    $scope.sendMail = function(){
+    $scope.sendMail = function() {
       $http({
-        method:'post',
+        method: 'post',
         url: '/mail/new/simple/',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json'
+        },
         data: $scope.mail
-      }).success(function(s){
+      }).success(function(s) {
         console.log(s);
-        alert(s);
-      }).error(function(e){
+        $window.alert("Your mail was sent successfully !!");
+      }).error(function(e) {
         console.error(e);
+        $window.alert("Mail could not be sent !! ");
       });
     };
 
@@ -45,7 +48,7 @@ angular.module('App')
     /*****************COMPOSE CONTROLS**********************/
 
     var DialogProps = {
-      visible : false
+      visible: false
     };
 
     $scope.DialogProps = DialogProps;
@@ -71,12 +74,13 @@ angular.module('App')
     /* text editor controls*/
     $scope.froalaOptions = {
       toolbarBottom: true,
-      toolbarButtons: ['fullscreen', 'bold', 'italic','|',
-        'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|',
-        'color', 'emoticons','|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent']
-      /*
-      * '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
-      * */
+      toolbarButtons: ['fullscreen', 'bold', 'italic', '|',
+          'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', '|',
+          'color', 'emoticons', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent'
+        ]
+        /*
+         * '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'quote', 'insertHR', 'undo', 'redo', 'clearFormatting', 'selectAll', 'html']
+         * */
     }
 
 
