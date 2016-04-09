@@ -57,7 +57,7 @@ module.exports = function(Model){
       if (err) return res.send({error : err});
       else res.send('ok');
     });
-  }
+  };
 
   api.update = function (req, res, next) {
     Model.findOne({_id:req.params['id']}, function (err, doc) {
@@ -79,6 +79,21 @@ module.exports = function(Model){
       }
     })
   };
-
+  api.checkusername = function(req,res,next){
+    console.log(req.body.username);
+    Model.findOne({username : req.body.username},function(err,doc){
+      if(err){
+        res.send({error : err});
+      }else{
+        if(doc){
+          console.log(doc);
+          res.send({status : false});
+        }else{
+          //console.log('No user found');
+          res.send({status : true});
+        }
+      }
+    });
+  };
   return api ;
 };

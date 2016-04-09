@@ -13,6 +13,8 @@ angular.module('App')
     $scope.data = {
       gender : 'Male'
     };
+    $scope.usernameStatus = '';
+    $scope.available = true;
     $scope.Register = function($event){
       var Credentials = angular.copy($scope.Credentials);
       Credentials.gender = $scope.data.gender.charAt(0).toLowerCase() + $scope.data.gender.slice(1);;
@@ -42,4 +44,27 @@ angular.module('App')
         console.log('There has been the following error : '+err);
       });
     };
+    $scope.isavailable = function(){
+      if(!$scope.Credentials.username){
+        $scope.usernameStatus = '';
+      }else{
+        var Data = { username : $scope.Credentials.username.trim() };
+        $http({
+          method : 'POST' ,
+          url : '/users/api/checkusername' ,
+          data : Data
+        }).success(function(s){
+          if(s.status){
+            $scope.available = true;
+          }else{
+            $scope.available = false;
+          }
+        }).error(function(err){
+          console.log(err);
+        });
+      }
+    };
+    /*$scope.$watch('Credentials.username',function(){
+      console.log($scope.Credentials.username);
+    });*/
   });

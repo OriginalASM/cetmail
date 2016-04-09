@@ -51,6 +51,8 @@ module.exports = function(mongoose) {
   router.all('/api/login/', auth.login);
   router.all('/api/logout/', auth.logout);
   router.all('/api/getuser/', auth.getSelfInformation);
+  router.all('/api/checkusername', userApi.checkusername);
+
   router.get('/api/:id', userApi.findOne);
 
 
