@@ -20,7 +20,7 @@
           <md-item ng-repeat="item in menu | filter: filter.search |
         orderBy: 'title'">
             <md-item-content layout="row" layout-align="start center">
-              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="expandedMail.visible=!expandedMail.visible">
+              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="loadMails()">
                 <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
               </md-button>
             </md-item-content>
@@ -68,19 +68,19 @@
       </md-toolbar>
 
       <!-- MAILBOX Body Start -->
-      <section ng-if="!msgs.length || (expandedMail.visible && expandedMail.showloader)">
+      <section ng-if="showLoader">
         <!-- Spinner in case no data -->
         <div class="cssload-container">
           <div class="cssload-whirlpool"></div>
         </div>
       </section>
 
-      <section ng-if="msgs.length && !expandedMail.visible">
+      <section ng-if="!showLoader && inboxVisible">
         <md-table-container>
           <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
             <tbody md-body>
               <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='expandedMail.fetch_body(msg.index)'>
+              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='msg.fetch_body(msg)'>
                 <td md-cell>{{msg.from}}</td>
                 <td md-cell>{{msg.subject}}</td>
                 <td md-cell>{{msg.date}}</td>
@@ -94,10 +94,10 @@
 
       </section>
 
-      <section ng-if="expandedMail.visible && !expandedMail.showloader" layout="column" ng-cloak>
+      <section ng-if="!inboxVisible && !showLoader" layout="column" ng-cloak>
 
         <md-container>
-          <p id="title" class="md-headline">{{expandedMail.subject}}</p>
+          <!--<p id="title" class="md-headline">{{expandedMail.subject}}</p>
           <md-divider></md-divider>
           <p><span id="from" class="md-subhead">From-{{expandedMail.from_mail.name}}</span>
             <{{expandedMail.from_mail.address}}>
@@ -115,11 +115,27 @@
                 <div layout="row" flex=60 style="margin-left:10vw;">
               <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
             </div>
-              </section>
+          </section>-->
 
 
 
-
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">{{currentMail.subject}}</span>
+                <span class="md-subhead">{{currentMail.from_mail.name}} <{{currentMail.from_mail.address}}></span>
+              </md-card-title-text>
+            </md-card-title>
+            <hr>
+            <md-card-content>
+              <p ng-bind-html="currentMail.ms">
+              </p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button ng-click='currentMail.reply()'>Reply</md-button>
+              <md-button ng-click='currentMail.forward()'>Forward</md-button>
+            </md-card-actions>
+          </md-card>
 
         </md-container>
       </section>
