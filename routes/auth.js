@@ -32,6 +32,7 @@ module.exports = function(User){
             bcrypt.compare(password, user.password, function (error, match) {
               if (match) {
                 req.session.user = user;
+                req.session.atp = password;
                 res.send({message: 'success'});
               } else {
                 console.log('match failed');
@@ -46,6 +47,7 @@ module.exports = function(User){
 
     logout: function (req,res){
       req.session.user = false ;
+      req.session.atp = false ;
       res.send({message: 'success'});
     },
 

@@ -1,1 +1,148 @@
-Welcome to inbox.
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
+  <section layout="row">
+
+    <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4" id="SideNav">
+      <md-content ng-controller="LeftCtrl">
+
+        <md-toolbar class="md-tall md-hue-2">
+          <span flex></span>
+          <div layout="column" class="md-toolbar-tools-bottom inset">
+            <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-user fa-stack-1x fa-inverse"></i></br>
+          </span>
+            <div>{{user.first_name}} {{user.last_name}}</div>
+            <div>{{user.username}}</div>
+          </div>
+        </md-toolbar>
+
+        <md-list>
+          <md-item ng-repeat="item in menu | filter: filter.search |
+        orderBy: 'title'">
+            <md-item-content layout="row" layout-align="start center">
+              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="expandedMail.visible=!expandedMail.visible">
+                <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
+              </md-button>
+            </md-item-content>
+          </md-item>
+          <md-divider></md-divider>
+        </md-list>
+      </md-content>
+    </md-sidenav>
+
+
+    <md-content flex=80 flex-xs=100 layout='column' id='content'>
+
+      <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
+        <div class="md-toolbar-tools">
+          <span></span>
+          <span flex></span>
+          <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
+          <md-button ng-click="loadMails()">Refresh</md-button>
+          <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+          </md-button>
+          <md-button class="md-icon-button">
+            <md-icon>more_vert</md-icon>
+          </md-button>
+
+        </div>
+      </md-toolbar>
+
+
+      <md-toolbar class="md-hue-1 md-table-toolbar md-default" ng-show="showSearch">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+            <ng-md-icon icon="arrow_back"></ng-md-icon>
+          </md-button>
+          <h3 flex="10">Back</h3>
+          <md-input-container flex>
+            <label>&nbsp;</label>
+            <input ng-model="search.who" placeholder="enter search">
+          </md-input-container>
+          <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search"></ng-md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <!-- MAILBOX Body Start -->
+      <section ng-if="!msgs.length || (expandedMail.visible && expandedMail.showloader)">
+        <!-- Spinner in case no data -->
+        <div class="cssload-container">
+          <div class="cssload-whirlpool"></div>
+        </div>
+      </section>
+
+      <section ng-if="msgs.length && !expandedMail.visible">
+        <md-table-container>
+          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
+            <tbody md-body>
+              <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
+              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='expandedMail.fetch_body(msg.index)'>
+                <td md-cell>{{msg.from}}</td>
+                <td md-cell>{{msg.subject}}</td>
+                <td md-cell>{{msg.date}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]" md-total="{{count}}" md-on-paginate="" md-page-select>
+        </data-md-table-pagination>
+
+      </section>
+
+      <section ng-if="expandedMail.visible && !expandedMail.showloader" layout="column" ng-cloak>
+
+        <md-container>
+          <p id="title" class="md-headline">{{expandedMail.subject}}</p>
+          <md-divider></md-divider>
+          <p><span id="from" class="md-subhead">From-{{expandedMail.from_mail.name}}</span>
+            <{{expandedMail.from_mail.address}}>
+              <p>
+                <p id="msg" class="md-subhead" ng-bind-html="expandedMail.ms"></p>
+                <br>
+                <br>
+                <md-divider></md-divider>
+                <section layout="column" layout-align="center center">
+                  <div layout="row" style="width:100%">
+                    <md-button class="md-raised md-primary" flex ng-click="visib=true">Reply</md-button>
+                  </div>
+                </section>
+              <section layout="column" ng-show="visib">
+                <div layout="row" flex=60 style="margin-left:10vw;">
+              <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
+            </div>
+              </section>
+
+
+
+
+
+        </md-container>
+      </section>
+      <!-- MAILBOX Body End -->
+
+
+      <!-- ................    Floating Compose button Start  ................. -->
+      <md-item layout class="inset" ng-controller='ComposeCtrl'>
+        <md-button layout layout-align="start center" id="plus" class="md-fab md-primary md-hue-2" ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">
+          <ng-md-icon icon="create"></ng-md-icon icon="create">
+        </md-button>
+      </md-item>
+      <!-- ................     Floating Compose button END  ................. -->
+
+
+
+
+    </md-content>
+
+
+
+
+  </section>
+
+
+</div>

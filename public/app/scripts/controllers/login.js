@@ -30,6 +30,7 @@ angular.module('App')
     $scope.Login = function($event){
       var Credentials = angular.copy($scope.Credentials);
       Credentials.username = $scope.Credentials.username.split(/@[\w]+[.][\w]+/).join('');
+      $rootScope.pass=Credentials.password;
       $http({
         method: 'POST',
         url: '/users/api/login/',

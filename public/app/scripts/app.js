@@ -10,7 +10,7 @@
  */
 angular
   .module('App', [
-    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria'
+    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria','md.data.table','ngMdIcons','froala'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -61,7 +61,6 @@ angular
             UserPolicy().then(
               function(){},
               function(err){
-                console.log(err);
                 $location.path('/login');
               });
           }
@@ -80,7 +79,26 @@ angular
         controller: 'LogoutCtrl',
         controllerAs: 'logout'
       })
+      .when('/compose', {
+        resolve : {
+          'check': function($location,UserPolicy,$rootScope) {
+            $rootScope.LastURL = '/compose';
+            UserPolicy().then(
+              function(){},
+              function(err){
+                $location.path('/login');
+              });
+          }
+        },
+        templateUrl: 'views/compose.html',
+        controller: 'ComposeCtrl',
+        controllerAs: 'compose'
+      })
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .value('froalaConfig', {
+    toolbarInline: false,
+    placeholderText: 'Body'
   });
