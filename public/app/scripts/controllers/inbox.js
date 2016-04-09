@@ -32,7 +32,6 @@ angular.module('App')
        this.fetch_body = function(a) {
          this.visible = true;
          $scope.showLoader=true;
-         $scope.inboxVisible=false;
          $http({
            method: 'post',
            url: '/mail/fetch/body',
@@ -62,6 +61,7 @@ angular.module('App')
            //alert("Recieving Data");
            $scope.currentMail = angular.copy(a);
            $scope.showLoader = false;
+           $scope.inboxVisible = false;
          }).error(function(e) {
            console.error(e);
          });
@@ -84,7 +84,6 @@ angular.module('App')
 
     $scope.loadMails = function() {
       $scope.showLoader=true;
-      $scope.inboxVisible=false;
       $scope.msgs = []; // empty old list
       var Data = {
         password: MailboxPassword(),

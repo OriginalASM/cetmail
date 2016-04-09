@@ -1,4 +1,4 @@
-<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="inboxVisible=true;loadMails()">
   <section layout="row">
 
     <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4" id="SideNav">
@@ -70,12 +70,12 @@
       <!-- MAILBOX Body Start -->
       <section ng-if="showLoader">
         <!-- Spinner in case no data -->
-        <div class="cssload-container">
-          <div class="cssload-whirlpool"></div>
-        </div>
+          <!--<div class="cssload-whirlpool"></div>-->
+          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+
       </section>
 
-      <section ng-if="!showLoader && inboxVisible">
+      <section ng-if="inboxVisible">
         <md-table-container>
           <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
             <tbody md-body>
@@ -94,7 +94,7 @@
 
       </section>
 
-      <section ng-if="!inboxVisible && !showLoader" layout="column" ng-cloak>
+      <section ng-if="!inboxVisible" layout="column" ng-cloak>
 
         <md-container>
           <!--<p id="title" class="md-headline">{{expandedMail.subject}}</p>
