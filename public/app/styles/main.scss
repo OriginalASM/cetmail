@@ -65,3 +65,17 @@
     cursor:pointer;
   }
 }
+
+.sideNav{
+  min-height: 600px;
+  .md-button{
+    border: 1px solid #fff;
+    text-align: center !important;
+  }
+  .mailBox{
+    margin-top: 8px;
+    border-bottom: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB;
+  }
+
+}

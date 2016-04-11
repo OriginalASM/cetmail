@@ -10,21 +10,25 @@
  */
 angular
   .module('App', [
-    'ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria','md.data.table','ngMdIcons','froala'
+    'ui.router', 'ngMaterial', 'ngAnimate', 'ngAria','md.data.table','ngMdIcons','froala'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/");
+    $stateProvider
+      .state('main', {
+        url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
+      .state('about', {
+        url: '/about',
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/dashboard', {
+      .state('dashboard', {
+        url : '/dashboard',
         resolve : {
           'check': function($location,AdminPolicy,$rootScope) {
             $rootScope.LastURL = '/dashboard';
@@ -44,17 +48,20 @@ angular
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
-      .when('/login', {
+      .state('login', {
+        url : '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      .when('/register', {
+      .state('register', {
+        url: '/register',
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
-      .when('/inbox', {
+      .state('inbox', {
+        url: '/inbox',
         resolve : {
           'check': function($location,UserPolicy,$rootScope) {
             $rootScope.LastURL = '/inbox';
@@ -69,17 +76,20 @@ angular
         controller: 'InboxCtrl',
         controllerAs: 'inbox'
       })
-      .when('/FourOhThree', {
+      .state('FourOhThree', {
+        url : '/FourOhThree',
         templateUrl: 'views/fourohthree.html',
         controller: 'FourohthreeCtrl',
         controllerAs: 'FourOhThree'
       })
-      .when('/logout', {
+      .state('logout', {
+        url : '/logout',
         templateUrl: 'views/logout.html',
         controller: 'LogoutCtrl',
         controllerAs: 'logout'
       })
-      .when('/compose', {
+      .state('compose', {
+        url : '/compose',
         resolve : {
           'check': function($location,UserPolicy,$rootScope) {
             $rootScope.LastURL = '/compose';
@@ -94,9 +104,6 @@ angular
         controller: 'ComposeCtrl',
         controllerAs: 'compose'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
   })
   .value('froalaConfig', {
     toolbarInline: false,

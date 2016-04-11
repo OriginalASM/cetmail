@@ -1,98 +1,28 @@
 .toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
-  color: white;
-}
+  color: white; }
+
 .right {
-  float: right;
-}
+  float: right; }
+
 .icon-size {
-  font-size: 1.5em;
-}
+  font-size: 1.5em; }
+
 .msg_cont {
   width: 75%;
-  position: fixed;
-}
+  position: fixed; }
+
 .who {
   padding: 10px;
   font-weight: 800;
-  font-size: 15px;
-}
+  font-size: 15px; }
+
 .what {
-  padding: 5px;
-}
+  padding: 5px; }
+
 .note {
-  padding: 5px;
-}
+  padding: 5px; }
 
 /*css for floating plus button*/
-
-#plus {
-  z-index: 100;
-  position: fixed;
-  color: white;
-  right: 30px;
-  bottom: 50px;
-  padding: 10px 10px 10px 10px;
-  background-color: #3F51B5;
-  box-shadow: 3px 3px 3px #888888;
-}
-
-/*css for input in search*/
-
-#inp {
-  padding-top: 18px;
-}
-.composeDialog {
-  width: 900px;
-  height: 500px;
-}
-@media screen and (max-width: 1024px) {
-  .composeDialog {
-    width: 700px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .composeDialog {
-    max-width: 500px;
-  }
-}
-.composeDialog md-toolbar:not(.md-menu-toolbar) {
-  height: 30px !important;
-  min-height: 0;
-  background-color: #535353;
-}
-.composeDialog .fr-basic .fr-element {
-  height: 9.9em;
-}
-
-/*# sourceMappingURL=main.css.map */
-
-.toolbardemoBasicUsage md-toolbar md-icon.md-default-theme {
-  color: white;
-}
-.right {
-  float: right;
-}
-.icon-size {
-  font-size: 1.5em;
-}
-.msg_cont {
-  width: 75%;
-  position: fixed;
-}
-.who {
-  padding: 10px;
-  font-weight: 800;
-  font-size: 15px;
-}
-.what {
-  padding: 5px;
-}
-.note {
-  padding: 5px;
-}
-
-/*css for floating plus button*/
-
 #plus {
   z-index: 100;
   position: fixed;
@@ -101,65 +31,39 @@
   bottom: 20px;
   padding: 10px 10px 10px 10px;
   background-color: #3F51B5;
-  box-shadow: 3px 3px 3px #888888;
-}
+  box-shadow: 3px 3px 3px #888888; }
 
 /*css for input in search*/
-
 #inp {
-  padding-top: 18px;
-}
+  padding-top: 18px; }
+
 .composeDialog {
   width: 900px;
-  height: 500px;
-}
-@media screen and (max-width: 1024px) {
-  .composeDialog {
-    width: 700px;
-  }
-}
-@media screen and (max-width: 768px) {
-  .composeDialog {
-    max-width: 500px;
-  }
-}
-.composeDialog md-toolbar:not(.md-menu-toolbar) {
-  height: 30px !important;
-  min-height: 0;
-  background-color: #535353;
-}
-.composeDialog .fr-basic .fr-element {
-  height: 9.9em;
-}
+  height: 500px; }
+  @media screen and (max-width: 1024px) {
+    .composeDialog {
+      width: 700px; } }
+  @media screen and (max-width: 768px) {
+    .composeDialog {
+      max-width: 500px; } }
+  .composeDialog md-toolbar:not(.md-menu-toolbar) {
+    height: 30px !important;
+    min-height: 0;
+    background-color: #535353; }
+  .composeDialog .fr-basic .fr-element {
+    height: 9.9em; }
+
 #mail_table .md-cell {
-  cursor: pointer;
-}
+  cursor: pointer; }
 
-/*css for mail body*/
+.sideNav {
+  min-height: 600px; }
+  .sideNav .md-button {
+    border: 1px solid #fff;
+    text-align: center !important; }
+  .sideNav .mailBox {
+    margin-top: 8px;
+    border-bottom: 1px solid #BBBBBB;
+    border-right: 1px solid #BBBBBB; }
 
-#msg {
-  padding-left: 40px;
-}
-#title {
-  padding-left: 15px;
-  margin-bottom: 3px;
-}
-#from {
-  padding-left: 30px;
-  font-weight: bold;
-}
-
-/*css to support the loader body*/
-
-@media screen and (min-width: 500px) {
-  #SideNav {
-    min-height: 600px;
-  }
-}
-@media screen and (max-width: 500px) {
-  #SideNav {
-    min-height: 300px;
-  }
-}
-
-}
+/*# sourceMappingURL=main.css.map */

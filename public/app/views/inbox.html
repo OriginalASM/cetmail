@@ -1,38 +1,37 @@
 <div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="loadMails()">
-  <section layout="row">
+  <section layout="row" flex>
 
-    <md-sidenav flex=20 class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4" id="SideNav">
-      <md-content ng-controller="LeftCtrl">
+    <section flex="15" class="sideNav" ng-controller="LeftCtrl">
 
-        <md-toolbar class="md-tall md-hue-2">
-          <span flex></span>
+        <md-toolbar class="md-hue-2">
           <div layout="column" class="md-toolbar-tools-bottom inset">
-            <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-user fa-stack-1x fa-inverse"></i></br>
-          </span>
-            <div>{{user.first_name}} {{user.last_name}}</div>
-            <div>{{user.username}}</div>
+            <md-button class="">Compose</md-button>
           </div>
         </md-toolbar>
 
         <md-list>
-          <md-item ng-repeat="item in menu | filter: filter.search |
-        orderBy: 'title'">
-            <md-item-content layout="row" layout-align="start center">
-              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="expandedMail.visible=!expandedMail.visible">
-                <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
-              </md-button>
+          <md-item ng-repeat="item in menu | filter: filter.search | orderBy: 'title'">
+            <md-item-content layout="column" flex>
+              <div class="mailBox" layout="row" layout-align="center center">
+                <div>
+                  <i class="fa fa-{{item.icon}}"></i>
+                </div>
+                <div>
+                  <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="expandedMail.visible=!expandedMail.visible">
+                    {{item.title}}
+                  </md-button>
+                </div>
+              </div>
             </md-item-content>
           </md-item>
           <md-divider></md-divider>
         </md-list>
       </md-content>
-    </md-sidenav>
+    </section>
 
 
-    <md-content flex=80 flex-xs=100 layout='column' id='content'>
-
+    <md-content flex=85 flex-xs=100 layout='column' id='content'>
+      <!--
       <md-toolbar class="md-table-toolbar md-default" ng-show="!showSearch">
         <div class="md-toolbar-tools">
           <span></span>
@@ -67,9 +66,9 @@
         </div>
       </md-toolbar>
 
-      <!-- MAILBOX Body Start -->
+      <!-- MAILBOX Body Start --/>
       <section ng-if="!msgs.length || (expandedMail.visible && expandedMail.showloader)">
-        <!-- Spinner in case no data -->
+        <!-- Spinner in case no data --/>
         <div class="cssload-container">
           <div class="cssload-whirlpool"></div>
         </div>
@@ -126,20 +125,18 @@
       <!-- MAILBOX Body End -->
 
 
-      <!-- ................    Floating Compose button Start  ................. -->
+      <!-- ................    Floating Compose button Start  ................. --/>
       <md-item layout class="inset" ng-controller='ComposeCtrl'>
         <md-button layout layout-align="start center" id="plus" class="md-fab md-primary md-hue-2" ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">
           <ng-md-icon icon="create"></ng-md-icon icon="create">
         </md-button>
       </md-item>
-      <!-- ................     Floating Compose button END  ................. -->
+      <!-- ................     Floating Compose button END  ................. --/>
 
 
-
+    -->
 
     </md-content>
-
-
 
 
   </section>
