@@ -14,7 +14,60 @@ angular.module('App')
      * Supplies a function that will continue to operate until the
      * time is up.
      */
-
+     //Declaring class for mails
+     $scope.inboxVisible=false;
+     $scope.showLoader=true;
+     function Mail(Index){
+       this.index = Index;
+       this.from_mail = {};
+       this.reply_to = {};
+       //functions yet to be implemented.
+       this.reply = function(){
+         console.log('Reply');
+       };
+       this.forward = function(){
+         console.log('Forward');
+       };
+       //
+       this.fetch_body = function(a) {
+         this.visible = true;
+         $scope.showLoader=true;
+         $http({
+           method: 'post',
+           url: '/mail/fetch/body',
+           headers: {
+             'Content-Type': 'application/json'
+           },
+           data: {
+             startIndex: this.index
+           }
+         }).success(function(s) {
+           //this.subject=s[0].body.headers.subject;
+           //console.log('Subject : ' + $scope.expandedMail.subject);
+           //this.date=s[0].body.date;
+           //console.log('Date : ' + $scope.expandedMail.date);
+           a.from_mail.address= s[0].body.from[0].address;
+           //console.log('From mail: ' + $scope.expandedMail.from_mail.address);
+           a.from_mail.name= s[0].body.from[0].name;
+           //console.log('From Name: ' + $scope.expandedMail.from_mail.name);
+           //this.to= s[0].body.to;
+           //console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
+           a.ms= $sce.trustAsHtml(s[0].body.html);
+           //console.log('Body: ' + $scope.expandedMail.ms);
+           a.reply_to.address= s[0].envelope['reply-to'][0].address;
+           //console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
+           a.reply_to.name= s[0].envelope['reply-to'][0].name;
+           //console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
+           //alert("Recieving Data");
+           $scope.currentMail = angular.copy(a);
+           $scope.showLoader = false;
+           $scope.inboxVisible = false;
+         }).error(function(e) {
+           console.error(e);
+         });
+       }
+     }
+     //end
     $scope.menu = [];
 
     $scope.selected = [];
@@ -29,22 +82,15 @@ angular.module('App')
     $scope.msgs = [];
     $scope.navs = [];
 
-    $scope.deselect = function(item) {
-      // console.log(item.name, 'was deselected');
-    };
-
-    $scope.select = function(item) {
-      // console.log(item.name, 'was selected');
-    };
-
     $scope.loadMails = function() {
+      $scope.showLoader=true;
       $scope.msgs = []; // empty old list
       var Data = {
         password: MailboxPassword(),
         startIndex: '1',
         endIndex: '*'
       };
-      console.log(Data);
+      //console.log(Data);
       $scope.promise = $http({
         method: 'POST',
         url: '/mail/fetch/headers',
@@ -55,19 +101,20 @@ angular.module('App')
 
         try {
           Messages.forEach(function(msg) {
-            var mail = {};
-            mail.index = parseInt(msg.index);
-            mail.from_mail.address = msg.envelope.sender[0].address;
-            mail.from_mail.name = msg.envelope.sender[0].name;
+
+            var mail = new Mail(parseInt(msg.index));
+            mail.from = msg.envelope.sender[0].address;
             mail.subject = msg.envelope.subject;
             mail.date = msg.envelope.date;
             mail.to = msg.envelope.to[0].address;
-            console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
+            //console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
           });
         } catch (e) {
           console.log(e);
         }
+        $scope.showLoader=false;
+        $scope.inboxVisible=true;
       }).error(function(err) {
         console.log(err);
       });
@@ -76,7 +123,7 @@ angular.module('App')
       $scope.promise = $http.get('/users/api/getuser')
         .success(function(data) {
           $scope.user = data;
-          console.log('User logged in');
+          //console.log('User logged in');
         }).error(function(err) {
           console.log(err);
 
@@ -163,48 +210,6 @@ angular.module('App')
 
 
 
-    $scope.expandedMail = {
-      visible : false ,
-      showloader : true ,
-      from_mail : {} ,
-      reply_to : {} ,
-      fetch_body : function(Index) {
-        $scope.expandedMail.showloader=true;
-        this.visible = true;
-        $http({
-          method: 'post',
-          url: '/mail/fetch/body',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            startIndex: Index
-          }
-        }).success(function(s) {
-          console.log(s);
-          $scope.expandedMail.subject=s[0].body.headers.subject;
-          console.log('Subject : ' + $scope.expandedMail.subject);
-          $scope.expandedMail.date=s[0].body.date;
-          console.log('Date : ' + $scope.expandedMail.date);
-          $scope.expandedMail.from_mail.address= s[0].body.from[0].address;
-          console.log('From mail: ' + $scope.expandedMail.from_mail.address);
-          $scope.expandedMail.from_mail.name= s[0].body.from[0].name;
-          console.log('From Name: ' + $scope.expandedMail.from_mail.name);
-          $scope.expandedMail.to= s[0].body.to;
-          console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
-          $scope.expandedMail.ms= $sce.trustAsHtml(s[0].body.html);
-          console.log('Body: ' + $scope.expandedMail.ms);
-          $scope.expandedMail.reply_to.address= s[0].envelope['reply-to'][0].address;
-          console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
-          $scope.expandedMail.reply_to.name= s[0].envelope['reply-to'][0].name;
-          console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
-          $scope.expandedMail.showloader = false;
-          //alert("Recieving Data");
-        }).error(function(e) {
-          console.error(e);
-        });
-      },
-    };
 
 
   })
