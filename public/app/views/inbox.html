@@ -120,7 +120,7 @@
                {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
              </div>
              <div flex='25' ng-click='msg.fetch_body(msg)'>
-               {{msg.date | date:"shortTime" }} , {{msg.date | date:"MMM dd yyyy" }}
+               {{msg.date | date:"hh:mm:ss a" }} , {{msg.date | date:"MMM dd yyyy" }}
                <md-tooltip md-direction="down" class='bigtooltip'>
                  {{msg.date | date:'EEEE'}}
                </md-tooltip>
