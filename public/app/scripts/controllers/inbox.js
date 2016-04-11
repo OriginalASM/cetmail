@@ -57,7 +57,8 @@ angular.module('App')
           Messages.forEach(function(msg) {
             var mail = {};
             mail.index = parseInt(msg.index);
-            mail.from = msg.envelope.sender[0].address;
+            mail.from_mail.address = msg.envelope.sender[0].address;
+            mail.from_mail.name = msg.envelope.sender[0].name;
             mail.subject = msg.envelope.subject;
             mail.date = msg.envelope.date;
             mail.to = msg.envelope.to[0].address;
