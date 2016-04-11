@@ -8,66 +8,100 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
+  .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav, $window, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
      * time is up.
      */
-     //Declaring class for mails
-     $scope.inboxVisible=false;
-     $scope.showLoader=true;
-     function Mail(Index){
-       this.index = Index;
-       this.from_mail = {};
-       this.reply_to = {};
-       //functions yet to be implemented.
-       this.reply = function(){
-         console.log('Reply');
-       };
-       this.forward = function(){
-         console.log('Forward');
-       };
-       //
-       this.fetch_body = function(a) {
-         this.visible = true;
-         $scope.showLoader=true;
-         $http({
-           method: 'post',
-           url: '/mail/fetch/body',
-           headers: {
-             'Content-Type': 'application/json'
-           },
-           data: {
-             startIndex: this.index
-           }
-         }).success(function(s) {
-           //this.subject=s[0].body.headers.subject;
-           //console.log('Subject : ' + $scope.expandedMail.subject);
-           //this.date=s[0].body.date;
-           //console.log('Date : ' + $scope.expandedMail.date);
-           a.from_mail.address= s[0].body.from[0].address;
-           //console.log('From mail: ' + $scope.expandedMail.from_mail.address);
-           a.from_mail.name= s[0].body.from[0].name;
-           //console.log('From Name: ' + $scope.expandedMail.from_mail.name);
-           //this.to= s[0].body.to;
-           //console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
-           a.ms= $sce.trustAsHtml(s[0].body.html);
-           //console.log('Body: ' + $scope.expandedMail.ms);
-           a.reply_to.address= s[0].envelope['reply-to'][0].address;
-           //console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
-           a.reply_to.name= s[0].envelope['reply-to'][0].name;
-           //console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
-           //alert("Recieving Data");
-           $scope.currentMail = angular.copy(a);
-           $scope.showLoader = false;
-           $scope.inboxVisible = false;
-         }).error(function(e) {
-           console.error(e);
-         });
-       }
-     }
-     //end
+    //Declaring class for mails
+    $scope.inboxVisible = false;
+    $scope.showLoader = true;
+    $scope.visib = false;
+
+    function Mail(Index) {
+      this.index = Index;
+      this.from_mail = {};
+      this.reply_to = {};
+      this.fetch_body = function(a) {
+          this.visible = true;
+          $scope.showLoader = true;
+          $http({
+            method: 'post',
+            url: '/mail/fetch/body',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            data: {
+              startIndex: this.index
+            }
+          }).success(function(s) {
+            //this.subject=s[0].body.headers.subject;
+            //console.log('Subject : ' + $scope.expandedMail.subject);
+            //this.date=s[0].body.date;
+            //console.log('Date : ' + $scope.expandedMail.date);
+            a.from_mail.address = s[0].body.from[0].address;
+            //console.log('From mail: ' + $scope.expandedMail.from_mail.address);
+            a.from_mail.name = s[0].body.from[0].name;
+            //console.log('From Name: ' + $scope.expandedMail.from_mail.name);
+            //this.to= s[0].body.to;
+            //console.log('To mail: ' + $scope.expandedMail.to[0].address + ' ' + $scope.expandedMail.to[0].name);
+            a.ms = $sce.trustAsHtml(s[0].body.html);
+            //console.log('Body: ' + $scope.expandedMail.ms);
+            a.reply_to.address = s[0].envelope['reply-to'][0].address;
+            //console.log('Reply to address: ' + $scope.expandedMail.reply_to.address);
+            a.reply_to.name = s[0].envelope['reply-to'][0].name;
+            //console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
+            //alert("Recieving Data");
+            $scope.currentMail = angular.copy(a);
+            $scope.showLoader = false;
+            $scope.inboxVisible = false;
+
+          }).error(function(e) {
+            console.error(e);
+          });
+        }
+        //functions yet to be implemented.
+      this.reply = function() {
+        $scope.visib = true;
+        console.log('Reply');
+        var param = {
+          reciever: $scope.currentMail.reply_to.address,
+          subjectLine: 'Re:' + $scope.currentMail.subject
+        }
+        // console.log(param);
+        $scope.send = function() {
+          $http({
+            method: 'post',
+            url: '/mail/new/simple/',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            data: param
+          }).success(function(s) {
+            console.log(s);
+            $window.alert("Your mail was sent successfully !!");
+          }).error(function(e) {
+            console.error(e);
+            $window.alert("Mail could not be sent !! ");
+          });
+
+        }
+
+      };
+      this.forward = function() {
+        console.log('Forward');
+      };
+      //
+
+
+
+    }
+    //end
+
+
+
+
     $scope.menu = [];
 
     $scope.selected = [];
@@ -83,7 +117,7 @@ angular.module('App')
     $scope.navs = [];
 
     $scope.loadMails = function() {
-      $scope.showLoader=true;
+      $scope.showLoader = true;
       $scope.msgs = []; // empty old list
       var Data = {
         password: MailboxPassword(),
@@ -112,8 +146,8 @@ angular.module('App')
         } catch (e) {
           console.log(e);
         }
-        $scope.showLoader=false;
-        $scope.inboxVisible=true;
+        $scope.showLoader = false;
+        $scope.inboxVisible = true;
       }).error(function(err) {
         console.log(err);
       });
@@ -202,13 +236,13 @@ angular.module('App')
       }
     }
 
-/*********Reply button**********/
-       $scope.visib=false;
 
 
-
-
-
+    // $scope.add = {
+    //   reciever:a.reply_to.address,
+    //   subjectLine:
+    //
+    // };
 
 
   })

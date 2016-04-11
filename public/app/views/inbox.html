@@ -37,8 +37,8 @@
         <div class="md-toolbar-tools">
           <span></span>
           <span flex></span>
-          <md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
-          <md-button ng-click="loadMails()">Refresh</md-button>
+          <md-button ng-click="hideCheckboxes = !hideCheckboxes" ng-show="!expandedMail.visible">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button>
+          <md-button ng-click="loadMails()" ng-show="!expandedMail.visible">Refresh</md-button>
           <md-button aria-label="Search" ng-click="showSearch = !showSearch">
             <ng-md-icon icon="search"></ng-md-icon>
           </md-button>
@@ -111,6 +111,7 @@
                     <md-button class="md-raised md-primary" flex ng-click="visib=true">Reply</md-button>
                   </div>
                 </section>
+<<<<<<< Updated upstream
               <section layout="column" ng-show="visib">
                 <div layout="row" flex=60 style="margin-left:10vw;">
               <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
@@ -137,13 +138,34 @@
             </md-card-actions>
           </md-card>
 
+
+                <section layout="column" ng-show="visib" style="margin-left:10vw;">
+                  <p>
+                    <ng-md-icon icon="reply"></ng-md-icon>To:<span class="md-subhead">{{currentMail.from_mail.address}}</span></p>
+
+                  <div layout="row" flex=70>
+                    <textarea froala="froalaOptions" ng-model="param.HtmlMessageBody" cols="15"></textarea>
+                  </div>
+                  <br>
+
+                  <md-button title="Send Mail" ng-click="send()" aria-label="send" class=" md-fab" id="sbtn">
+                    <ng-md-icon icon="send"></ng-md-icon>
+                  </md-button>
+
+                </section>
+
+
+
+
+
+
         </md-container>
       </section>
       <!-- MAILBOX Body End -->
 
 
       <!-- ................    Floating Compose button Start  ................. -->
-      <md-item layout class="inset" ng-controller='ComposeCtrl'>
+      <md-item layout class="inset" ng-controller='ComposeCtrl' ng-show="!expandedMail.visible">
         <md-button layout layout-align="start center" id="plus" class="md-fab md-primary md-hue-2" ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">
           <ng-md-icon icon="create"></ng-md-icon icon="create">
         </md-button>

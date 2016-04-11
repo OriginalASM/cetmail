@@ -149,7 +149,7 @@
   font-weight: bold;
 }
 
-/*css to support the loader body*/
+/*****************css to support the loader body****************************/
 
 @media screen and (min-width: 500px) {
   #SideNav {
@@ -158,8 +158,10 @@
 }
 @media screen and (max-width: 500px) {
   #SideNav {
-    min-height: 300px;
+    min-height: 200px;
   }
 }
 
+#sbtn {
+  margin-left: 75%;
 }
