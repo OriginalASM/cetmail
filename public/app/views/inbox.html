@@ -11,15 +11,18 @@
         </md-toolbar>
 
         <md-list>
-          <md-item ng-repeat="item in menu | filter: filter.search |
-        orderBy: 'title'">
-            <md-item-content layout="row" layout-align="start center">
-              <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="loadMails()">
-                <i class="fa fa-{{item.icon}}"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}
-              </md-button>
+          <md-item ng-repeat="item in menu | filter: filter.search | orderBy: 'title'">
+            <md-item-content layout="column">
+              <div class="MailBoxItem" layout="row" layout-align="center center">
+                <div>
+                  <i class="fa fa-{{item.icon}}"></i>
+                </div>
+                <div>
+                  <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="loadMails()">{{item.title}}</md-button>
+                </div>
+              </div>
             </md-item-content>
           </md-item>
-          <md-divider></md-divider>
         </md-list>
       </md-content>
     </section>
