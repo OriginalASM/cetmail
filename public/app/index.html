@@ -58,9 +58,15 @@
             <i class='fa fa-bars icon-size'></i>
           </md-button>
         </section>
-        <md-button class="md-icon-button rightbutton" ng-click='Logout()' aria-label="Favorite">
-          <i class='fa fa-sign-out icon-size'></i>
-        </md-button>
+        <md-menu>
+ <!-- Trigger element is a md-button with an icon -->
+       <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open sample menu">
+         <i class='fa fa-cog icon-size'></i>
+       </md-button>
+       <md-menu-content>
+         <md-menu-item><md-button ng-click="Logout()">Log Out</md-button></md-menu-item>
+       </md-menu-content>
+      </md-menu>
       </div>
     </md-toolbar>
     <div ui-view>
