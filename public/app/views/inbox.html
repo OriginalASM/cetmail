@@ -75,13 +75,9 @@
 
       </section>
 
-<<<<<<< HEAD
-      <section ng-if="msgs.length && !expandedMail.visible">
-        <!--<md-table-container>
-=======
+
       <section ng-if="inboxVisible">
-        <md-table-container>
->>>>>>> mailer
+        <!--<md-table-container>
           <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
             <tbody md-body>
               <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
@@ -97,17 +93,20 @@
         <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]" md-total="{{count}}" md-on-paginate="" md-page-select>
         </data-md-table-pagination>-->
        <div layout='column' id='inboxdiv'>
-         <div ng-repeat='msg in msgs'>
+         <div ng-repeat='msg in msgs' ng-class="{alterCell:$index%2 == 1}">
           <hr>
-           <div class='msgrow' flex layout='row'  ng-click='expandedMail.fetch_body(msg.index)'>
-             <div flex='30'>
-               {{msg.from_mail.name}}<{{msg.from_mail.address>}}>
+           <div class='msgrow'  flex layout='row'  ng-click='msg.fetch_body(msg)'>
+             <div flex='15'>
+               <strong>{{msg.from_mail.name | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}</strong>
+             </div>
+             <div flex='25'>
+               <{{msg.from_mail.address | limitTo:30}}{{msg.from_mail.address>30 ? '...':''}}>
              </div>
              <div flex='40'>
-               {{msg.subject}}
+               {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
              </div>
-             <div flex='30'>
-               {{msg.date | date:'fullDate'}}
+             <div flex='20'>
+               {{msg.date | date:'medium'| limitTo : 30}}{{msg.date.length>30 ? '...':''}}
              </div>
            </div>
          </div>

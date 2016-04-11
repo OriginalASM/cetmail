@@ -103,9 +103,11 @@ angular.module('App')
           Messages.forEach(function(msg) {
 
             var mail = new Mail(parseInt(msg.index));
-            mail.from = msg.envelope.sender[0].address;
+            mail.from_mail.address = msg.envelope.sender[0].address;
+            mail.from_mail.name = msg.envelope.sender[0].name;
             mail.subject = msg.envelope.subject;
-            mail.date = msg.envelope.date;
+            mail.date = new Date(msg.envelope.date);
+            console.log(mail.date);
             mail.to = msg.envelope.to[0].address;
             //console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
