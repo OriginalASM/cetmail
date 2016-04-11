@@ -93,12 +93,18 @@
            <div class='msgrow'  flex layout='row'  ng-click='msg.fetch_body(msg)'>
              <div flex='25'>
               {{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}
+              <md-tooltip md-direction="down" class='bigtooltip'>
+                {{msg.from_mail.address}}
+              </md-tooltip>
              </div>
              <div flex='50'>
                {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
              </div>
              <div flex='25'>
                {{msg.date | date:'medium'| limitTo : 30}}{{msg.date.length>30 ? '...':''}}
+               <md-tooltip md-direction="down" class='bigtooltip'>
+                 {{msg.date | date:'EEEE'}}
+               </md-tooltip>
              </div>
            </div>
          </div>

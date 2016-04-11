@@ -67,6 +67,9 @@
 #inboxdiv .alterCell {
   background-color: #e6e6fa; }
 
+.bigtooltip {
+  font-size: 1em; }
+
 .sideNav {
   min-height: 600px; }
   .sideNav .md-button {
