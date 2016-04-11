@@ -53,8 +53,19 @@
   .composeDialog .fr-basic .fr-element {
     height: 9.9em; }
 
-#mail_table .md-cell {
+#inboxdiv .msgrow {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 5%;
   cursor: pointer; }
+  #inboxdiv .msgrow div {
+    text-overflow: ellipsis;
+    height: fixed; }
+#inboxdiv hr {
+  opacity: 0.3;
+  margin: 0px; }
+#inboxdiv .alterCell {
+  background-color: #e6e6fa; }
 
 .sideNav {
   min-height: 600px; }
