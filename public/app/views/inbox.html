@@ -91,7 +91,20 @@
         <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]" md-total="{{count}}" md-on-paginate="" md-page-select>
         </data-md-table-pagination>-->
        <div layout='column' id='inboxdiv'>
-         <div ng-repeat="msg in msgs | orderBy:'-'" ng-class="{alterCell:$index%2 == 1}">
+         <section layout='row'>
+           <md-button >Do something</md-button>
+           <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
+           <md-input-container >
+             <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
+              <md-option value='10'>10</md-option>
+              <md-option value='20'>20</md-option>
+              <md-option value='50'>50</md-option>
+             </md-select>
+           </md-input-container>
+           <md-button ng-click='pagination.next()' aria-label='Next'>Next</md-button>
+         </section>
+         <section>
+         <div ng-repeat="msg in msgs | orderBy:'-' | limitTo:pagination.pageLimit : pagination.begin" ng-class="{alterCell:$index%2 == 1}">
           <md-divider></md-divider>
            <div class='msgrow'  flex layout='row'  ng-click='msg.fetch_body(msg)'>
              <div flex='25'>
@@ -111,6 +124,7 @@
              </div>
            </div>
          </div>
+       </section>
        </div>
 
       </section>

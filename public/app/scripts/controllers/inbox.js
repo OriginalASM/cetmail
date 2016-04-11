@@ -17,6 +17,29 @@ angular.module('App')
      //Declaring class for mails
      $scope.inboxVisible=false;
      $scope.showLoader=true;
+     $scope.msgs = [];
+     $scope.navs = [];
+     $scope.pagination = {
+       begin : 0,
+       size : $scope.msgs.length,
+       pageLimit : 20,
+       previous : function(){
+         console.log('begin is '+this.begin+' pagelimit is '+this.pageLimit);
+         if(this.begin-this.pageLimit >=0){
+           this.begin -= this.pageLimit;
+           console.log('begin is now '+this.begin);
+         }else{
+           this.begin = 0;
+         }
+       },
+       next : function(){
+         console.log('begin is '+this.begin+' pagelimit is '+this.pageLimit);
+         if(this.begin+this.pageLimit <=this.size){
+           this.begin +=this.pageLimit;
+           console.log('begin is now '+this.begin);
+         }
+       }
+     }
      function Mail(Index){
        this.index = Index;
        this.from_mail = {};
@@ -79,9 +102,6 @@ angular.module('App')
     };
 
 
-    $scope.msgs = [];
-    $scope.navs = [];
-
     $scope.loadMails = function() {
       $scope.showLoader=true;
       $scope.msgs = []; // empty old list
@@ -107,13 +127,14 @@ angular.module('App')
             mail.from_mail.name = msg.envelope.sender[0].name;
             mail.subject = msg.envelope.subject;
             mail.date = new Date(msg.envelope.date);
-            console.log(mail.date);
+            //console.log(mail.date);
             mail.to = msg.envelope.to[0].address;
             mail.index = msg.index;
             //console.log(mail.index);
             //console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
           });
+          $scope.pagination.size=$scope.msgs.length;
         } catch (e) {
           console.log(e);
         }
