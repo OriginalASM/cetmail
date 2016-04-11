@@ -109,6 +109,8 @@ angular.module('App')
             mail.date = new Date(msg.envelope.date);
             console.log(mail.date);
             mail.to = msg.envelope.to[0].address;
+            mail.index = msg.index;
+            console.log(mail.index);
             //console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
             $scope.msgs.push(mail);
           });
