@@ -72,7 +72,7 @@
   font-size: 1em; }
 
 .sideNav {
-  min-height: 600px; }
+  min-height:500px; }
   .sideNav .md-button {
     border: 1px solid #fff;
     text-align: center !important; }
@@ -89,5 +89,7 @@
 
 .unseenMsg {
   font-weight: bold; }
+
+  #footer{margin-top: 30px;}
 
 /*# sourceMappingURL=main.css.map */
