@@ -34,3 +34,5 @@ node_modules
 /.idea
 /public/app/bower_components
 /public/test
+public/app/styles/main.css.map
+public/app/styles/.sass-cache/

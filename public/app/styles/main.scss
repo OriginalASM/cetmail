@@ -73,13 +73,15 @@
   }
   hr{
     opacity: 0.3;
-    margin: 0px;
+    margin: 0;
   }
   .alterCell {
     background-color: #e6e6fa;
   }
 }
-
+.bigtooltip{
+  font-size: 1em;
+}
 .sideNav{
   min-height: 600px;
   .md-button{
