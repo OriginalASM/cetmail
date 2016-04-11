@@ -92,7 +92,7 @@
         </data-md-table-pagination>-->
        <div layout='column' id='inboxdiv'>
          <section layout='row'>
-           <md-button ng-click='try()'>Do something</md-button>
+           <md-button ng-disabled='select.selected.length==0' ng-click='markAsRead()'>Mark as Read</md-button>
            <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
            <md-input-container >
              <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
