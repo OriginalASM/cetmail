@@ -93,7 +93,28 @@ angular.module('App')
      //end
     $scope.menu = [];
 
-    $scope.selected = [];
+    $scope.selectedMails = [];
+    $scope.try = function(){
+      console.log('trying');
+      for(mail in $scope.selectedMails){
+        console.log(mail.subject);
+      }
+    }
+
+    $scope.select = {
+      selected : [],
+      update : function(mail){
+        if(this.selected.indexOf(mail) >=0){
+          this.selected.splice(this.selected.indexOf(mail),1);
+          //console.log('Already in array.');
+        }else{
+          this.selected.push(mail);
+          //console.log('Not in array.');
+        }
+        //console.log(this.selected);
+      }
+    }
+
 
     $scope.query = {
       order: 'index',
@@ -127,11 +148,13 @@ angular.module('App')
             mail.from_mail.name = msg.envelope.sender[0].name;
             mail.subject = msg.envelope.subject;
             mail.date = new Date(msg.envelope.date);
-            //console.log(mail.date);
             mail.to = msg.envelope.to[0].address;
             mail.index = msg.index;
-            //console.log(mail.index);
-            //console.log(mail.index + " " + mail.from + " " + mail.subject + " " + mail.date);
+            if(msg.flags.indexOf("\\Seen") >=0){
+              mail.seen=true;
+            }else{
+              mail.seen=false;
+            }
             $scope.msgs.push(mail);
           });
           $scope.pagination.size=$scope.msgs.length;

@@ -64,11 +64,13 @@
   .msgrow{
     padding-top: 1%;
     padding-bottom: 1%;
-    padding-left: 5%;
+    padding-left: 2%;
     cursor: pointer;
     div{
-      text-overflow: ellipsis;
-      height: fixed;
+      margin: auto;
+    }
+    md-checkbox{
+      margin: auto;
     }
   }
   hr{
@@ -96,4 +98,10 @@
 }
 .pullright{
   margin-left: auto;
+}
+.inboxHeaders{
+  padding: 0 2% 0 2%;
+}
+.unseenMsg{
+  font-weight: bold;
 }
