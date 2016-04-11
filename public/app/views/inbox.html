@@ -89,10 +89,10 @@
         </data-md-table-pagination>-->
        <div layout='column' id='inboxdiv'>
          <div ng-repeat="msg in msgs | orderBy:'-'" ng-class="{alterCell:$index%2 == 1}">
-          <hr>
+          <md-divider></md-divider>
            <div class='msgrow'  flex layout='row'  ng-click='msg.fetch_body(msg)'>
              <div flex='25'>
-               <strong>{{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}</strong>
+              {{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}
              </div>
              <div flex='50'>
                {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
