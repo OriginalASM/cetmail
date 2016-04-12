@@ -8,13 +8,14 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
+  .controller('InboxCtrl', function($scope, $q, $sce, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
     $scope.toggleLeft = buildDelayedToggler('left');
     /**
      * Supplies a function that will continue to operate until the
      * time is up.
      */
      //Declaring class for mails
+     $scope.currentDate = new Date();
      $scope.inboxVisible=false;
      $scope.showLoader=true;
      $scope.msgs = [];
@@ -94,11 +95,17 @@ angular.module('App')
     $scope.menu = [];
 
     $scope.selectedMails = [];
-    $scope.try = function(){
-      console.log('trying');
-      for(mail in $scope.selectedMails){
-        console.log(mail.subject);
-      }
+    $scope.markAsRead = function(){
+      var size = $scope.select.selected.length;
+      var q = $q.defer();
+      for(var i=0;i< size;i++){
+        if(i==size-1)
+          q.resolve(true);
+        $scope.select.selected[i].fetch_body($scope.select.selected[i]);
+      };
+      q.promise.then(function(){
+        $scope.loadMails();
+      });
     }
 
     $scope.select = {

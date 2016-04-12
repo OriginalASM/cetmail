@@ -92,7 +92,7 @@
         </data-md-table-pagination>-->
        <div layout='column' id='inboxdiv'>
          <section layout='row'>
-           <md-button ng-click='try()'>Do something</md-button>
+           <md-button ng-disabled='select.selected.length==0' ng-click='markAsRead()'>Mark as Read</md-button>
            <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
            <md-input-container >
              <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
@@ -120,7 +120,7 @@
                {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
              </div>
              <div flex='25' ng-click='msg.fetch_body(msg)'>
-               {{msg.date | date:'medium'}}
+               {{msg.date | date:"hh:mm:ss a" }} , {{msg.date | date:"MMM dd yyyy" }}
                <md-tooltip md-direction="down" class='bigtooltip'>
                  {{msg.date | date:'EEEE'}}
                </md-tooltip>
