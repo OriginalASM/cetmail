@@ -11,9 +11,13 @@ angular.module('App')
   .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav,
                                     $log, $http, $rootScope, $mdDialog, MailboxPassword, $location, $q) {
     $scope.toggleLeft = buildDelayedToggler('left');
-    $scope.goToPath = function(p,s){
+    $scope.goToPath = function(p,s,x){
       s = s.toString().toLowerCase();
-      $location.path(p+s);
+      if(x){
+      $location.path(p+s+x);}
+      else {
+        $location.path(p+s);
+      }
     };
     /**
      * Supplies a function that will continue to operate until the
@@ -90,6 +94,7 @@ angular.module('App')
            //console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
            //alert("Recieving Data");
            $rootScope.currentMail = angular.copy(a);
+           $scope.goToPath('/mail/inbox/v/',a.index);
            $scope.showLoader = false;
            $scope.inboxVisible = false;
            console.log($scope.currentMail);

@@ -40,7 +40,7 @@
             <div flex='5'>
               <md-checkbox class="md-secondary" ng-click="select.update(msg)" aria-label='Select Mail'></md-checkbox>
             </div>
-            <div flex='25' ng-click="msg.fetch_body(msg);goToPath('/mail/inbox/v/',msg.index);">
+            <div flex='25' ng-click="msg.fetch_body(msg)">
               {{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}
               <md-tooltip md-direction="down" class='bigtooltip'>
                 {{msg.from_mail.address}}
