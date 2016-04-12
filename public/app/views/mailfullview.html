@@ -1,0 +1,40 @@
+<section layout="column">
+  <md-container>
+    <!--<p id="title" class="md-headline">{{expandedMail.subject}}</p>
+    <md-divider></md-divider>
+    <p><span id="from" class="md-subhead">From-{{expandedMail.from_mail.name}}</span>
+      <{{expandedMail.from_mail.address}}>
+        <p>
+          <p id="msg" class="md-subhead" ng-bind-html="expandedMail.ms"></p>
+          <br>
+          <br>
+          <md-divider></md-divider>
+          <section layout="column" layout-align="center center">
+            <div layout="row" style="width:100%">
+              <md-button class="md-raised md-primary" flex ng-click="visib=true">Reply</md-button>
+            </div>
+          </section>
+        <section layout="column" ng-show="visib">
+          <div layout="row" flex=60 style="margin-left:10vw;">
+        <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
+      </div>
+    </section>-->
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{currentMail.subject}}</span>
+          <span class="md-subhead">{{currentMail.from_mail.name}} <{{currentMail.from_mail.address}}></span>
+        </md-card-title-text>
+      </md-card-title>
+      <hr>
+      <md-card-content>
+        <p ng-bind-html="currentMail.ms">
+        </p>
+      </md-card-content>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-click='currentMail.reply()'>Reply</md-button>
+        <md-button ng-click='currentMail.forward()'>Forward</md-button>
+      </md-card-actions>
+    </md-card>
+  </md-container>
+</section>

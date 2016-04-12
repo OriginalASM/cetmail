@@ -36,7 +36,7 @@ angular.module('App')
         url: '/users/api/login/',
         data: Credentials
       }).success(function(data){
-        var x = $rootScope.LastURL || '/inbox';
+        var x = $rootScope.LastURL || '/mail/inbox';
         //console.log(x);
 
         if(data.error){

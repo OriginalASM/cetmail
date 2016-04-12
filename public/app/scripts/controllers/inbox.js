@@ -8,8 +8,13 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InboxCtrl', function($scope, $q, $sce, $timeout, $mdSidenav, $log, $http, $rootScope, $mdDialog, MailboxPassword) {
+  .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav,
+                                    $log, $http, $rootScope, $mdDialog, MailboxPassword, $location, $q) {
     $scope.toggleLeft = buildDelayedToggler('left');
+    $scope.goToPath = function(p,s){
+      s = s.toString().toLowerCase();
+      $location.path(p+s);
+    };
     /**
      * Supplies a function that will continue to operate until the
      * time is up.
@@ -40,7 +45,7 @@ angular.module('App')
            console.log('begin is now '+this.begin);
          }
        }
-     }
+     };
      function Mail(Index){
        this.index = Index;
        this.from_mail = {};
@@ -67,7 +72,8 @@ angular.module('App')
            }
          }).success(function(s) {
            //this.subject=s[0].body.headers.subject;
-           //console.log('Subject : ' + $scope.expandedMail.subject);
+           //console.log('Subject : ' + $scope.expandedMail.subje);
+           //console.log(s);
            //this.date=s[0].body.date;
            //console.log('Date : ' + $scope.expandedMail.date);
            a.from_mail.address= s[0].body.from[0].address;
@@ -83,9 +89,10 @@ angular.module('App')
            a.reply_to.name= s[0].envelope['reply-to'][0].name;
            //console.log('Reply to name: ' + $scope.expandedMail.reply_to.name);
            //alert("Recieving Data");
-           $scope.currentMail = angular.copy(a);
+           $rootScope.currentMail = angular.copy(a);
            $scope.showLoader = false;
            $scope.inboxVisible = false;
+           console.log($scope.currentMail);
          }).error(function(e) {
            console.error(e);
          });
@@ -108,7 +115,14 @@ angular.module('App')
       });
     }
 
-    $scope.select = {
+    $scope.try = function(){
+      console.log('trying');
+      for(mail in $scope.selectedMails){
+        console.log(mail.subject);
+      }
+    };
+
+   $scope.select = {
       selected : [],
       update : function(mail){
         if(this.selected.indexOf(mail) >=0){
@@ -120,7 +134,7 @@ angular.module('App')
         }
         //console.log(this.selected);
       }
-    }
+    };
 
 
     $scope.query = {
@@ -130,8 +144,8 @@ angular.module('App')
     };
 
 
-    $scope.loadMails = function() {
-      $scope.showLoader=true;
+    $scope.loadMails = function(f) {
+      $scope.showLoader = true;
       $scope.msgs = []; // empty old list
       var Data = {
         password: MailboxPassword(),
@@ -143,12 +157,12 @@ angular.module('App')
         method: 'POST',
         url: '/mail/fetch/headers',
         data: Data
-      }).success(function(Messages) {
+      }).success(function (Messages) {
 
         number_of_mails(Messages.length);
 
         try {
-          Messages.forEach(function(msg) {
+          Messages.forEach(function (msg) {
 
             var mail = new Mail(parseInt(msg.index));
             mail.from_mail.address = msg.envelope.sender[0].address;
@@ -167,48 +181,32 @@ angular.module('App')
           $scope.pagination.size=$scope.msgs.length;
         } catch (e) {
           console.log(e);
-        }
-        $scope.showLoader=false;
-        $scope.inboxVisible=true;
-      }).error(function(err) {
-        console.log(err);
-      });
-
-
-      $scope.promise = $http.get('/users/api/getuser')
-        .success(function(data) {
-          $scope.user = data;
-          //console.log('User logged in');
-        }).error(function(err) {
-          console.log(err);
-
-        });
-
-
-      $scope.promise = $http({
-        method: 'GET',
-        url: '/mail/fetch/mailboxes',
-
-      }).success(function(data) {
-        try {
-          data.children.forEach(function(element, index) {
-            element.title = element.name.toLowerCase();
-            if (element.title == 'inbox')
-              element.icon = 'inbox';
-            else if (element.title == 'spam')
-              element.icon = 'folder';
-            else if (element.title == 'sent')
-              element.icon = 'paper-plane';
-          });
-          $scope.menu = data.children;
-        } catch (e) {
-          console.log(e);
+        } finally {
+          $scope.showLoader = false;
+          $scope.inboxVisible = true;
+          if(typeof f == 'function' ){
+            f();
+          }
         }
 
-      }).error(function(err) {
+      }).error(function (err) {
         console.log(err);
       });
     };
+
+    $rootScope.loadInboxMails = $scope.loadMails ;
+
+    $scope.promise = $http.get('/users/api/getuser')
+      .success(function(data) {
+        $scope.user = data;
+        //console.log('User logged in');
+      }).error(function(err) {
+        console.log(err);
+
+      });
+
+
+    $scope.menu = $rootScope.mailboxes ;
 
 
     function number_of_mails(x) {
@@ -258,8 +256,8 @@ angular.module('App')
       }
     }
 
-/*********Reply button**********/
-       $scope.visib=false;
+    /*********Reply button**********/
+    $scope.visib=false;
 
 
 

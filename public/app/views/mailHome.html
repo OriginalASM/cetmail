@@ -1,0 +1,64 @@
+<div ng-cloak ng-init="loadMails()">
+  <section ng-if="showLoader">
+    <!-- Spinner in case no data -->
+    <!--<div class="cssload-whirlpool"></div>-->
+    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  </section>
+  <section>
+    <!--<md-table-container>
+      <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
+        <tbody md-body>
+          <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
+          orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='msg.fetch_body(msg)'>
+            <td md-cell>{{msg.from}}</td>
+            <td md-cell>{{msg.subject}}</td>
+            <td md-cell>{{msg.date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]" md-total="{{count}}" md-on-paginate="" md-page-select>
+    </data-md-table-pagination>-->
+    <div layout='column' id='inboxdiv'>
+      <section layout='row'>
+        <md-button ng-click='try()'>Do something</md-button>
+        <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
+        <md-input-container >
+          <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
+            <md-option value='10'>10</md-option>
+            <md-option value='20'>20</md-option>
+            <md-option value='50'>50</md-option>
+          </md-select>
+        </md-input-container>
+        <md-button ng-click='pagination.next()' aria-label='Next'>Next</md-button>
+      </section>
+      <section class='inboxHeaders'>
+        <div ng-repeat="msg in msgs | orderBy:'-' | limitTo:pagination.pageLimit : pagination.begin" ng-class="{alterCell:$index%2 == 1}">
+          <md-divider></md-divider>
+          <div class='msgrow'  flex layout='row' ng-class="{unseenMsg:!msg.seen}">
+            <div flex='5'>
+              <md-checkbox class="md-secondary" ng-click="select.update(msg)" aria-label='Select Mail'></md-checkbox>
+            </div>
+            <div flex='25' ng-click="msg.fetch_body(msg);goToPath('/mail/inbox/v/',msg.index);">
+              {{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}
+              <md-tooltip md-direction="down" class='bigtooltip'>
+                {{msg.from_mail.address}}
+              </md-tooltip>
+            </div>
+            <div flex='45' ng-click='msg.fetch_body(msg)'>
+              {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
+            </div>
+            <div flex='25' ng-click='msg.fetch_body(msg)'>
+              {{msg.date | date:'medium'}}
+              <md-tooltip md-direction="down" class='bigtooltip'>
+                {{msg.date | date:'EEEE'}}
+              </md-tooltip>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </section>
+</div>

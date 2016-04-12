@@ -17,9 +17,9 @@ angular
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
       })
       .state('about', {
         url: '/about',
@@ -60,19 +60,61 @@ angular
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
-      .state('inbox', {
-        url: '/inbox',
+      .state('mail', {
+        url: '/mail',
         resolve : {
           'check': function($location,UserPolicy,$rootScope) {
-            $rootScope.LastURL = '/inbox';
+            $rootScope.LastURL = '/mail';
             UserPolicy().then(
-              function(){},
+              function(){
+                if(!$rootScope.InboxIsReady){
+                  $location.path('/mail/init');
+                }else{
+                  $location.path('/mail/inbox');
+                }
+              },
               function(err){
                 $location.path('/login');
               });
           }
         },
+        templateUrl: 'views/mailContainer.html',
+        controller: 'InitCtrl',
+        controllerAs: 'init'
+      })
+      .state('mail.init', {
+        url: '/init',
+        templateUrl: 'views/init.html',
+        controller: 'InitCtrl',
+        controllerAs: 'init'
+      })
+      .state('mail.inbox', {
+        url: '/inbox',
         templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+        controllerAs: 'inbox'
+      })
+      .state('mail.spam', {
+        url: '/spam',
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+        controllerAs: 'inbox'
+      })
+      .state('mail.sent', {
+        url: '/sent',
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+        controllerAs: 'inbox'
+      })
+      .state('mail.inbox.home', {
+        url: '/home',
+        templateUrl: 'views/mailHome.html',
+        controller: 'InboxCtrl',
+        controllerAs: 'inbox'
+      })
+      .state('mail.inbox.id', {
+        url: '/v/:id',
+        templateUrl: 'views/mailfullview.html',
         controller: 'InboxCtrl',
         controllerAs: 'inbox'
       })

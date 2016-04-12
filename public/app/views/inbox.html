@@ -1,5 +1,5 @@
 
-<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column' ng-init="inboxVisible=true;loadMails()">
+<div ng-controller="InboxCtrl" ng-cloak layout-gt-lg='column'>
   <section layout="row">
 
     <section flex="15" class="sideNav" ng-controller="LeftCtrl">
@@ -13,11 +13,14 @@
         <md-list>
           <md-item ng-repeat="item in menu | filter: filter.search | orderBy: 'title'">
             <md-item-content layout="column">
-              <div class="MailBoxItem" layout="row" layout-align="center center" flex=100 >
-
-                  <md-button style="width:100%;text-align:left;text-transform:capitalize" ng-click="loadMails()" ><i class="fa fa-{{item.icon}}"></i>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.title}}</md-button>
-
+              <div class="MailBoxItem" layout="row" layout-align="center center">
+                <div>
+                  <i class="fa fa-{{item.icon}}"></i>
+                </div>
+                <div>
+                  <md-button style="width:100%;text-align:left;text-transform:capitalize"
+                             ng-click="goToPath('/mail/',item.title)">{{item.title}}</md-button>
+                </div>
               </div>
             </md-item-content>
           </md-item>
@@ -64,117 +67,7 @@
 
 
       <!-- MAILBOX Body Start -->
-      <section ng-if="showLoader">
-        <!-- Spinner in case no data -->
-          <!--<div class="cssload-whirlpool"></div>-->
-          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
-
-      </section>
-
-
-      <section ng-if="inboxVisible">
-        <!--<md-table-container>
-          <table data-md-table data-md-row-select="!hideCheckboxes" data-ng-model="selected" id='mail_table'>
-            <tbody md-body>
-              <tr md-row md-select="msg" data-md-on-select="select" md-on-deselect="deselect" x-md-auto-select="!blah" data-ng-repeat="msg in msgs | filter: filter.search |
-              orderBy: '-index' | limitTo: query.limit : (query.page -1) * query.limit" ng-click='msg.fetch_body(msg)'>
-                <td md-cell>{{msg.from}}</td>
-                <td md-cell>{{msg.subject}}</td>
-                <td md-cell>{{msg.date}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </md-table-container>
-
-        <data-md-table-pagination md-limit="query.limit" md-page="query.page" md-limit-options="[10, 20, 50]" md-total="{{count}}" md-on-paginate="" md-page-select>
-        </data-md-table-pagination>-->
-       <div layout='column' id='inboxdiv'>
-         <section layout='row'>
-           <md-button ng-disabled='select.selected.length==0' ng-click='markAsRead()'>Mark as Read</md-button>
-           <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
-           <md-input-container >
-             <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
-              <md-option value='10'>10</md-option>
-              <md-option value='20'>20</md-option>
-              <md-option value='50'>50</md-option>
-             </md-select>
-           </md-input-container>
-           <md-button ng-click='pagination.next()' aria-label='Next'>Next</md-button>
-         </section>
-         <section class='inboxHeaders'>
-         <div ng-repeat="msg in msgs | orderBy:'-' | limitTo:pagination.pageLimit : pagination.begin" ng-class="{alterCell:$index%2 == 1}">
-          <md-divider></md-divider>
-           <div class='msgrow'  flex layout='row' ng-class="{unseenMsg:!msg.seen}">
-             <div flex='5'>
-              <md-checkbox class="md-secondary" ng-click="select.update(msg)" aria-label='Select Mail'></md-checkbox>
-             </div>
-             <div flex='25' ng-click='msg.fetch_body(msg)'>
-              {{msg.from_mail.name || msg.from_mail.address | limitTo:30}}{{msg.from_mail.name>30 ? '...':''}}
-              <md-tooltip md-direction="down" class='bigtooltip'>
-                {{msg.from_mail.address}}
-              </md-tooltip>
-             </div>
-             <div flex='45' ng-click='msg.fetch_body(msg)'>
-               {{msg.subject | limitTo : 50}}{{msg.subject.length>50 ? '...':''}}
-             </div>
-             <div flex='25' ng-click='msg.fetch_body(msg)'>
-               {{msg.date | date:"hh:mm:ss a" }} , {{msg.date | date:"MMM dd yyyy" }}
-               <md-tooltip md-direction="down" class='bigtooltip'>
-                 {{msg.date | date:'EEEE'}}
-               </md-tooltip>
-             </div>
-           </div>
-         </div>
-       </section>
-       </div>
-
-      </section>
-
-      <section ng-if="!inboxVisible" layout="column" ng-cloak>
-
-        <md-container>
-          <!--<p id="title" class="md-headline">{{expandedMail.subject}}</p>
-          <md-divider></md-divider>
-          <p><span id="from" class="md-subhead">From-{{expandedMail.from_mail.name}}</span>
-            <{{expandedMail.from_mail.address}}>
-              <p>
-                <p id="msg" class="md-subhead" ng-bind-html="expandedMail.ms"></p>
-                <br>
-                <br>
-                <md-divider></md-divider>
-                <section layout="column" layout-align="center center">
-                  <div layout="row" style="width:100%">
-                    <md-button class="md-raised md-primary" flex ng-click="visib=true">Reply</md-button>
-                  </div>
-                </section>
-              <section layout="column" ng-show="visib">
-                <div layout="row" flex=60 style="margin-left:10vw;">
-              <textarea froala="froalaOptions" ng-model="mail.HtmlMessageBody" cols="15"></textarea>
-            </div>
-          </section>-->
-
-
-
-          <md-card>
-            <md-card-title>
-              <md-card-title-text>
-                <span class="md-headline">{{currentMail.subject}}</span>
-                <span class="md-subhead">{{currentMail.from_mail.name}} <{{currentMail.from_mail.address}}></span>
-              </md-card-title-text>
-            </md-card-title>
-            <hr>
-            <md-card-content>
-              <p ng-bind-html="currentMail.ms">
-              </p>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button ng-click='currentMail.reply()'>Reply</md-button>
-              <md-button ng-click='currentMail.forward()'>Forward</md-button>
-            </md-card-actions>
-          </md-card>
-
-        </md-container>
-      </section>
+      <ui-view></ui-view>
       <!-- MAILBOX Body End -->
 
 
