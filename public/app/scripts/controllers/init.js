@@ -8,13 +8,13 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InitCtrl', function ($rootScope, $location, $q, $http) {
+  .controller('InitCtrl', function($rootScope, $location, $q, $http) {
 
-    $rootScope.mailboxes = $rootScope.mailboxes || [] ;
+    $rootScope.mailboxes = $rootScope.mailboxes || [];
     console.log('init peerformed');
 
     // important operations
-    var fetchMailboxes = function(){
+    var fetchMailboxes = function() {
       var fed = $q.defer();
       $http({
         method: 'GET',
@@ -29,6 +29,10 @@ angular.module('App')
               element.icon = 'folder';
             else if (element.title == 'sent')
               element.icon = 'paper-plane';
+            else if (element.title == 'trash')
+              element.icon = 'trash';
+            else if (element.title == 'drafts')
+              element.icon = 'file';
           });
           fed.resolve(data.children);
         } catch (e) {
@@ -39,16 +43,16 @@ angular.module('App')
         fed.reject(err)
       });
 
-      return fed.promise ;
+      return fed.promise;
     };
 
-    fetchMailboxes().then(function(a){
-      $rootScope.mailboxes = a ;
-      $rootScope.loadInboxMails(function(){
-        $location.path('/mail/inbox/home') ;
+    fetchMailboxes().then(function(a) {
+      $rootScope.mailboxes = a;
+      $rootScope.loadInboxMails(function() {
+        $location.path('/mail/inbox/home');
         $rootScope.InboxIsReady = true;
       });
-    },function(r){
+    }, function(r) {
       console.log(r);
     });
 
