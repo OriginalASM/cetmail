@@ -4,9 +4,9 @@
 
     <section flex="15" class="sideNav" ng-controller="LeftCtrl">
 
-        <md-toolbar class="md-hue-2">
+        <md-toolbar class="md-hue-2" ng-controller='ComposeCtrl'>
           <div layout="column" class="md-toolbar-tools-bottom inset">
-            <md-button class="">Compose</md-button>
+            <md-button class="" ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">Compose</md-button>
           </div>
         </md-toolbar>
 
@@ -71,16 +71,14 @@
       <!-- MAILBOX Body End -->
 
 
-      <!-- ................    Floating Compose button Start  ................. --/>
+      <!-- ................    Floating Compose button Start  .................
       <md-item layout class="inset" ng-controller='ComposeCtrl'>
         <md-button layout layout-align="start center" id="plus" class="md-fab md-primary md-hue-2" ng-click="showDialog()" ng-disabled="DialogProps.visible" aria-label="Compose">
           <ng-md-icon icon="create"></ng-md-icon icon="create">
         </md-button>
       </md-item>
-      <!-- ................     Floating Compose button END  ................. --/>
+       ................     Floating Compose button END  ................. --/>
 
-
-    -->
 
     </md-content>
 

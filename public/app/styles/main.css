@@ -91,5 +91,8 @@
   font-weight: bold; }
 
   #footer{margin-top: 30px;}
-
+  
+  *:focus {
+      outline: none;
+  }
 /*# sourceMappingURL=main.css.map */

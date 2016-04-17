@@ -10,11 +10,11 @@
 angular.module('App')
   .controller('InitCtrl', function ($rootScope, $location, $q, $http , inbox) {
 
-    $rootScope.mailboxes = $rootScope.mailboxes || [] ;
+    $rootScope.mailboxes = $rootScope.mailboxes || [];
     console.log('init peerformed');
 
     // important operations
-    var fetchMailboxes = function(){
+    var fetchMailboxes = function() {
       var fed = $q.defer();
       $http({
         method: 'GET',
@@ -29,6 +29,10 @@ angular.module('App')
               element.icon = 'folder';
             else if (element.title == 'sent')
               element.icon = 'paper-plane';
+            else if (element.title == 'trash')
+              element.icon = 'trash';
+            else if (element.title == 'drafts')
+              element.icon = 'file';
           });
           fed.resolve(data.children);
         } catch (e) {
@@ -39,7 +43,7 @@ angular.module('App')
         fed.reject(err)
       });
 
-      return fed.promise ;
+      return fed.promise;
     };
     $rootScope.fetchInbox = function(){
       inbox().then(function(Mails){

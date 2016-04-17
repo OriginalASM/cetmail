@@ -11,15 +11,13 @@ angular.module('App')
   .controller('InboxCtrl', function($scope, $sce, $timeout, $mdSidenav,
                                     $log, $http, $rootScope, $mdDialog,
                                    $location, $q , inbox) {
-
-
     $scope.toggleLeft = buildDelayedToggler('left');
-    $scope.goToPath = function(p,s,x){
+    $scope.goToPath = function(p, s, x) {
       s = s.toString().toLowerCase();
-      if(x){
-      $location.path(p+s+x);}
-      else {
-        $location.path(p+s);
+      if (x) {
+        $location.path(p + s + x);
+      } else {
+        $location.path(p + s);
       }
     };
     /**
@@ -36,33 +34,33 @@ angular.module('App')
     $scope.menu = [];
 
     $scope.selectedMails = [];
-    $scope.markAsRead = function(){
+    $scope.markAsRead = function() {
       var size = $scope.select.selected.length;
       var q = $q.defer();
-      for(var i=0;i< size;i++){
-        if(i==size-1)
+      for (var i = 0; i < size; i++) {
+        if (i == size - 1)
           q.resolve(true);
         $scope.select.selected[i].fetch_body($scope.select.selected[i]);
       };
-      q.promise.then(function(){
+      q.promise.then(function() {
         $scope.loadMails();
       });
     }
 
-    $scope.try = function(){
+    $scope.try = function() {
       console.log('trying');
-      for(mail in $scope.selectedMails){
+      for (mail in $scope.selectedMails) {
         console.log(mail.subject);
       }
     };
 
-   $scope.select = {
-      selected : [],
-      update : function(mail){
-        if(this.selected.indexOf(mail) >=0){
-          this.selected.splice(this.selected.indexOf(mail),1);
+    $scope.select = {
+      selected: [],
+      update: function(mail) {
+        if (this.selected.indexOf(mail) >= 0) {
+          this.selected.splice(this.selected.indexOf(mail), 1);
           //console.log('Already in array.');
-        }else{
+        } else {
           this.selected.push(mail);
           //console.log('Not in array.');
         }
@@ -90,19 +88,8 @@ angular.module('App')
       });
 
 
-    $scope.menu = $rootScope.mailboxes ;
+    $scope.menu = $rootScope.mailboxes;
 
-
-    function number_of_mails(x) {
-      $scope.count = x;
-    }
-
-    $scope.status = function() {
-      $scope.resp = 'Your message was sent successfully';
-      console.log($scope.resp);
-      console.log("I will print the success msg ");
-
-    };
 
     function debounce(func, wait, context) {
       var timer;
@@ -141,7 +128,7 @@ angular.module('App')
     }
 
     /*********Reply button**********/
-    $scope.visib=false;
+    $scope.visib = false;
 
 
 
