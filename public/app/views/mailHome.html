@@ -1,4 +1,4 @@
-<div ng-cloak ng-init="loadMails()">
+<div ng-cloak>
   <section ng-if="showLoader">
     <!-- Spinner in case no data -->
     <!--<div class="cssload-whirlpool"></div>-->
@@ -23,15 +23,8 @@
     <div layout='column' id='inboxdiv'>
       <section layout='row'>
         <md-button ng-click='try()'>Do something</md-button>
-        <md-button class='pullright' ng-click='pagination.previous()' aria-label='Previous'>Previous</md-button>
-        <md-input-container >
-          <md-select ng-model='pagination.pageLimit'  aria-label='Number of mails'>
-            <md-option value='10'>10</md-option>
-            <md-option value='20'>20</md-option>
-            <md-option value='50'>50</md-option>
-          </md-select>
-        </md-input-container>
-        <md-button ng-click='pagination.next()' aria-label='Next'>Next</md-button>
+        <pagination begin='begin' pageLimit='pageLimit'>
+        </pagination>
       </section>
       <section class='inboxHeaders'>
         <div ng-repeat="msg in msgs | orderBy:'-' | limitTo:pagination.pageLimit : pagination.begin" ng-class="{alterCell:$index%2 == 1}">

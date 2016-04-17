@@ -8,7 +8,7 @@
  * Controller of the App
  */
 angular.module('App')
-  .controller('InitCtrl', function ($rootScope, $location, $q, $http) {
+  .controller('InitCtrl', function ($rootScope, $location, $q, $http , inbox) {
 
     $rootScope.mailboxes = $rootScope.mailboxes || [] ;
     console.log('init peerformed');
@@ -41,13 +41,17 @@ angular.module('App')
 
       return fed.promise ;
     };
-
-    fetchMailboxes().then(function(a){
-      $rootScope.mailboxes = a ;
-      $rootScope.loadInboxMails(function(){
-        $location.path('/mail/inbox/home') ;
+    $rootScope.fetchInbox = function(){
+      inbox().then(function(Mails){
+        $rootScope.msgs = Mails;
+        console.log(Mails);
+        $location.path('/mail/inbox/home');
         $rootScope.InboxIsReady = true;
       });
+    };
+    fetchMailboxes().then(function(a){
+      $rootScope.mailboxes = a ;
+      $rootScope.fetchInbox();
     },function(r){
       console.log(r);
     });
